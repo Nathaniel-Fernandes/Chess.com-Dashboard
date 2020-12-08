@@ -1,0 +1,26 @@
+// ATOMS - State Management
+
+NumAllowed:
+    @type int
+    @purpose stores number of games allowed to be analyzed
+
+GameIDs:
+    @type Array
+    @purpose Store the list of game IDs
+
+AnalysisNeeded:
+    @type Bool
+    @purpose True if need to analyze
+
+UserName:
+    @type String
+    @purpose Store UserName
+
+
+FUNCTIONS:
+
+UpdateGameID
+
+ExtractGameID
+    @param GameURL
+    @return GameID

@@ -21,7 +21,7 @@ function App() {
 				let gamenum = GameID.length;
 				let games;
 
-				// TESTSi9kok
+				// TESTS
 				// 1. <100 games
 				// 2. >100 games
 				// 3. multiple archives
