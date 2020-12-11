@@ -64,6 +64,10 @@ export const TimeControlFromGame = (gameObj) => {
 	return gameObj.time_control;
 }
 
+export const TimeClassFromGame = (gameObj) => {
+	return gameObj.time_class;
+}
+
 export const DateFromGame = (gameObj) => {
 	return gameObj.end_time;
 }

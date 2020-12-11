@@ -1,6 +1,6 @@
 import { getGameData, ValidGameID } from './AnalyzeHelpers';
 import { store } from '../State/store';
-import { AnalyzeCastle, AnalyzeOpenings } from './AnalysisMetrics';
+import { AnalyzeBlunders, AnalyzeCastle, AnalyzeOpenings } from './AnalysisMetrics';
 
 /**
  * @description Analyzes the games
@@ -15,6 +15,7 @@ export const AnalyzeGame = async (game) => {
 
     AnalyzeCastle(data, game);
     AnalyzeOpenings(data, game);
+    AnalyzeBlunders(data,game);
     
 }
 

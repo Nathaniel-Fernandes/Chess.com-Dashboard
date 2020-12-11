@@ -114,19 +114,21 @@ export const ValidGameID = (id) => {
  * @param {array} phaseArr The array of phases
  */
 export const phase = (ply, phaseArr) => {
-    if(Number(ply) === NaN || ply < 0) {
+    ply = Number(ply);
+    const numPhases = phaseArr.length;
+
+
+    if(ply === NaN || ply < 0) {
         throw {
             message: "Invalid ply.",
             ply: ply
         }
     }
 
-    ply = Number(ply);
-    const numPhases = phaseArr.length;
 
     if(numPhases === 0 || ply < phaseArr[0]) {
         return "open";
-    } else if(numPhases === 2 && ply < phaseArr[1]) {
+    } else if(numPhases === 1 || ply < phaseArr[1]) {
         return "middle";
     } 
     
@@ -162,3 +164,57 @@ export const plyPercent = (ply, total) => {
     
     return (ply / total) * 100
 }
+
+
+/**
+ * 
+ * @param {string} timecontrol The time control
+ */
+export const totalFromTC = (timecontrol) => {
+    return parseInt(timecontrol);
+}
+
+/**
+ * 
+ * @param {string} timecontrol The time control
+ */
+export const incFromTC = (timecontrol) => {
+    let increment = parseInt(timecontrol.match(/\+\d*/g));
+        increment = (increment) ? increment : 0;
+
+    return increment;
+}
+/**
+ * 
+ * @param {array} data array of the time for each move
+ * @param {number} ply The current ply
+ * @param {string} timecontrol The time control of the game
+ * @todo check if ply is valid
+ */
+export const calculateClockTime = (times, ply, timecontrol) => {
+    const total = totalFromTC(timecontrol);
+    const increment = incFromTC(timecontrol);
+
+    if(total === NaN || total <= 0 || increment < 0) {
+        throw {
+            message: "Invalid time control or increment",
+            total: total,
+            increment: increment
+        }
+    }
+
+    // if(ply) 
+
+
+    let final = total;
+    // console.log(final)
+    // gives time NOT including the time for ply
+    // i.e. calculates time on clock on start of ply
+    for(let i = ply % 2; i < ply; i += 2) { 
+        final = final - times[i] / 10 + increment;
+        // console.log(final, times[i] / 10, increment)
+    }
+
+    return final;
+} 
+

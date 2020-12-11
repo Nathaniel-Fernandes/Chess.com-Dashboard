@@ -1,5 +1,5 @@
 import { store } from '../State/store';
-import { phase, plyPercent } from './AnalyzeHelpers';
+import { phase, plyPercent, calculateClockTime, totalFromTC } from './AnalyzeHelpers';
 
 /**
 * castled {
@@ -37,14 +37,7 @@ export const AnalyzeCastle = ( data, gameObj ) => {
 
         record.castled = true;
         record.ply = plyCastled;
-
         record.plyPercent = plyPercent(plyCastled, data.totalPositions)
-        // if(data.totalPositions - 1 !== 0) {
-        //     record.plyPercent = (plyCastled / (data.totalPositions - 1)) * 100 // total positions includes start so -1
-        // } else {
-        //     record.plyPercent = (plyCastled / data.totalPositions) * 100
-        // }
-
         record.phase = phase(plyCastled, data.gamePhases);
     }
 
@@ -83,30 +76,37 @@ export const AnalyzeBlunders = (data, gameObj) => {
         plyPercent: -1,
         phase: "NA",
         timeSpent: -1,
-        timeLeft: -1,
-        timeLeftPercent: -1
+        timeToThink: -1,
+        timeToThinkPercent: -1
     }
 
     if(totalBlunders !== 0) {
 
         while(count <= totalBlunders && i <= data.totalPositions - 2) {
             if(p[i].classificationName === "blunder") {
-                let record = recordProto;
+                let record = {...recordProto};
+
+                // console.log("index: ", i, p[i], record)
+
 
                 record.ply = i + 1; // starts @ 0 so increment
                 record.plyPercent = plyPercent(record.ply, data.totalPositions)
                 record.phase = phase(record.ply, data.gamePhases);
+
                 record.timeSpent = data.time.moves[i] / 10;
+                
+                record.timeToThink = calculateClockTime(data.time.moves, record.ply - 1, gameObj.timecontrol);
+                record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
 
-
-
+                // console.log(record);
+                store.getState().addBlunder(record);
             }
             i += 2;
         }
     }
 
+    console.log(store.getState().blunders)
 }
-
 
 // * openings {
 //     * 	 id: gameid

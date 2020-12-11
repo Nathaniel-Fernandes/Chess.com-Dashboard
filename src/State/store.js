@@ -7,8 +7,15 @@ export const store = create((set) => ({
 	setGameArchives: (archive) => set(state => ({ GameArchive: [...archive]})),
 
 	Games: [],
-	AddGame: (id, color, result, tc, date) => set(state => ({ 
-		Games: [...state.Games, {id:id,color:color, result:result, timecontrol: tc, date:date}].sort((a,b) => a.id - b.id)
+	AddGame: (id, color, result, tc, tclass, date) => set(state => ({ 
+		Games: [...state.Games, {
+			id:id,
+			color:color, 
+			result:result, 
+			timecontrol: tc, 
+			timeclass: tclass,
+			date:date
+		}].sort((a,b) => a.id - b.id)
 	})),
 
 	GamesAllowed: 100,

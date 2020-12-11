@@ -1,6 +1,14 @@
 import { store } from '../State/store';
 import { ArchiveURL } from './urls';
-import { ColorfromGame, CreateURL, GetURL, IDfromURL, ResultFromGame, TimeControlFromGame, DateFromGame } from './helpers';
+import { 
+	ColorfromGame, 
+	CreateURL, 
+	GetURL, 
+	IDfromURL, 
+	ResultFromGame, 
+	TimeControlFromGame, 
+	TimeClassFromGame,
+	DateFromGame } from './helpers';
 import { Analyze, AnalyzeGame } from '../BusinessLogic/Analyze';
 
 
@@ -63,14 +71,15 @@ const GameIDfromArchive = async () => {
 							if(gamenum > 100) {	break;	}	// break if exceed limit. In future not hardcode
 							if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant
 
-							const id = IDfromURL(games[j].url)
-							const color = ColorfromGame(games[j], store.getState().UserName)
-							const result = ResultFromGame(games[j], color) 
-							const tc = TimeControlFromGame(games[j])
+							const id = IDfromURL(games[j].url);
+							const color = ColorfromGame(games[j], store.getState().UserName);
+							const result = ResultFromGame(games[j], color);
+							const tc = TimeControlFromGame(games[j]);
+							const tclass = TimeClassFromGame(games[j]);
 							const date = DateFromGame(games[j]);
 							
 							if (!store.getState().Games.includes(id)) { 	// could implement binarysearch in the future
-								store.getState().AddGame(id, color, result, tc, date);
+								store.getState().AddGame(id, color, result, tc, tclass, date);
 								gamenum += 1;
 								store.getState().SetNeedAnalysis();	// performance optim: only do once
 							}
