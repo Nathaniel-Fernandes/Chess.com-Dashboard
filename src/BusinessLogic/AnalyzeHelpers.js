@@ -27,24 +27,27 @@ export const getGameData = async (id, time = 1) => {
                         console.log(id);
                         newAnalysis(id);
                         return new Promise((resolve) => {
-                            setTimeout(() => { return resolve(getGameData(id,time+1)) }, 61000)
+                            setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
                         })
                     }
                     else if (time <= 3) {
                         console.warn(`Tried to retrieve game ${id} ${time} times`)
+                        if(time === 2) { newAnalysis(id); /* try to restart again */ }
+
                         return new Promise((resolve) => {
-                            setTimeout(() => { return resolve(getGameData(id,time+1)), 61000})
+                            setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
                         })
                     }
                     if (time === 4) {
                         throw {
-                            message: "Could not retrieve game data after 3 attempts",
+                            message: `Could not retrieve game data got ${id} after 3 attempts`,
                             response: res.data
                         }
                     }
                 }
                 // got data values
                 else {
+                    console.log(`got data for: ${id}`)
                     return res.data.data.analysis;
                 }
 
@@ -68,6 +71,7 @@ export const newAnalysis = async ( id ) => {
 /**
  * @param {string} url opens window in new tab and closes tab after 5 seconds
  * @returns timer to close window
+ * @todo add check if tab is null to handle the error
  */
 export const openWindow = async ( url ) => {
     if (typeof(url) !== "string") {
@@ -79,7 +83,7 @@ export const openWindow = async ( url ) => {
     }
 
     const tab = window.open(url, '_blank');
-    return setTimeout(() => tab.close(), 10000)
+    return setTimeout(() => tab.close(), 10000) // 
 }
 
 /**

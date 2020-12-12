@@ -1,6 +1,12 @@
-import { getGameData, ValidGameID } from './AnalyzeHelpers';
+import { getGameData, phase, plyPercent, ValidGameID } from './AnalyzeHelpers';
 import { store } from '../State/store';
-import { AnalyzeBlunders, AnalyzeCastle, AnalyzeOpenings } from './AnalysisMetrics';
+import { 
+    AnalyzeCastle, 
+    AnalyzeClassification, 
+    AnalyzeOpenings,
+    AnalyzeGamePatterns,
+    AnalyzeAllTactics
+} from './AnalysisMetrics';
 
 /**
  * @description Analyzes the games
@@ -13,10 +19,21 @@ export const AnalyzeGame = async (game) => {
     const data = await getGameData(game.id);
     console.log("game: ", game)
 
+    if(!data) {
+        throw {
+            message: `Data is undefined for ${game.id}`,
+            data: data,
+            game: game
+        }
+    }
+
     AnalyzeCastle(data, game);
     AnalyzeOpenings(data, game);
-    AnalyzeBlunders(data,game);
+    AnalyzeClassification("blunder", data,game);
+    AnalyzeClassification("mistake", data,game);
+    AnalyzeClassification("inaccuracy", data,game);
+    AnalyzeGamePatterns(data,game);
+    AnalyzeAllTactics(data, game);
     
 }
-
 

@@ -23,7 +23,7 @@ export const initializeState = () => {
 					else if(res.data.status === 404) return;
 
 					store.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
-					console.log(store.getState().GameArchive)				// prints out updated state
+					// console.log(store.getState().GameArchive)				// prints out updated state
 					
 					return GameIDfromArchive();
 			})
@@ -31,8 +31,11 @@ export const initializeState = () => {
 				// for(let i = 0; i < 10; i++) {
 					// AnalyzeGame(store.getState().Games[1]);
 					// AnalyzeGame(store.getState().Games[2]);
-					AnalyzeGame(store.getState().Games[0]);
+					// AnalyzeGame(store.getState().Games[76]);
 				// }
+				for(let i = 40; i < 50; i++) {
+					AnalyzeGame(store.getState().Games[i]);
+				}
 			}) 
 	}
 }
@@ -43,7 +46,7 @@ export const initializeState = () => {
  * @todo don't hardcode # of games
  */
 const GameIDfromArchive = async () => {
-		console.log("Current Store: ", store.getState())
+		// console.log("Current Store: ", store.getState())
 		let archives = store.getState().GameArchive;
 		let i = archives.length - 1;
 		let gamenum = store.getState().Games.length;
@@ -55,9 +58,9 @@ const GameIDfromArchive = async () => {
 		// 3. multiple archives
 		// (async _ => {
 			while(archives[i] && i >= 0 && gamenum <= 100) { 
-				console.log("GM top loop: ", gamenum)	
+				// console.log("GM top loop: ", gamenum)	
 				
-				console.log(archives[i])
+				// console.log(archives[i])
 
 				await GetURL(archives[i])
 					.then(res => {
@@ -88,7 +91,7 @@ const GameIDfromArchive = async () => {
 					})
 				i--;	
 			}
-			console.log("gameids state: ", store.getState().Games)
+			// console.log("gameids state: ", store.getState().Games)
 
 		// Analyze();
 }

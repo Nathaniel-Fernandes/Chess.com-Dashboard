@@ -32,8 +32,34 @@ export const store = create((set) => ({
 	opening: [],
 	addOpening: (record) => set(state => ({ opening: [...state.opening, record]	})),
 
-	blunders: [],
-	addBlunder: (record) => set(state => ({blunders: [...state.blunders, record]}))
+	blunder: [],
+	mistake: [],
+	inaccuracy: [],
+	addMoveType: (movetype, record) => {
+		const allowed = ["blunder", "mistake", "inaccuracy"];
+		if(allowed.includes(movetype)) {
+			set(state => ({[movetype]: [...state[movetype], record]}))
+		}
+	},
+
+	gamePatterns: [],
+	addGamePattern: (record) => set(state => ({ gamePatterns:[...state.gamePatterns, record]})),
+
+	fork: [],
+	mate: [],
+	hanging: [],
+	relativePin: [],
+	absolutePin: [],
+	trapped: [],
+
+	addTactic: (type, record) => {
+		const allowed = ["fork", "mate", "hanging", "relativePin", "absolutePin", "trapped"];
+		
+		if(allowed.includes(type)) {
+			set(state => ({[type]: [...state[type], record]}))
+		}
+	}
+
 }))
 
 /**
@@ -71,7 +97,18 @@ export const store = create((set) => ({
  *   date: dateplayed
  *   eco: eco // might be extraneous
  *   numberbookmoves: x
- *   
- *   
+ * }
+ * 
+ * blunders/mistakes/inaccuracies {
+ *   id:
+ *   color:
+ *   won: draw
+ *   timeSpent: on move,
+ *   timeLeft: 
+ *   timeLeftPercent: 
+ *   ply:
+ *   plyPercent:
+ *   phase: ofgame,
+ *   fen: fen (eventually)
  * }
  */
