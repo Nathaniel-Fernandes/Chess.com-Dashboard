@@ -36,7 +36,7 @@ export const initializeState = () => {
 					// AnalyzeGame(store.getState().Games[2]);
 					// AnalyzeGame(store.getState().Games[76]);
 				// }
-				for(let i = 0; i < 5; i++) {
+				for(let i = 0; i < 25; i++) {
 					AnalyzeGame(store.getState().Games[i]);
 					await timeout(1000);
 				}

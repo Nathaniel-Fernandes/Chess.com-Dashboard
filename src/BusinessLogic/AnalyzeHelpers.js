@@ -1,5 +1,6 @@
 import { CreateURL, GetURL } from './helpers';
 import { CorsProxy, GetAnalysisURL, NewAnalysisURL } from './urls'
+import { store } from '../State/store'
 
 /**
  * 
@@ -223,3 +224,72 @@ export const calculateClockTime = (times, ply, timecontrol) => {
     return final;
 } 
 
+
+export const SameTacticType = (actual, user) => {
+    const regex = "\\b" + user + "\\b";
+    const index = actual.toLowerCase().search(new RegExp(regex))
+
+    // console.log(regex, actual, index)
+
+    if (index !== -1) {
+        return true;
+    }
+
+    return false;
+    // ele.type.toLowerCase().indexOf(new RegExp("\b" + name + "\b",g)) !== -1
+}
+
+// in major need of a refactoring
+export const UpdateTacticsState = (name, record) => {
+    name = name.toLowerCase();
+    // console.log(name)
+
+    if(SameTacticType(name, "trapped piece")) { 
+        record.type.name = "trapped";
+        store.getState().addTactic("trapped",record); return;
+    }
+
+    if(SameTacticType(name, "skewer")) { 
+        record.type.name = "skewer";
+        store.getState().addTactic("skewer",record); return;
+    }
+
+    if(SameTacticType(name,"fork")) {
+        // console.log("added fork", record)
+        // console.log(record.type.type)
+        // console.log(re)
+        record.type.name = "fork"; 
+        store.getState().addTactic("fork", record); return; 
+    }
+
+    if(SameTacticType(name,"mate") || SameTacticType(record.type.group, "checkmate")) { 
+        record.type.name = "mate"; 
+        store.getState().addTactic("mate", record); return; 
+    }
+    if(SameTacticType(name,"material left undefended") || SameTacticType(name, "undefended material")) { 
+        // console.log("added hanging", record)
+        record.type.name = "hanging";
+        store.getState().addTactic("hanging", record); return; 
+    }
+    
+
+    if(SameTacticType(name, "under-defended material")) {
+        record.type.name = "underdefended";
+        store.getState().addTactic("underdefended", record); return;
+    }
+
+    if(SameTacticType(name, "winning exchange")) {
+        // console.log("adding winning exchange")
+        record.type.name = "winning exchange";
+        store.getState().addTactic("winningExchange", record); return;
+    }
+
+    if(name.includes("pin")) { 
+        if(record.type.group.includes("relative") || record.type.type.includes("relative")) {
+            record.type.name = "relative pin";
+            store.getState().addTactic("relativePin", record); return; 
+        }
+        record.type.name = "absolute pin";
+        store.getState().addTactic("absolutePin", record); return; 
+    }
+}

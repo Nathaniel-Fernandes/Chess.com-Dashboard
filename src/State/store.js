@@ -1,5 +1,12 @@
 import create from 'zustand';
 
+/*
+	Used Usernames:
+	jacobsfrog
+	speedyg2
+	Brothersinparis
+	johnletox
+*/
 export const store = create((set) => ({
 	UserName: "speedyg2",
 	

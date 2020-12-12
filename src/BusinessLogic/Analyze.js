@@ -5,8 +5,7 @@ import {
     AnalyzeClassification, 
     AnalyzeOpenings,
     AnalyzeGamePatterns,
-    // AnalyzeAllTactics,
-    AnalyzeAllTactics2
+    AnalyzeAllTactics
 } from './AnalysisMetrics';
 
 /**
@@ -29,13 +28,28 @@ export const AnalyzeGame = async (game) => {
         // just get this to request another game
     }
 
-    AnalyzeCastle(data, game);
-    AnalyzeOpenings(data, game);
-    AnalyzeClassification("blunder", data,game);
-    AnalyzeClassification("mistake", data,game);
-    AnalyzeClassification("inaccuracy", data,game);
-    AnalyzeGamePatterns(data,game);
-    AnalyzeAllTactics2(data, game);
+    // AnalyzeCastle(data, game);
+    // AnalyzeOpenings(data, game);
+    // AnalyzeClassification("blunder", data,game);
+    // AnalyzeClassification("mistake", data,game);
+    // AnalyzeClassification("inaccuracy", data,game);
+    // AnalyzeGamePatterns(data,game);
+    AnalyzeAllTactics(data, game);
     
+    const tacticsObj = {
+        fork: store.getState().fork,
+        mate: store.getState().mate,
+        hanging: store.getState().hanging,
+        relativePin: store.getState().relativePin,
+        absolutePin: store.getState().absolutePin,
+        trapped: store.getState().trapped,
+        underdefended: store.getState().underdefended,
+        winningExchange: store.getState().winningExchange,
+        skewer: store.getState().skewer,
+    }
+
+    // console.log(JSON.stringify(tacticsObj, null, '  '))
+    // console.log(store.getState())
+
 }
 
