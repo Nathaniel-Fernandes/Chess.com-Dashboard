@@ -32,8 +32,9 @@ export const getGameData = async (id, time = 1) => {
                     }
                     else if (time <= 3) {
                         console.warn(`Tried to retrieve game ${id} ${time} times`)
-                        if(time === 2) { newAnalysis(id); /* try to restart again */ }
-
+                        // if(time === 3) { newAnalysis(id); /* try to restart again */ }
+                        newAnalysis(id);
+                        
                         return new Promise((resolve) => {
                             setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
                         })

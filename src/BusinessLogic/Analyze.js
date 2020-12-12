@@ -5,7 +5,8 @@ import {
     AnalyzeClassification, 
     AnalyzeOpenings,
     AnalyzeGamePatterns,
-    AnalyzeAllTactics
+    // AnalyzeAllTactics,
+    AnalyzeAllTactics2
 } from './AnalysisMetrics';
 
 /**
@@ -17,7 +18,7 @@ export const AnalyzeGame = async (game) => {
     ValidGameID(game.id);
 
     const data = await getGameData(game.id);
-    console.log("game: ", game)
+    // console.log("game: ", game)
 
     if(!data) {
         throw {
@@ -25,6 +26,7 @@ export const AnalyzeGame = async (game) => {
             data: data,
             game: game
         }
+        // just get this to request another game
     }
 
     AnalyzeCastle(data, game);
@@ -33,7 +35,7 @@ export const AnalyzeGame = async (game) => {
     AnalyzeClassification("mistake", data,game);
     AnalyzeClassification("inaccuracy", data,game);
     AnalyzeGamePatterns(data,game);
-    AnalyzeAllTactics(data, game);
+    AnalyzeAllTactics2(data, game);
     
 }
 

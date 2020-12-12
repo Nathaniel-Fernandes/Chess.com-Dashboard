@@ -51,12 +51,20 @@ export const store = create((set) => ({
 	relativePin: [],
 	absolutePin: [],
 	trapped: [],
+	underdefended: [],
+	winningExchange: [],
+	skewer:[],
 
 	addTactic: (type, record) => {
-		const allowed = ["fork", "mate", "hanging", "relativePin", "absolutePin", "trapped"];
+		const allowed = [
+			"fork", "mate", "hanging", "relativePin", "absolutePin", 
+			"trapped", "underdefended", "winningExchange", "skewer"];
 		
 		if(allowed.includes(type)) {
 			set(state => ({[type]: [...state[type], record]}))
+		}
+		else {
+			console.warn(`Tactic Type not allowed: ${type}`)
 		}
 	}
 

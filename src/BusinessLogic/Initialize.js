@@ -11,6 +11,9 @@ import {
 	DateFromGame } from './helpers';
 import { Analyze, AnalyzeGame } from '../BusinessLogic/Analyze';
 
+export const timeout = (ms = 5000) => { 
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export const initializeState = () => {
 	// check if less then 100 games
@@ -27,16 +30,31 @@ export const initializeState = () => {
 					
 					return GameIDfromArchive();
 			})
-			.then((res) => {
+			.then(async (res) => {
 				// for(let i = 0; i < 10; i++) {
 					// AnalyzeGame(store.getState().Games[1]);
 					// AnalyzeGame(store.getState().Games[2]);
 					// AnalyzeGame(store.getState().Games[76]);
 				// }
-				for(let i = 40; i < 50; i++) {
+				for(let i = 0; i < 5; i++) {
 					AnalyzeGame(store.getState().Games[i]);
+					await timeout(1000);
 				}
-			}) 
+			}).then(() => {
+				const tacticsObj = {
+					fork: store.getState().fork,
+					mate: store.getState().mate,
+					hanging: store.getState().hanging,
+					relativePin: store.getState().relativePin,
+					absolutePin: store.getState().absolutePin,
+					trapped: store.getState().trapped,
+					underdefended: store.getState().underdefended,
+					winningExchange: store.getState().winningExchange,
+					skewer: store.getState().skewer,
+				}
+
+				console.log(JSON.stringify(tacticsObj, null, '  '))
+			})
 	}
 }
 
