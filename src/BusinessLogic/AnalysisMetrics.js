@@ -241,36 +241,39 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                 else {
                     console.warn(ele.type)
 
-                    const record = CreateRecordProto(data, gameObj);
+                    // const record = CreateRecordProto(data, gameObj);
 
-                    // console.log("index: ", i, p[i], record)
-                    record.class = ele.class;
-                    record.type = {
-                        type: ele.type,
-                        group: ele.group
-                    }
-                    // record.type.
-                    // console.log(ele.type, ele.group)
+                    // // console.log("index: ", i, p[i], record)
+                    // record.class = ele.class;
+                    // record.type = {
+                    //     type: ele.type,
+                    //     group: ele.group
+                    // }
+                    // // record.type.
+                    // // console.log(ele.type, ele.group)
 
-                    record.eval = {
-                        scoreAfter: p[i - 1].playedMove.score,
-                        difference: p[i - 1].difference
-                    }
+                    // record.eval = {
+                    //     scoreAfter: p[i - 1].playedMove.score,
+                    //     difference: p[i - 1].difference
+                    // }
 
-                    record.scenarios = p[i - 1].scenarios;
+                    // record.scenarios = p[i - 1].scenarios;
 
-                    record.ply = i; // the actual game ply
-                    record.plyPercent = plyPercent(record.ply, data.totalPositions)
-                    record.phase = phase(record.ply, data.gamePhases);
+                    // record.ply = i; // the actual game ply
+                    // record.plyPercent = plyPercent(record.ply, data.totalPositions)
+                    // record.phase = phase(record.ply, data.gamePhases);
         
-                    if(data.time) {
-                        record.timeSpent = data.time.moves[i - 1] / 10;
-                        record.timeToThink = calculateClockTime(data.time.moves, i - 1, gameObj.timecontrol);
-                        record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
-                    } else {
-                        console.log("Missing Date.Time for id: ", gameObj.id, data)
-                    }
-        
+                    // if(data.time) {
+                    //     record.timeSpent = data.time.moves[i - 1] / 10;
+                    //     record.timeToThink = calculateClockTime(data.time.moves, i - 1, gameObj.timecontrol);
+                    //     record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
+                    // } else {
+                    //     console.log("Missing Date.Time for id: ", gameObj.id, data)
+                    // }
+
+                    const record2 = CreateTacticRecord(i-1,ele,p,data,gameObj)
+                    console.log(record2);
+                    
                     UpdateTacticsState(ele.type, record);
                 }
             } 
@@ -295,44 +298,79 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                                 console.log("fourth")
                                 console.warn("opp: ", ele.type)
 
-                                const record = CreateRecordProto(data, gameObj);
+                                // const record = CreateRecordProto(data, gameObj);
 
-                                // console.log("index: ", i, p[i], record)
-                                record.class = "missed";
-                                record.type = {
-                                    type: ele.type,
-                                    group: ele.group
-                                }
-                                // record.type.
-                                // console.log(ele.type, ele.group)
+                                // // console.log("index: ", i, p[i], record)
+                                // record.class = "missed";
+                                // record.type = {
+                                //     type: ele.type,
+                                //     group: ele.group
+                                // }
+                                // // record.type.
+                                // // console.log(ele.type, ele.group)
 
-                                record.eval = {
-                                    scoreAfter: p[i].playedMove.score,
-                                    difference: p[i].difference
-                                }
+                                // record.eval = {
+                                //     scoreAfter: p[i].playedMove.score,
+                                //     difference: p[i].difference
+                                // }
 
-                                record.scenarios = p[i].scenarios;
+                                // record.scenarios = p[i].scenarios;
 
-                                record.ply = i + 1; // the actual game ply
-                                record.plyPercent = plyPercent(record.ply, data.totalPositions)
-                                record.phase = phase(record.ply, data.gamePhases);
+                                // record.ply = i + 1; // the actual game ply
+                                // record.plyPercent = plyPercent(record.ply, data.totalPositions)
+                                // record.phase = phase(record.ply, data.gamePhases);
                     
-                                if(data.time) {
-                                    record.timeSpent = data.time.moves[i] / 10;
-                                    record.timeToThink = calculateClockTime(data.time.moves, i, gameObj.timecontrol);
-                                    record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
-                                } else {
-                                    console.log("Missing Date.Time for id: ", gameObj.id, data)
-                                }
+                                // if(data.time) {
+                                //     record.timeSpent = data.time.moves[i] / 10;
+                                //     record.timeToThink = calculateClockTime(data.time.moves, i, gameObj.timecontrol);
+                                //     record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
+                                // } else {
+                                //     console.log("Missing Date.Time for id: ", gameObj.id, data)
+                                // }
                     
+                                const record2 = CreateTacticRecord(i,ele,p,data,gameObj,"missed")
+                                console.log(record2)
+
                                 UpdateTacticsState(ele.type, record);
                             } 
                         }
                     }
-                // console.log(j, i)
                 }
-                // console.log()
             }
         }
     }
+}
+
+export const CreateTacticRecord = (j, ele, p, data, gameObj, the_class = undefined) => {
+    const record = CreateRecordProto(data, gameObj);
+
+    // console.log("index: ", i, p[i], record)
+    record.class = (the_class !== undefined) ? the_class : ele.class;
+    record.type = {
+        type: ele.type,
+        group: ele.group
+    }
+    // record.type.
+    // console.log(ele.type, ele.group)
+
+    record.eval = {
+        scoreAfter: p[j].playedMove.score,
+        difference: p[j].difference
+    }
+
+    record.scenarios = p[j].scenarios;
+
+    record.ply = j+1; // the actual game ply
+    record.plyPercent = plyPercent(record.ply, data.totalPositions)
+    record.phase = phase(record.ply, data.gamePhases);
+
+    if(data.time) {
+        record.timeSpent = data.time.moves[j] / 10;
+        record.timeToThink = calculateClockTime(data.time.moves, j, gameObj.timecontrol);
+        record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
+    } else {
+        console.log("Missing Date.Time for id: ", gameObj.id, data)
+    }
+
+    return record;
 }
