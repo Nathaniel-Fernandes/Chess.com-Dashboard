@@ -293,3 +293,20 @@ export const UpdateTacticsState = (name, record) => {
         store.getState().addTactic("absolutePin", record); return; 
     }
 }
+
+
+/**
+ * @description Returns the opposite color of parameter
+ * @param {string} color The initial color
+ */
+export const oppositeColor = (color) => {
+    // console.log(color.toLowerCase())
+    if(color.toLowerCase() !== "white" && color.toLowerCase() !== "black") {
+        console.warn({
+            message: "Not a known color",
+            color: color
+        })
+    }
+
+    return (color === "white") ? "black" : "white";
+}

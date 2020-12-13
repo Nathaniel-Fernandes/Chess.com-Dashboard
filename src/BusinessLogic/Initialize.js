@@ -31,12 +31,8 @@ export const initializeState = () => {
 					return GameIDfromArchive();
 			})
 			.then(async (res) => {
-				// for(let i = 0; i < 10; i++) {
-					// AnalyzeGame(store.getState().Games[1]);
-					// AnalyzeGame(store.getState().Games[2]);
-					// AnalyzeGame(store.getState().Games[76]);
-				// }
-				for(let i = 0; i < 25; i++) {
+
+				for(let i = 0; i < 1; i++) {
 					AnalyzeGame(store.getState().Games[i]);
 					await timeout(1000);
 				}

@@ -48,6 +48,7 @@ export const AnalyzeGame = async (game) => {
         skewer: store.getState().skewer,
     }
 
+    console.log(tacticsObj)
     // console.log(JSON.stringify(tacticsObj, null, '  '))
     // console.log(store.getState())
 

@@ -1,5 +1,5 @@
 import { store } from '../State/store';
-import { phase, plyPercent, calculateClockTime, totalFromTC, SameTacticType, UpdateTacticsState } from './AnalyzeHelpers';
+import { phase, plyPercent, calculateClockTime, totalFromTC, SameTacticType, UpdateTacticsState, oppositeColor } from './AnalyzeHelpers';
 import { CreateRecordProto } from './RecordPrototypes';
 
 /**
@@ -146,9 +146,7 @@ export const AnalyzeOpenings = (data, gameObj) => {
     // console.log(store.getState().opening);
 }
 
-/*
 
-*/
 /**
  * 
  * @param {object} data The analysis data
@@ -189,6 +187,11 @@ export const AnalyzeGamePatterns = (data, gameObj) => {
     // console.log(store.getState().gamePatterns)
 }
 
+/**
+ * 
+ * @param {object} data The data analysis object
+ * @param {object} gameObj The game object
+ */
 export const AnalyzeAllTactics = (data, gameObj) => {
     const KnownTacticsTypes = [
         "fork", "mate","material left undefended",
@@ -270,8 +273,66 @@ export const AnalyzeAllTactics = (data, gameObj) => {
         
                     UpdateTacticsState(ele.type, record);
                 }
+            } 
+            // NEEDS a BUNCH of refactoring, but at least it works
+            else if(oppositeColor(ele?.color) === gameObj.color && ele.class === "blunders") {
+                console.log("first")
+                if(!t[i + 1] || t[i + 1].length === 0) {
+                    console.log("second")
+                    if(p[i].classificationName === "blunder" || p[i].classificationName === "mistake") {
+                        console.log("third")
+                        
+                        if(p[i].playedMove.moveLan !== ele.eval.pv[0]) {
+                            console.log("final")
+
+                            // passed all the checks so now add this 
+                            // warn if type is not in the known array
+                            if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
+                                console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
+                            }
+
+                            else {
+                                console.log("fourth")
+                                console.warn("opp: ", ele.type)
+
+                                const record = CreateRecordProto(data, gameObj);
+
+                                // console.log("index: ", i, p[i], record)
+                                record.class = "missed";
+                                record.type = {
+                                    type: ele.type,
+                                    group: ele.group
+                                }
+                                // record.type.
+                                // console.log(ele.type, ele.group)
+
+                                record.eval = {
+                                    scoreAfter: p[i].playedMove.score,
+                                    difference: p[i].difference
+                                }
+
+                                record.scenarios = p[i].scenarios;
+
+                                record.ply = i + 1; // the actual game ply
+                                record.plyPercent = plyPercent(record.ply, data.totalPositions)
+                                record.phase = phase(record.ply, data.gamePhases);
+                    
+                                if(data.time) {
+                                    record.timeSpent = data.time.moves[i] / 10;
+                                    record.timeToThink = calculateClockTime(data.time.moves, i, gameObj.timecontrol);
+                                    record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
+                                } else {
+                                    console.log("Missing Date.Time for id: ", gameObj.id, data)
+                                }
+                    
+                                UpdateTacticsState(ele.type, record);
+                            } 
+                        }
+                    }
+                // console.log(j, i)
+                }
+                // console.log()
             }
         }
     }
 }
-
