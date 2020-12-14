@@ -1,6 +1,18 @@
 import { store } from '../State/store';
 import { phase, plyPercent, calculateClockTime, totalFromTC, SameTacticType, UpdateTacticsState, oppositeColor } from './AnalyzeHelpers';
-import { CreateRecordProto } from './RecordPrototypes';
+import { GetCurrentFen } from './fen';
+import { CreateRecordProto, CreateTacticRecord } from './RecordPrototypes';
+
+export const AddCaps = (data, gameObj) => {
+    const caps = data?.CAPS?.[gameObj.color]?.all;
+    if(caps === undefined) {
+        console.warn(`data.CAPS is undefined for ${gameObj.id} ${gameObj.color}`);
+        return;
+    }
+
+    store.getState().AddCAPStoGame(gameObj.id, caps)
+    console.log(store.getState().Games)
+}
 
 /**
  * 
@@ -30,12 +42,14 @@ export const AnalyzeCastle = ( data, gameObj ) => {
         record.ply = plyCastled;
         record.plyPercent = plyPercent(plyCastled, data.totalPositions)
         record.phase = phase(plyCastled, data.gamePhases);
+        
+        record.fen = GetCurrentFen(data, record.ply, record.id)
     } else {
         record.castled = false;
     }
 
     store.getState().addCastled(record);
-    // console.log(store.getState().castled);
+    console.log(store.getState().castled);
 }
 
 
@@ -98,6 +112,8 @@ export const AnalyzeClassification = (type, data, gameObj) => {
                 record.plyPercent = plyPercent(record.ply, data.totalPositions)
                 record.phase = phase(record.ply, data.gamePhases);
 
+                record.fen = GetCurrentFen(data, record.ply, record.id)
+
                 if(data.time) {
                     // console.log("id: ", gameObj.id, data)
                     record.timeSpent = data.time.moves[i] / 10;
@@ -117,7 +133,7 @@ export const AnalyzeClassification = (type, data, gameObj) => {
         }
     }
 
-    // console.log(store.getState()[type])
+    console.log(store.getState()[type])
 }
 
 /**
@@ -141,6 +157,7 @@ export const AnalyzeOpenings = (data, gameObj) => {
           record.caps = data?.CAPS?.[gameObj.color]?.all;
           record.name = data?.book?.name;
           record.bookPly = data?.bookPly;
+          record.lastBookFEN = GetCurrentFen(data, record.bookPly + 1, gameObj.id)
 
     store.getState().addOpening(record);
     // console.log(store.getState().opening);
@@ -241,38 +258,8 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                 else {
                     console.warn(ele.type)
 
-                    // const record = CreateRecordProto(data, gameObj);
-
-                    // // console.log("index: ", i, p[i], record)
-                    // record.class = ele.class;
-                    // record.type = {
-                    //     type: ele.type,
-                    //     group: ele.group
-                    // }
-                    // // record.type.
-                    // // console.log(ele.type, ele.group)
-
-                    // record.eval = {
-                    //     scoreAfter: p[i - 1].playedMove.score,
-                    //     difference: p[i - 1].difference
-                    // }
-
-                    // record.scenarios = p[i - 1].scenarios;
-
-                    // record.ply = i; // the actual game ply
-                    // record.plyPercent = plyPercent(record.ply, data.totalPositions)
-                    // record.phase = phase(record.ply, data.gamePhases);
-        
-                    // if(data.time) {
-                    //     record.timeSpent = data.time.moves[i - 1] / 10;
-                    //     record.timeToThink = calculateClockTime(data.time.moves, i - 1, gameObj.timecontrol);
-                    //     record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
-                    // } else {
-                    //     console.log("Missing Date.Time for id: ", gameObj.id, data)
-                    // }
-
-                    const record2 = CreateTacticRecord(i-1,ele,p,data,gameObj)
-                    console.log(record2);
+                    const record = CreateTacticRecord(i-1,ele,p,data,gameObj)
+                    // console.log(record);
                     
                     UpdateTacticsState(ele.type, record);
                 }
@@ -282,58 +269,48 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                 console.log("first")
                 if(!t[i + 1] || t[i + 1].length === 0) {
                     console.log("second")
-                    if(p[i].classificationName === "blunder" || p[i].classificationName === "mistake") {
+
+                    if(p[i].playedMove.moveLan !== ele.eval.pv[0]) {
                         console.log("third")
-                        
-                        if(p[i].playedMove.moveLan !== ele.eval.pv[0]) {
-                            console.log("final")
+                        if(p[i].classificationName === "blunder" || p[i].classificationName === "mistake") {
+                            
+                                console.log("final")
 
-                            // passed all the checks so now add this 
-                            // warn if type is not in the known array
-                            if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
-                                console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
-                            }
+                                // passed all the checks so now add this 
+                                // warn if type is not in the known array
+                                if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
+                                    console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
+                                }
 
-                            else {
-                                console.log("fourth")
-                                console.warn("opp: ", ele.type)
-
-                                // const record = CreateRecordProto(data, gameObj);
-
-                                // // console.log("index: ", i, p[i], record)
-                                // record.class = "missed";
-                                // record.type = {
-                                //     type: ele.type,
-                                //     group: ele.group
-                                // }
-                                // // record.type.
-                                // // console.log(ele.type, ele.group)
-
-                                // record.eval = {
-                                //     scoreAfter: p[i].playedMove.score,
-                                //     difference: p[i].difference
-                                // }
-
-                                // record.scenarios = p[i].scenarios;
-
-                                // record.ply = i + 1; // the actual game ply
-                                // record.plyPercent = plyPercent(record.ply, data.totalPositions)
-                                // record.phase = phase(record.ply, data.gamePhases);
+                                else {
+                                    console.log("fourth")
+                                    console.warn("opp: ", ele.type)
                     
-                                // if(data.time) {
-                                //     record.timeSpent = data.time.moves[i] / 10;
-                                //     record.timeToThink = calculateClockTime(data.time.moves, i, gameObj.timecontrol);
-                                //     record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
-                                // } else {
-                                //     console.log("Missing Date.Time for id: ", gameObj.id, data)
-                                // }
-                    
-                                const record2 = CreateTacticRecord(i,ele,p,data,gameObj,"missed")
-                                console.log(record2)
+                                    const record = CreateTacticRecord(i,ele,p,data,gameObj,"missed")
+                                    console.log(record)
 
-                                UpdateTacticsState(ele.type, record);
-                            } 
+                                    UpdateTacticsState(ele.type, record);
+                                } 
                         }
+        
+                    } else { // they are equal so you got the tactic
+                        console.log("final")
+
+                        // passed all the checks so now add this 
+                        // warn if type is not in the known array
+                        if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
+                            console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
+                        }
+
+                        else {
+                            console.log("fourth")
+                            console.warn("opp: ", ele.type)
+            
+                            const record = CreateTacticRecord(i,ele,p,data,gameObj,"got")
+                            console.log(record)
+
+                            UpdateTacticsState(ele.type, record);
+                        } 
                     }
                 }
             }
@@ -341,36 +318,11 @@ export const AnalyzeAllTactics = (data, gameObj) => {
     }
 }
 
-export const CreateTacticRecord = (j, ele, p, data, gameObj, the_class = undefined) => {
-    const record = CreateRecordProto(data, gameObj);
+export const AnalyzeEndgames = (data, gameObj) => {
+    // const record = CreateRecordProto(data, gameObj);
+    const d = data?.TEP?.endgames; // rename to make easier to work with
 
-    // console.log("index: ", i, p[i], record)
-    record.class = (the_class !== undefined) ? the_class : ele.class;
-    record.type = {
-        type: ele.type,
-        group: ele.group
+    if(d.length > 0) {
+        console.warn(d)
     }
-    // record.type.
-    // console.log(ele.type, ele.group)
-
-    record.eval = {
-        scoreAfter: p[j].playedMove.score,
-        difference: p[j].difference
-    }
-
-    record.scenarios = p[j].scenarios;
-
-    record.ply = j+1; // the actual game ply
-    record.plyPercent = plyPercent(record.ply, data.totalPositions)
-    record.phase = phase(record.ply, data.gamePhases);
-
-    if(data.time) {
-        record.timeSpent = data.time.moves[j] / 10;
-        record.timeToThink = calculateClockTime(data.time.moves, j, gameObj.timecontrol);
-        record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
-    } else {
-        console.log("Missing Date.Time for id: ", gameObj.id, data)
-    }
-
-    return record;
 }

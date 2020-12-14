@@ -1,3 +1,6 @@
+import { plyPercent, phase, calculateClockTime, totalFromTC } from './AnalyzeHelpers'
+import { GetCurrentFen } from './fen'
+
 export const CreateRecordProto = (data, gameObj) => {
 
     return {
@@ -7,6 +10,43 @@ export const CreateRecordProto = (data, gameObj) => {
         date: gameObj.date,
         eco: data.book.code
     }
+}
+
+export const CreateTacticRecord = (j, ele, p, data, gameObj, the_class = undefined) => {
+    const record = CreateRecordProto(data, gameObj);
+
+    // console.log("index: ", i, p[i], record)
+    record.class = (the_class !== undefined) ? the_class : ele.class;
+    record.type = {
+        type: ele.type,
+        group: ele.group
+    }
+    // record.type.
+    // console.log(ele.type, ele.group)
+
+    record.eval = {
+        scoreAfter: p[j].playedMove.score,
+        difference: p[j].difference
+    }
+
+    record.scenarios = p[j].scenarios;
+
+    record.ply = j+1; // the actual game ply
+    record.plyPercent = plyPercent(record.ply, data.totalPositions)
+    record.phase = phase(record.ply, data.gamePhases);
+
+    record.fen = GetCurrentFen(data, record.ply, record.id)
+
+
+    if(data.time) {
+        record.timeSpent = data.time.moves[j] / 10;
+        record.timeToThink = calculateClockTime(data.time.moves, j, gameObj.timecontrol);
+        record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
+    } else {
+        console.log("Missing Date.Time for id: ", gameObj.id, data)
+    }
+
+    return record;
 }
 
 /* CASTLED

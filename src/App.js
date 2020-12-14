@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { initializeState } from "./BusinessLogic/Initialize";
 import LoadForm from './components/LoadForm';
 import { store } from './State/store';
+import CAPS from './Charts/CAPS'
 
 function App() {
 	// useEffect(() => {
@@ -30,14 +31,14 @@ function App() {
       <header className="App-header">
         
       </header>
-	  {/* initializeState */}
-		{/* <LoadForm /> */}
+
 		{
 			(popupBlocker) ? "Please disable your popup blocker" : ''
 		}
 		{
 			(!initialized) ? <button onClick={() => {
-				initializeState()
+				initializeState();
+				console.log("initialization")
 			}}>Click to Start</button> : ''
 		}
 		
@@ -51,11 +52,11 @@ function App() {
 		<br />
 		<ol>
 			{gameID_arr.map(
-				(e) => <li>{e.id}</li>
+				(e, key) => <li key={key}>{e.id}</li>
 			)}
 		</ol>
 
-
+		 <CAPS />
     </div>
   );
 }

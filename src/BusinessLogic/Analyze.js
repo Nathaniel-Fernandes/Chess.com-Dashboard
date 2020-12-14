@@ -5,7 +5,9 @@ import {
     AnalyzeClassification, 
     AnalyzeOpenings,
     AnalyzeGamePatterns,
-    AnalyzeAllTactics
+    AnalyzeAllTactics,
+    AnalyzeEndgames,
+    AddCaps
 } from './AnalysisMetrics';
 
 /**
@@ -28,14 +30,16 @@ export const AnalyzeGame = async (game) => {
         // just get this to request another game
     }
 
+    AddCaps(data, game);
     // AnalyzeCastle(data, game);
     // AnalyzeOpenings(data, game);
     // AnalyzeClassification("blunder", data,game);
     // AnalyzeClassification("mistake", data,game);
     // AnalyzeClassification("inaccuracy", data,game);
     // AnalyzeGamePatterns(data,game);
-    AnalyzeAllTactics(data, game);
-    
+    // AnalyzeAllTactics(data, game);
+    // AnalyzeEndgames(data, game)
+
     const tacticsObj = {
         fork: store.getState().fork,
         mate: store.getState().mate,

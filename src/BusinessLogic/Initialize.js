@@ -18,6 +18,7 @@ export const timeout = (ms = 5000) => {
 export const initializeState = () => {
 	// check if less then 100 games
 	if (store.getState().Games.length < 100) {
+		console.log("hellow?")
 
         GetURL(CreateURL(ArchiveURL, store.getState().UserName))
 			.then((res, err) => {
@@ -26,13 +27,13 @@ export const initializeState = () => {
 					else if(res.data.status === 404) return;
 
 					store.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
-					// console.log(store.getState().GameArchive)				// prints out updated state
+					console.log(store.getState().GameArchive)				// prints out updated state
 					
 					return GameIDfromArchive();
 			})
 			.then(async (res) => {
 
-				for(let i = 0; i < 1; i++) {
+				for(let i = 0; i < 2; i++) {
 					AnalyzeGame(store.getState().Games[i]);
 					await timeout(1000);
 				}
@@ -60,7 +61,7 @@ export const initializeState = () => {
  * @todo don't hardcode # of games
  */
 const GameIDfromArchive = async () => {
-		// console.log("Current Store: ", store.getState())
+		console.log("Current Store: ", store.getState())
 		let archives = store.getState().GameArchive;
 		let i = archives.length - 1;
 		let gamenum = store.getState().Games.length;
@@ -72,9 +73,9 @@ const GameIDfromArchive = async () => {
 		// 3. multiple archives
 		// (async _ => {
 			while(archives[i] && i >= 0 && gamenum <= 100) { 
-				// console.log("GM top loop: ", gamenum)	
+				console.log("GM top loop: ", gamenum)	
 				
-				// console.log(archives[i])
+				console.log(archives[i])
 
 				await GetURL(archives[i])
 					.then(res => {
@@ -83,7 +84,7 @@ const GameIDfromArchive = async () => {
 
 						//  console.log(games.length)
 
-						for(let j = 0; j < games.length; j++) {
+						for(let j = games.length - 1; j >= 0; j--) {
 							// validation
 							if(gamenum > 100) {	break;	}	// break if exceed limit. In future not hardcode
 							if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant

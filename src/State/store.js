@@ -22,8 +22,21 @@ export const store = create((set) => ({
 			timecontrol: tc, 
 			timeclass: tclass,
 			date:date
-		}].sort((a,b) => a.id - b.id)
+		}]
 	})),
+	AddCAPStoGame: (id, CAPS) => {
+		const temp = [...store.getState().Games]
+		for(let i = 0; i < store.getState().Games.length; i++) {
+			if(temp[i].id === id) {
+				temp[i].CAPS = CAPS;
+				set(state => ({
+					Games: temp
+				}))
+				break;
+			}
+		}	
+	},
+
 
 	GamesAllowed: 100,
 
