@@ -11,7 +11,7 @@ export const AddCaps = (data, gameObj) => {
     }
 
     store.getState().AddCAPStoGame(gameObj.id, caps)
-    console.log(store.getState().Games)
+    // console.log(store.getState().Games)
 }
 
 /**
@@ -185,7 +185,7 @@ export const AnalyzeGamePatterns = (data, gameObj) => {
 
     for(const i in d) {
 
-        let p = new Array();
+        let p = [];
         for(const j of d[i]) {
             let phs = phase(j, data.gamePhases);
 
@@ -269,6 +269,16 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                 console.log("first")
                 if(!t[i + 1] || t[i + 1].length === 0) {
                     console.log("second")
+
+                    // validation
+                    if(p[i] === undefined) {
+                        console.warn({
+                            message: "p[i] doesn't exist",
+                            i: i,
+                            id: gameObj.id
+                        })
+                        return;
+                    }
 
                     if(p[i].playedMove.moveLan !== ele.eval.pv[0]) {
                         console.log("third")

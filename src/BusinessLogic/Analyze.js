@@ -33,26 +33,26 @@ export const AnalyzeGame = async (game) => {
     AddCaps(data, game);
     // AnalyzeCastle(data, game);
     // AnalyzeOpenings(data, game);
-    // AnalyzeClassification("blunder", data,game);
-    // AnalyzeClassification("mistake", data,game);
-    // AnalyzeClassification("inaccuracy", data,game);
+    AnalyzeClassification("blunder", data,game);
+    AnalyzeClassification("mistake", data,game);
+    AnalyzeClassification("inaccuracy", data,game);
     // AnalyzeGamePatterns(data,game);
     // AnalyzeAllTactics(data, game);
     // AnalyzeEndgames(data, game)
 
-    const tacticsObj = {
-        fork: store.getState().fork,
-        mate: store.getState().mate,
-        hanging: store.getState().hanging,
-        relativePin: store.getState().relativePin,
-        absolutePin: store.getState().absolutePin,
-        trapped: store.getState().trapped,
-        underdefended: store.getState().underdefended,
-        winningExchange: store.getState().winningExchange,
-        skewer: store.getState().skewer,
-    }
+    // const tacticsObj = {
+    //     fork: store.getState().fork,
+    //     mate: store.getState().mate,
+    //     hanging: store.getState().hanging,
+    //     relativePin: store.getState().relativePin,
+    //     absolutePin: store.getState().absolutePin,
+    //     trapped: store.getState().trapped,
+    //     underdefended: store.getState().underdefended,
+    //     winningExchange: store.getState().winningExchange,
+    //     skewer: store.getState().skewer,
+    // }
 
-    console.log(tacticsObj)
+    // console.log(tacticsObj)
     // console.log(JSON.stringify(tacticsObj, null, '  '))
     // console.log(store.getState())
 

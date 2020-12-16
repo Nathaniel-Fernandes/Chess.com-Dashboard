@@ -85,7 +85,7 @@ export const openWindow = async ( url ) => {
     }
 
     const tab = window.open(url, '_blank');
-    return setTimeout(() => tab.close(), 10000) // 
+    return setTimeout(() => tab.close(), 15000) // 
 }
 
 /**

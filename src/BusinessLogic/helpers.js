@@ -68,8 +68,32 @@ export const TimeClassFromGame = (gameObj) => {
 	return gameObj.time_class;
 }
 
-export const DateFromGame = (gameObj) => {
-	return gameObj.end_time;
+const dateWithTimeZone = (seconds) => {
+	const date = new Date(1970,0,1);
+		date.setSeconds(seconds)
+	
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+	if(timeZone === undefined || timeZone === null || !timeZone) {
+		return date;
+	}
+
+	const utcDate = new Date(date.toLocaleString('en-US', { timeZone: "UTC" }));
+	const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timeZone }));
+	const offset = utcDate.getTime() - tzDate.getTime();
+
+	date.setTime( date.getTime() - offset );
+  
+	return date;
+};
+
+export const DateFromGameSeconds = (seconds) => {
+	
+	const d = dateWithTimeZone(seconds)
+	const formatted = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+	
+	// console.log(formatted);
+	return formatted;
+	// return gameObj.end_time;
 }
 
 /**

@@ -43,7 +43,7 @@ export const store = create((set) => ({
 	NeedAnalysis: false,
 	SetNeedAnalysis: () => set(state => ({ NeedAnalysis: true})),
 
-	loading: true,
+	isLoading: true,
 	setLoadingFalse: () => set(state => ({ isLoading: false })),
 
 	castled: [],
