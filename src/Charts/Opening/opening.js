@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Sunburst_ECO from './Sunburst_ECO'
 import { store } from '../../State/store'
-import Barchart_Openings from '../Barchart_Openings'
+import Barchart_Openings from './Barchart_Openings'
 
 
 export const Opening_Data = ({ type }) => {
     // const defaultState = [{name:"White", children:[]}, {name:"Black",children:[]}]
 
     const data = store(state => state.opening)
+
     const [loading, setLoading] = useState(true)
     const [white, setWhite] = useState([])
     const [black, setBlack] = useState([])
@@ -58,7 +59,7 @@ export const Opening_Data = ({ type }) => {
         setWhite(() => Object.values(w).sort((a, b) => b.value - a.value))
         setBlack(() => Object.values(b).sort((a, b) => a.value - b.value))
         setLoading(() => false)
-    }, [])
+    }, [data])
 
 
     if(!loading) {
@@ -72,13 +73,9 @@ export const Opening_Data = ({ type }) => {
                 <Barchart_Openings white={white} black={black}/>
             )
         }
-        else {
-            return null
-        }
     }
-    else {
-        return ''
-    }
+
+    return null
 }
 
 export default Opening_Data;

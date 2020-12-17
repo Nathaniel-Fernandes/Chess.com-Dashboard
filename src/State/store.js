@@ -14,14 +14,15 @@ export const store = create((set) => ({
 	setGameArchives: (archive) => set(state => ({ GameArchive: [...archive]})),
 
 	Games: [],
-	AddGame: (id, color, result, tc, tclass, date) => set(state => ({ 
+	AddGame: (id, color, result, tc, tclass, date, opponent) => set(state => ({ 
 		Games: [...state.Games, {
 			id:id,
 			color:color, 
 			result:result, 
 			timecontrol: tc, 
 			timeclass: tclass,
-			date:date
+			date:date,
+			opponent: opponent
 		}]
 	})),
 	AddCAPStoGame: (id, CAPS) => {

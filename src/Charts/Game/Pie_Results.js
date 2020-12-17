@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { store } from '../State/store'
 import { ResponsivePie } from '@nivo/pie'
+import Pie from '../ResponsivePie'
 
 const Pie_Results = () => {
-    const data = store(state => state.Games)
 
     const defaultState = {"win":0,"draw":0,"loss":0}
+    const data = store(state => state.Games)
+    const [loading, setLoading] = useState(true)
     const [reason, setReason] = useState(defaultState)
 
     useEffect(() => {
+        setLoading(() => true)
         setReason(() => defaultState)
 
         for(let i = 0; i < data.length; i++) {
@@ -30,16 +33,29 @@ const Pie_Results = () => {
             }
         }
 
+        setLoading(() => false)
         // console.log(data, reason)
     }, [data]);
 
-    if(1 === 1) {
-        const data = Object.keys(reason).map((e, i) => { 
+    if(!loading) {
+        const data = Object.keys(reason).map((e) => { 
             return {id: e, label: e, value: reason[e]}
         })
-        console.log(data)
+        // console.log(data)
 
         return (
+            <Pie data={data} />
+        )
+    }
+
+    return null; // default return
+}
+
+export default Pie_Results;
+
+
+/*
+
             <ResponsivePie 
                 data={ data }
                 margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
@@ -111,9 +127,4 @@ const Pie_Results = () => {
                         ]
                     }]}
             />
-        )
-    }
-
-}
-
-export default Pie_Results;
+*/

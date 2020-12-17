@@ -1,0 +1,29 @@
+.App {
+    min-width: 650px;
+    max-width: 1000px;
+    width: 90%;
+    margin: auto;
+}
+
+.dashboard-center {
+    background-color: blue;
+    display: flex;
+    width: 100%;
+}
+
+.chart-container {
+    background-color: pink;
+    min-width: 400px;
+    flex-grow: 2;
+}
+
+.chart-sidebar {
+    background-color: red;
+    min-width: 200px;
+    width: 275px;
+}
+
+.main-chart {
+    width: 100%;
+}
+

@@ -8,7 +8,10 @@ export const CreateRecordProto = (data, gameObj) => {
         color: gameObj.color, 
         won: (gameObj.result === "win") ? true : false,
         date: gameObj.date,
-        eco: data.book.code
+        eco: data.book.code,
+        CAPS: gameObj.CAPS,
+        opponent: gameObj.opponent,
+        timeControl: gameObj.timecontrol
     }
 }
 

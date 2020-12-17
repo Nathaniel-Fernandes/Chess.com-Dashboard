@@ -1,0 +1,17 @@
+.ag-header-cell-label {
+    justify-content: center;
+};
+body::-webkit-scrollbar {
+    width: 2em;
+    height: 2em;
+};
+body::-webkit-scrollbar-button {
+    background: #ccc;
+};
+body::-webkit-scrollbar-track-piece {
+    background: #888;
+};
+
+/* ::-webkit-scrollbar-thumb {
+    background: #eeeeee;
+}​ */

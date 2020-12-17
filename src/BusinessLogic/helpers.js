@@ -37,6 +37,14 @@ export const IDfromURL = (url) => {
 	return Number(id[0])
 }
 
+export const getOpponentfromGame = (gameObj, color) => {
+	if(color === "white") {
+		return gameObj?.black?.username;
+	}
+
+	return gameObj?.white?.username
+}
+
 /**
  * @param {string} username the players username
  * @param {object} gameObj The game object of a game
@@ -86,11 +94,16 @@ const dateWithTimeZone = (seconds) => {
 	return date;
 };
 
-export const DateFromGameSeconds = (seconds) => {
+export const DateFromGameSeconds = (seconds, humanReadable = true) => {
 	
 	const d = dateWithTimeZone(seconds)
+
+	if(humanReadable) {
+		return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+	}
+
 	const formatted = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
-	
+
 	// console.log(formatted);
 	return formatted;
 	// return gameObj.end_time;

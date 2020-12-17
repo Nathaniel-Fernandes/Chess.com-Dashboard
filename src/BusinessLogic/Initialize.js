@@ -8,7 +8,8 @@ import {
 	ResultFromGame, 
 	TimeControlFromGame, 
 	TimeClassFromGame,
-	DateFromGameSeconds } from './helpers';
+	DateFromGameSeconds,
+	getOpponentfromGame } from './helpers';
 import { Analyze, AnalyzeGame } from '../BusinessLogic/Analyze';
 
 export const timeout = (ms = 5000) => { 
@@ -33,7 +34,7 @@ export const initializeState = () => {
 			})
 			.then(async (res) => {
 
-				for(let i = 0; i < 50; i++) {
+				for(let i = 0; i < 25; i++) {
 					AnalyzeGame(store.getState().Games[i]);
 					await timeout(1000);
 				}
@@ -95,10 +96,11 @@ const GameIDfromArchive = async () => {
 							const result = ResultFromGame(games[j], color);
 							const tc = TimeControlFromGame(games[j]);
 							const tclass = TimeClassFromGame(games[j]);
-							const date = DateFromGameSeconds(games[j].end_time);
+							const date = DateFromGameSeconds(games[j].end_time, true);
+							const opp = getOpponentfromGame(games[j], color)
 							
 							if (!store.getState().Games.includes(id)) { 	// could implement binarysearch in the future
-								store.getState().AddGame(id, color, result, tc, tclass, date);
+								store.getState().AddGame(id, color, result, tc, tclass, date, opp);
 								gamenum += 1;
 								store.getState().SetNeedAnalysis();	// performance optim: only do once
 							}

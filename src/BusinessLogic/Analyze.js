@@ -33,11 +33,11 @@ export const AnalyzeGame = async (game) => {
     AddCaps(data, game);
     // AnalyzeCastle(data, game);
     // AnalyzeOpenings(data, game);
-    AnalyzeClassification("blunder", data,game);
-    AnalyzeClassification("mistake", data,game);
-    AnalyzeClassification("inaccuracy", data,game);
+    // AnalyzeClassification("blunder", data,game);
+    // AnalyzeClassification("mistake", data,game);
+    // AnalyzeClassification("inaccuracy", data,game);
     // AnalyzeGamePatterns(data,game);
-    // AnalyzeAllTactics(data, game);
+    AnalyzeAllTactics(data, game);
     // AnalyzeEndgames(data, game)
 
     // const tacticsObj = {

@@ -4,6 +4,8 @@ import { ResponsiveBar } from '@nivo/bar'
 
 const Barchart_TacticsPhases = () => {
 
+    const [rows, setRows] = useState([])
+
     const tactics = store((state) => {
         return {
             "Win the Exchange":state.winningExchange,
@@ -17,8 +19,7 @@ const Barchart_TacticsPhases = () => {
             "Mate":state.mate,
         }
     })
-    const defaultTactics = [{phase:"Opening"},{phase:"Middle"},{phase:"Endgame"}]
-    const [the_data, setThe_data] = useState(defaultTactics)
+
     
     useEffect(() => {
         const d = defaultTactics;

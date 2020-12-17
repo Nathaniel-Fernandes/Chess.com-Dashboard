@@ -20,13 +20,12 @@ const CustomTooltip = ({id, value, data}) => {
 
 const Barchart_Openings = ({ white, black }) => {
     
+    const [loading, setLoading] = useState(true)
     const [data, setData] = useState({})
     const [max, setMax] = useState(0)
-    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         setLoading(() => true)
-        console.log("!!!!")
         const d = {}
 
         white.map((e) => {
@@ -61,17 +60,16 @@ const Barchart_Openings = ({ white, black }) => {
             }
         })
         
-        console.log(maxValue)
-        console.log(d)
+        // console.log(maxValue)
+        // console.log(d)
         setData(() => Object.values(d))
         setMax(() => maxValue)
 
         // console.log(Object.values(d))
         setLoading(() => false)
-
     },[]);
 
-    console.log(max, data)
+    // console.log(max, data)
 
     if(!loading) {
         return (
@@ -124,13 +122,11 @@ const Barchart_Openings = ({ white, black }) => {
                     }
                 ]}
                 animate={false}
-                // motionStiffness={90}
-                // motionDamping={15}
             />
         )
-    } else {
-        return null
-    }
+    } 
+    
+    return null
  
 }
 
