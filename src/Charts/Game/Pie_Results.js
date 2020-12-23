@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../State/store'
-import { ResponsivePie } from '@nivo/pie'
+import { store } from '../../State/store'
 import Pie from '../ResponsivePie'
 
-const Pie_Results = () => {
+const Pie_Results = ({ width, height }) => {
 
     const defaultState = {"win":0,"draw":0,"loss":0}
     const data = store(state => state.Games)
@@ -16,7 +15,7 @@ const Pie_Results = () => {
 
         for(let i = 0; i < data.length; i++) {
             const type = data[i].result;
-            console.log(type)
+            // console.log(type)
 
             if(type === "win") {
                 setReason((e) => {
@@ -44,7 +43,7 @@ const Pie_Results = () => {
         // console.log(data)
 
         return (
-            <Pie data={data} />
+            <Pie data={data} width={width} height={height} />
         )
     }
 

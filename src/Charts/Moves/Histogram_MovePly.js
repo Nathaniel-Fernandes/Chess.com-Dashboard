@@ -3,7 +3,7 @@ import { XAxis,YAxis,BarSeries,DensitySeries } from '@data-ui/histogram'
 import { store } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram'
 
-const Histogram_MovePly = ({ type = "blunder", x = "percent" }) => {
+const Histogram_MovePly = ({ type = "blunder", x = "percent", width, height }) => {
 
     const MoveData = {
         blunder: store(state => state.blunder),
@@ -19,17 +19,19 @@ const Histogram_MovePly = ({ type = "blunder", x = "percent" }) => {
 
     // this is only unique thing - might be able to extract
     const DataAccessor = {
-        percent: datum => datum.PlyPercent,
-        value: datum => datum.Ply
+        percent: datum => datum.plyPercent,
+        value: datum => datum.ply
     }
 
-    // console.log(blunders, mistakes)
+
+    // console.log(width, height)
+    // console.log(DataAccessor[x])
+    // console.log(MoveData)
     return (
-        // <ResponsiveHistogram
         <ResponsiveHistogram
             ariaLabel=""
-            height={400}
-            width={600}
+            height={height}
+            width={width}
             orientation="vertical"
             cumulative={false}
             binCount={20}

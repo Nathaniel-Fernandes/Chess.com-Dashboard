@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { ResponsiveBar } from '@nivo/bar'
-import { useTheme } from '@nivo/core'
+import { Bar } from '@nivo/bar'
 
 const CustomTooltip = ({id, value, data}) => {
-    const theme = useTheme()
     // console.log(nameLookUp)
     return (
-        <div style={{ ...theme.tooltip.container, width: '300px',maxHeight:'200px'}}>
+        <div style={{width: '300px',maxHeight:'200px'}}>
             <strong>ECO:</strong> {data.eco} <br />
             <strong>Name:</strong>
                 {data.name[0]}
@@ -18,7 +16,7 @@ const CustomTooltip = ({id, value, data}) => {
     )
 }
 
-const Barchart_Openings = ({ white, black }) => {
+const Barchart_Openings = ({ white, black, width, height }) => {
     
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState({})
@@ -69,15 +67,31 @@ const Barchart_Openings = ({ white, black }) => {
         setLoading(() => false)
     },[]);
 
-    // console.log(max, data)
+    const Title = ({ width, height }) => {
+        // console.log(data)
+        const style = {fontWeight: 'bold'}
+
+        return (
+            <text 
+                x={width / 2}
+                y={-10}
+                textAnchor="middle"
+                style={style}
+            >
+                Tactics vs. Game Phases
+            </text>
+        )
+    } 
 
     if(!loading) {
         return (
-            <ResponsiveBar
+            <Bar
                 data={data.sort((a, b) => b.Won === a.Won ? b.Won + b.Lost - (a.Won + a.Lost) : b.Won - a.Won)}
+                width={width}
+                height={height}
                 keys={[ 'Won', 'Lost']}
                 indexBy="eco"
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: (width > 600) ? 130 : 80, bottom: 50, left: 60 }}
                 padding={0.3}
                 valueScale={{ type: 'linear' }}
                 indexScale={{ type: 'band', round: true }}
@@ -91,8 +105,12 @@ const Barchart_Openings = ({ white, black }) => {
                     legendOffset: 40
                 }}
                 enableGridX
+                layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations',Title]}
                 axisLeft={{
-                    tickValues:[...Array(max + 1).keys()]
+                    tickValues:[...Array(max + 1).keys()],
+                    legend: 'Count',
+                    legendPosition: 'middle',
+                    legendOffset: -30
                 }}
                 labelSkipHeight={12}
                 labelTextColor={{ from: '#000000', modifiers: [ [ 'darker', 1.6 ] ] }}

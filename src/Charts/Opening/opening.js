@@ -4,7 +4,7 @@ import { store } from '../../State/store'
 import Barchart_Openings from './Barchart_Openings'
 
 
-export const Opening_Data = ({ type }) => {
+export const Opening_Data = ({ type, width, height }) => {
     // const defaultState = [{name:"White", children:[]}, {name:"Black",children:[]}]
 
     const data = store(state => state.opening)
@@ -65,12 +65,12 @@ export const Opening_Data = ({ type }) => {
     if(!loading) {
         if(type.toLowerCase() === "sunburst") {
             return (
-                <Sunburst_ECO white={white} black={black} />
+                <Sunburst_ECO white={white} black={black} width={width} height={height} />
             )
         } 
         else if(type.toLowerCase() === "bar" || type.toLowerCase() === 'barchart') {
             return (
-                <Barchart_Openings white={white} black={black}/>
+                <Barchart_Openings white={white} black={black} width={width} height={height} />
             )
         }
     }

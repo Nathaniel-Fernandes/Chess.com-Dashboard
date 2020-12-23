@@ -1,10 +1,11 @@
 import './table.css'
+import { useState } from 'react'
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
-const renderLink = (params) => {
-    console.log(params);
+export const renderLink = (params) => {
+    // console.log(params);
     return `<a href="https://www.chess.com/analysis/game/live/${params.value}" target="_blank">${params.value}</a>`
 }
 const columns = [    
@@ -41,22 +42,36 @@ const defaultCol = {
     cellClass: "grid-cell-centered"
 }
 
-const Table = ({ data, customRows, width = 800, height = 400}) => {
-    const onFirstDataRendered = (params) => {
-        params.api.sizeColumnsToFit();
-    }
+
+
+const Table = ({ data, customCol, width = '100%', height = 400, file = "export.csv"}) => {
     
+    const [gridAPI, setGridAPI] = useState()
+
     const gridOptions = {
         defaultColDef: defaultCol,
         // onFirstDataRendered: onFirstDataRendered,
-        columnDefs: columns
+        columnDefs: customCol || columns,
+        onGridReady: (params) => setGridAPI(() => params.api)
+    }
+
+    function onBtnExportDataAsCsv(gridAPI, file = "export.csv") {
+        const params = {
+            allColumns: true,
+            fileName: file
+        }
+        gridAPI.exportDataAsCsv(params);
     }
 
     return (
-        <div className="ag-theme-balham" style={{ height: height, width: width }}>
-            <AgGridReact rowData={data} gridOptions={gridOptions}>
-            </AgGridReact>
-        </div>
+        <>
+            <button className="export-data" onClick={() => onBtnExportDataAsCsv(gridAPI, file)}>Export (CSV)</button>
+
+            <div className="ag-theme-balham" style={{ height: height, maxWidth: width}}>
+                <AgGridReact rowData={data} gridOptions={gridOptions}>
+                </AgGridReact>
+            </div>
+        </>
     )
 }
 

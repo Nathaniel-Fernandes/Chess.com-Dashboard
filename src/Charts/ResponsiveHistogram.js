@@ -1,12 +1,12 @@
 import React from 'react'
 import { Histogram, withParentSize } from '@data-ui/histogram'
 
-const ResponsiveHistogram = withParentSize(({parentWidth, parentHeight, ...rest}) => {
+const ResponsiveHistogram = withParentSize(({width, height, ...rest}) => {
 
     return (
       <Histogram
-        width={parentWidth}
-        height={parentHeight}
+        width={width}
+        height={height}
         {...rest}
       />
     );

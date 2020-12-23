@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../State/store'
-import { ResponsiveBar } from '@nivo/bar'
+import { store } from '../../State/store'
+import { ResponsiveBar, Bar } from '@nivo/bar'
 
-const Barchart_TacticsPhases = () => {
+const Barchart_TacticsPhases = ({ width, height }) => {
 
-    const [rows, setRows] = useState([])
+    const [the_data, setThe_data] = useState([])
+    const [the_keys, setKeys] = useState([])
 
     const tactics = store((state) => {
         return {
@@ -22,7 +23,8 @@ const Barchart_TacticsPhases = () => {
 
     
     useEffect(() => {
-        const d = defaultTactics;
+        const d = [{phase: "Opening"}, {phase: "Middlegame"}, {phase: "Endgame"}];
+        const k = [] 
 
         Object.keys(tactics).map((e) => {
             const opening = tactics[e].filter((obj) => obj.phase === "open").length
@@ -32,34 +34,53 @@ const Barchart_TacticsPhases = () => {
             d[0][e] = opening
             d[1][e] = middle
             d[2][e] = end
+
+            if(opening + middle + end !== 0) k.push(e)
         })
-        // d.sort((a, b) => {
-        //     const result =  ((b.Blundered || 0) + (b.Missed || 0) + (b.Got || 0)) - ((a.Blundered || 0) + (a.Missed || 0) + (a.Got || 0))
-        //     // console.log(result)
-        //     return result
-        // })
-        console.log(d)
+
+        // console.log(d)
 
         setThe_data(() => d)
+        setKeys(() => k)
 
     }, [])
 
+    const Title = ({ width, height }) => {
+        // console.log(data)
+        const style = {fontWeight: 'bold'}
+
+        return (
+            <text 
+                x={width / 2}
+                y={-10}
+                textAnchor="middle"
+                style={style}
+            >
+                Tactics vs. Game Phases
+            </text>
+        )
+    } 
+    // console.log(the_data)
     return (
-        <ResponsiveBar
+        <Bar
             data={
                 the_data
             }
-            keys={Object.keys(tactics)}
+            keys={the_keys}
             indexBy="phase"
-            margin={{ top: 50, right: 150, bottom: 80, left: 30 }}
+            width={width}
+            height={height}
+            margin={{ top: 25, right: 160, bottom: 80, left: 30 }}
+            colors={{ scheme: 'set1' }}
             // groupMode="grouped"
+            layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations',Title]}
             axisBottom={{
                 tickSize: 8,
                 tickPadding: 5,
-                tickRotation: -20,
+                // tickRotation: -20,
                 legend: 'Tactic',
                 legendPosition: 'middle',
-                legendOffset: 70
+                legendOffset: 50
             }}
             labelSkipHeight={20}
             padding={0.25}

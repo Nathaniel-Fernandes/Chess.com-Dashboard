@@ -8,7 +8,8 @@ import create from 'zustand';
 	johnletox
 */
 export const store = create((set) => ({
-	UserName: "speedyg2",
+	UserName: "",
+	setUsername: (username) => set(state => ({ UserName: username})),
 	
 	GameArchive: [],
 	setGameArchives: (archive) => set(state => ({ GameArchive: [...archive]})),
@@ -38,8 +39,7 @@ export const store = create((set) => ({
 		}	
 	},
 
-
-	GamesAllowed: 100,
+	maxGamesAllowed: 25,
 
 	NeedAnalysis: false,
 	SetNeedAnalysis: () => set(state => ({ NeedAnalysis: true})),

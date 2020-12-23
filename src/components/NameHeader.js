@@ -5,9 +5,9 @@ const NameHeader = () => {
     const name = store(state => state.UserName);
 
     return (
-        <div class="name-header">
+        <h2 class="name-header">
             Hello {name}!
-        </div>
+        </h2>
     )
 }
 

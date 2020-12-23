@@ -1,16 +1,16 @@
-import { store } from '../State/store'
+import { store } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram';
 import { XAxis,YAxis,BarSeries } from '@data-ui/histogram'
 
-const Histogram_CAPS = () => {
+const Histogram_CAPS = ({ height, width }) => {
 
   const games = store(state => state.Games)
  
     return (
       <ResponsiveHistogram
         ariaLabel=""
-        height={400}
-        width={600}
+        height={height}
+        width={width}
         orientation="vertical"
         cumulative={false}
         binCount={10}

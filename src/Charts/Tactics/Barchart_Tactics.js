@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../State/store'
-import { ResponsiveBar } from '@nivo/bar'
+import { store } from '../../State/store'
+import { ResponsiveBar, Bar } from '@nivo/bar'
 
-const Barchart_Tactics = () => {
+const Barchart_Tactics = ({ width, height }) => {
 
     const tactics = store((state) => {
         return {
@@ -19,21 +19,13 @@ const Barchart_Tactics = () => {
     })
 
     const [the_data, setThe_data] = useState([])
+    const [max, setMax] = useState(0)
+
     
     useEffect(() => {
         setThe_data(() => [])
 
         const d = Object.keys(tactics).map((e) => {
-            const blundered = tactics[e].filter((obj) => obj.class === "blunders").length
-            const missed = tactics[e].filter((obj) => obj.class === "missed").length
-            const got = tactics[e].filter((obj) => obj.class === "got").length
-            const record = {"tactic": e}
-
-            // if(blundered !== 0) record.Blundered = blundered
-            // if(missed !== 0) record.Missed = missed
-            // if(got !== 0) record.Got = got
-            // console.log(record)
-            // return record
             return {
                 "tactic": e,
                 "Blundered": tactics[e].filter((obj) => obj.class === "blunders").length || null,
@@ -46,21 +38,46 @@ const Barchart_Tactics = () => {
             // console.log(result)
             return result
         })
-        console.log(d)
+        // console.log(d)
 
+        setMax(() => d[0].Blundered + d[0].Missed + d[0].Got)
         setThe_data(() => d)
 
     }, [])
 
+    const Title = ({ width, height }) => {
+        // console.log(data)
+        const style = {fontWeight: 'bold'}
+
+        return (
+            <text 
+                x={width / 2}
+                y={-10}
+                textAnchor="middle"
+                style={style}
+            >
+                Tactics by Category
+            </text>
+        )
+    } 
+
     return (
-        <ResponsiveBar
+        <Bar
             data={
                 the_data.filter(obj => ((obj.Blundered || 0) + (obj.Missed || 0) + (obj.Got || 0) !== 0))
             }
-            keys={['Blundered','Missed']}
+            keys={['Blundered','Missed', 'Got']}
             indexBy="tactic"
+            width={width}
+            height={height}
             margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
             // groupMode="grouped"
+            axisLeft={{
+                tickValues: 5,
+                legend: 'Count',
+                legendPosition: 'middle',
+                legendOffset: -30,
+            }}
             axisBottom={{
                 tickSize: 8,
                 tickPadding: 5,
@@ -69,9 +86,10 @@ const Barchart_Tactics = () => {
                 legendPosition: 'middle',
                 legendOffset: 70
             }}
-            labelSkipHeight={20}
+            labelSkipHeight={10}
             padding={0.25}
             enableGridX
+            layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations',Title]}
             legends={[
                 {
                     dataFrom: 'keys',

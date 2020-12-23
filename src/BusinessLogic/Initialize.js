@@ -18,7 +18,9 @@ export const timeout = (ms = 5000) => {
 
 export const initializeState = () => {
 	// check if less then 100 games
-	if (store.getState().Games.length < 100) {
+	const maxGamesAllowed = store.getState().maxGamesAllowed;
+
+	if (store.getState().Games.length < maxGamesAllowed) {
 		// console.log("hellow?")
 
         GetURL(CreateURL(ArchiveURL, store.getState().UserName))
@@ -34,8 +36,9 @@ export const initializeState = () => {
 			})
 			.then(async (res) => {
 
-				for(let i = 0; i < 25; i++) {
+				for(let i = 0; i < maxGamesAllowed; i++) {
 					AnalyzeGame(store.getState().Games[i]);
+					console.log(`Request data Game ${i}`)
 					await timeout(1000);
 				}
 			}).then(() => {
@@ -51,7 +54,7 @@ export const initializeState = () => {
 					skewer: store.getState().skewer,
 				}
 
-				console.log(JSON.stringify(tacticsObj, null, '  '))
+				// console.log(JSON.stringify(tacticsObj, null, '  '))
 				store.getState().setLoadingFalse();
 			})
 	}
@@ -63,7 +66,8 @@ export const initializeState = () => {
  * @todo don't hardcode # of games
  */
 const GameIDfromArchive = async () => {
-		console.log("Current Store: ", store.getState())
+		// console.log("Current Store: ", store.getState())
+		const maxGamesAllowed = store.getState().maxGamesAllowed;
 		let archives = store.getState().GameArchive;
 		let i = archives.length - 1;
 		let gamenum = store.getState().Games.length;
@@ -74,7 +78,7 @@ const GameIDfromArchive = async () => {
 		// 2. >100 games
 		// 3. multiple archives
 		// (async _ => {
-			while(archives[i] && i >= 0 && gamenum <= 100) { 
+			while(archives[i] && i >= 0 && gamenum <= maxGamesAllowed) { 
 				console.log("GM top loop: ", gamenum)	
 				
 				console.log(archives[i])
@@ -88,7 +92,7 @@ const GameIDfromArchive = async () => {
 
 						for(let j = games.length - 1; j >= 0; j--) {
 							// validation
-							if(gamenum > 100) {	break;	}	// break if exceed limit. In future not hardcode
+							if(gamenum > maxGamesAllowed) {	break;	}	// break if exceed limit. In future not hardcode
 							if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant
 
 							const id = IDfromURL(games[j].url);

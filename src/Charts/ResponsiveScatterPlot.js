@@ -1,7 +1,7 @@
 import React from 'react'
-import  { ResponsiveScatterPlot } from '@nivo/scatterplot'
+import  { ResponsiveScatterPlot, ScatterPlot } from '@nivo/scatterplot'
 
-const Scatter = ({ data }) => {
+const Scatter = ({ data, width, height }) => {
 	const margin = { top: 60, right: 140, bottom: 70, left: 90 };
 	const xScale = { type: "time", format: "%m/%d/%Y %H:%M:%S", precision: "minute" }
 	const yScale = { type: "linear", min: 0, max: 100 }
@@ -11,7 +11,7 @@ const Scatter = ({ data }) => {
 		tickPadding: 5,
 		tickRotation: 0,
 		format: "%b %d",
-		tickValues: "every 2 days",
+		tickValues: 5,
 	}
 	const axisLeft = {
 		orient: "left",
@@ -47,18 +47,22 @@ const Scatter = ({ data }) => {
 	]
 
   	return (
-		<ResponsiveScatterPlot
+		<ScatterPlot
 			data={data}
+			width={width}
+			height={height}
 			margin={margin}
 			xScale={xScale}
 			xFormat="time:%Y-%m-%d"
 			yScale={yScale}
-			blendMode="multiply"
+			blendMode="normal"
+			colors={{ scheme: 'nivo' }}
 			axisTop={null}
 			axisRight={null}
 			axisBottom={axisBottom}
 			axisLeft={axisLeft}
 			legends={legends}
+			animate={false}
 		/>
 	);
 };

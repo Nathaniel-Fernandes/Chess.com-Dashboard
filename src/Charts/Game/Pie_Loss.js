@@ -5,7 +5,7 @@ import Pie from '../ResponsivePie'
 /**
  * @description A pie chart of the reason why the user lost
  */
-const Pie_Reason4Loss = ({ width, height}) => {
+const Pie_Reason4Loss = ({ width, height }) => {
 
     const Games = store(state => state.Games)
     const [loading, setLoading] = useState(true)
@@ -43,7 +43,7 @@ const Pie_Reason4Loss = ({ width, height}) => {
         // console.log(data)
 
         return (
-            <Pie data={data} width={width} height={height} />
+            <Pie data={data} width={width} height={height}  />
         )
     } 
     

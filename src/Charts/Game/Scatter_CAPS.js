@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { store } from "../State/store";
+import { store } from "../../State/store";
 import Scatter from '../ResponsiveScatterPlot'
 
 // check if really updating White/Black state
-const CAPS_Scatter_Chart = () => {
+const CAPS_Scatter_Chart = ({ width, height }) => {
   const data = store((state) => state.Games);
   const [loading, setLoading] = useState(true);
 
@@ -33,11 +33,13 @@ const CAPS_Scatter_Chart = () => {
   if (!loading) {
     // console.log(White, Black)
     return (
-		<Scatter data={[
-			{ id: "white", data: White },
-			{ id: "black", data: Black },
-			]}
-		/>
+      <Scatter data={[
+        { id: "white", data: White },
+        { id: "black", data: Black },
+        ]}
+        width={width}
+        height={height}
+      />
     );
   }
 

@@ -49,7 +49,7 @@ export const AnalyzeCastle = ( data, gameObj ) => {
     }
 
     store.getState().addCastled(record);
-    console.log(store.getState().castled);
+    // console.log(store.getState().castled);
 }
 
 
@@ -133,7 +133,7 @@ export const AnalyzeClassification = (type, data, gameObj) => {
         }
     }
 
-    console.log(store.getState()[type])
+    // console.log(store.getState()[type])
 }
 
 /**
@@ -266,9 +266,9 @@ export const AnalyzeAllTactics = (data, gameObj) => {
             } 
             // NEEDS a BUNCH of refactoring, but at least it works
             else if(oppositeColor(ele?.color) === gameObj.color && ele.class === "blunders") {
-                console.log("first")
+                // console.log("first")
                 if(!t[i + 1] || t[i + 1].length === 0) {
-                    console.log("second")
+                    // console.log("second")
 
                     // validation
                     if(p[i] === undefined) {
@@ -281,10 +281,10 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                     }
 
                     if(p[i].playedMove.moveLan !== ele.eval.pv[0]) {
-                        console.log("third")
+                        // console.log("third")
                         if(p[i].classificationName === "blunder" || p[i].classificationName === "mistake") {
                             
-                                console.log("final")
+                                // console.log("final")
 
                                 // passed all the checks so now add this 
                                 // warn if type is not in the known array
@@ -293,18 +293,18 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                                 }
 
                                 else {
-                                    console.log("fourth")
+                                    // console.log("fourth")
                                     console.warn("opp: ", ele.type)
                     
                                     const record = CreateTacticRecord(i,ele,p,data,gameObj,"missed")
-                                    console.log(record)
+                                    // console.log(record)
 
                                     UpdateTacticsState(ele.type, record);
                                 } 
                         }
         
                     } else { // they are equal so you got the tactic
-                        console.log("final")
+                        // console.log("final")
 
                         // passed all the checks so now add this 
                         // warn if type is not in the known array
@@ -313,11 +313,11 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                         }
 
                         else {
-                            console.log("fourth")
+                            // console.log("fourth")
                             console.warn("opp: ", ele.type)
             
                             const record = CreateTacticRecord(i,ele,p,data,gameObj,"got")
-                            console.log(record)
+                            // console.log(record)
 
                             UpdateTacticsState(ele.type, record);
                         } 

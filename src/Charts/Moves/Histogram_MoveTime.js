@@ -4,7 +4,7 @@ import { store } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram'
 
 
-const Histogram_MoveTime = ({ type = "blunder", x = "percent" }) => {
+const Histogram_MoveTime = ({ type = "blunder", x = "percent", width, height }) => {
 
     const MoveData = {
         blunder: store(state => state.blunder),
@@ -28,8 +28,8 @@ const Histogram_MoveTime = ({ type = "blunder", x = "percent" }) => {
         // <ResponsiveHistogram
         <ResponsiveHistogram
             ariaLabel=""
-            height={400}
-            width={600}
+            height={height}
+            width={width}
             orientation="vertical"
             cumulative={false}
             binCount={20}
