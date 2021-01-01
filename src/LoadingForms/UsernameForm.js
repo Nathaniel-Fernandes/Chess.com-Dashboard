@@ -74,30 +74,33 @@ const UsernameForm = ({ setPage }) => {
         <div className="username-form">
             <p className="username-form-instructions" style={chooseBackgroundColor(premium, valid)}>{
                 (premium === true) ? `Hello ${username}! Click to proceed` :
-                (premium === false) ? `Only premium members allowed. Start a free trial!` :
+                (premium === false) ? `Only premium Chess.com members allowed.` :
                 (valid === false) ? `That is not a valid username. Please try again` : "Please Enter Your Chess.com Username"
             }</p>
-            
-            {/* <div className="username-form-content"> */}
-                {(premium !== true && premium !== false && valid !== false) ?
-                    [<input 
-                        onChange={handleSetUsername} 
-                        onKeyDown={e => handleKeyPress(e)}
-                        value={username}
-                        placeholder="Chess.com username" 
-                        type="text"
-                        className="username-form-input"
-                    />] : null
-                }
+            { (premium === false) ?
+                <p className="form-message">
+                    Sadly you must be a premium member (<span title="The Vision Dashboard aggregates and analyzes the data that Chess.com stores from the analysis of your games. However, Chess.com only saves the analysis of premium members.">Why?</span>). Never fear! You can start a <b>free trial</b> and renew for as low as $2.42/month.
+                </p> : null
+            }
+            {(premium !== true && premium !== false && valid !== false) ?
+                [<input 
+                    onChange={handleSetUsername} 
+                    onKeyDown={e => handleKeyPress(e)}
+                    value={username}
+                    placeholder="Chess.com username" 
+                    type="text"
+                    className="username-form-input"
+                />] : null
+            }
 
-                <UsernameFormButtons 
-                    username={username}
-                    resetValidation={resetValidation}
-                    validateUsername={validateUsername}
-                    setPage={setPage}
-                    premium={premium} 
-                    valid={valid}
-                />
+            <UsernameFormButtons 
+                username={username}
+                resetValidation={resetValidation}
+                validateUsername={validateUsername}
+                setPage={setPage}
+                premium={premium} 
+                valid={valid}
+            />
 
         </div>
     )
@@ -126,7 +129,7 @@ const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsern
             }
             {
                 (valid === true && premium === false) ? 
-                [<button onClick={() => window.open(ChesscomMembership, '_blank')} className="orange-button">Free Trial</button>] : null
+                [<button onClick={() => window.open(ChesscomMembership, '_blank')} className="green-button">Free Trial</button>] : null
             }
             {
                 (premium === true) ? <button onClick={() => nextPage(username)} className="orange-button">Proceed</button> : null

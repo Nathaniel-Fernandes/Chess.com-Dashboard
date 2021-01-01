@@ -1,7 +1,7 @@
 import { CreateURL, GetURL } from './helpers';
 import { CorsProxy, GetAnalysisURL, NewAnalysisURL } from './urls'
 import { store } from '../State/store'
-
+import { addLog } from './helpers'
 /**
  * 
  * @param {string|number} id The game id
@@ -33,6 +33,8 @@ export const getGameData = async (id, time = 1) => {
                     }
                     else if (time <= 3) {
                         console.warn(`Tried to retrieve game ${id} ${time} times`)
+                        addLog(`Tried to retrieve game ${id} ${time} times`)
+
                         // if(time === 3) { newAnalysis(id); /* try to restart again */ }
                         newAnalysis(id);
                         
@@ -41,6 +43,8 @@ export const getGameData = async (id, time = 1) => {
                         })
                     }
                     if (time === 4) {
+                        store.getState().setFailedGameID(id)
+                        addLog(`[ERROR] Failed to retrieve game ${id} after 3 attempts`)
                         throw {
                             message: `Could not retrieve game data got ${id} after 3 attempts`,
                             response: res.data
@@ -50,6 +54,9 @@ export const getGameData = async (id, time = 1) => {
                 // got data values
                 else {
                     console.log(`got data for: ${id}`)
+                    addLog(`[SUCCESS] Got data for ${id}`)
+                    store.getState().setReceivedGameID(id)
+                    // console.log(res.data.data.analysis)
                     return res.data.data.analysis;
                 }
 

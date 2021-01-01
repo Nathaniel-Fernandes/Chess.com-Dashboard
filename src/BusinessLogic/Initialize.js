@@ -9,7 +9,9 @@ import {
 	TimeControlFromGame, 
 	TimeClassFromGame,
 	DateFromGameSeconds,
-	getOpponentfromGame } from './helpers';
+	getOpponentfromGame,
+	// addLogSelector, 
+	addLog } from './helpers';
 import { Analyze, AnalyzeGame } from '../BusinessLogic/Analyze';
 
 export const timeout = (ms = 5000) => { 
@@ -17,16 +19,27 @@ export const timeout = (ms = 5000) => {
 }
 
 export const initializeState = () => {
+
+	addLog("Starting Analysis")
+	store.getState().setAnalysisStarted();
+	
+
 	// check if less then 100 games
 	const maxGamesAllowed = store.getState().maxGamesAllowed;
 
 	if (store.getState().Games.length < maxGamesAllowed) {
 		// console.log("hellow?")
+		addLog("Collecting game IDs")
+		addLog("Requesting game archive")
 
         GetURL(CreateURL(ArchiveURL, store.getState().UserName))
 			.then((res, err) => {
 					// primitive error handling
-					if(err) { console.warn(err); return; }
+					if(err) { 
+						console.warn(err);
+						addLog(`[ERROR] Failed to retrieve game archive for ${store.getState().UserName}`)
+						return; 
+					}
 					else if(res.data.status === 404) return;
 
 					store.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
@@ -35,27 +48,24 @@ export const initializeState = () => {
 					return GameIDfromArchive();
 			})
 			.then(async (res) => {
+				store.getState().setAnalysisPart(2) // set part to "getting analysis data"
 
 				for(let i = 0; i < maxGamesAllowed; i++) {
 					AnalyzeGame(store.getState().Games[i]);
 					console.log(`Request data Game ${i}`)
+					addLog(`Request data: Game ${i}`)
+
 					await timeout(1000);
 				}
 			}).then(() => {
-				const tacticsObj = {
-					fork: store.getState().fork,
-					mate: store.getState().mate,
-					hanging: store.getState().hanging,
-					relativePin: store.getState().relativePin,
-					absolutePin: store.getState().absolutePin,
-					trapped: store.getState().trapped,
-					underdefended: store.getState().underdefended,
-					winningExchange: store.getState().winningExchange,
-					skewer: store.getState().skewer,
-				}
-
 				// console.log(JSON.stringify(tacticsObj, null, '  '))
+				addLog(`Finished loading games`)
+				
 				store.getState().setLoadingFalse();
+
+				store.getState().setAnalysisPart(3) // set part to "Finished!"
+				store.getState().setAnalysisEnded();
+
 			})
 	}
 }
@@ -66,6 +76,12 @@ export const initializeState = () => {
  * @todo don't hardcode # of games
  */
 const GameIDfromArchive = async () => {
+		// const addLog = store(state => state.setDebugLogs)
+
+		store.getState().setAnalysisPart(1)
+		addLog(`Extracting game id from archive`)
+
+
 		// console.log("Current Store: ", store.getState())
 		const maxGamesAllowed = store.getState().maxGamesAllowed;
 		let archives = store.getState().GameArchive;
@@ -103,6 +119,7 @@ const GameIDfromArchive = async () => {
 							const date = DateFromGameSeconds(games[j].end_time, true);
 							const opp = getOpponentfromGame(games[j], color)
 							
+							// FIX ME - this will not actually prevent duplicates b/c it's in an object form
 							if (!store.getState().Games.includes(id)) { 	// could implement binarysearch in the future
 								store.getState().AddGame(id, color, result, tc, tclass, date, opp);
 								gamenum += 1;
@@ -113,6 +130,8 @@ const GameIDfromArchive = async () => {
 					})
 				i--;	
 			}
+		
+		addLog(`Finished extracting games`)
 			// console.log("gameids state: ", store.getState().Games)
 
 		// Analyze();

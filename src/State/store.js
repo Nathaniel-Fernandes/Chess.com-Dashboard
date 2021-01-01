@@ -8,6 +8,36 @@ import create from 'zustand';
 	johnletox
 */
 export const store = create((set) => ({
+	isLoading: true,
+	setLoadingFalse: () => set(state => ({ isLoading: false })),
+
+	analysisStarted: false,
+	setAnalysisStarted: () => set(state => ({ analysisStarted: true})),
+	setAnalysisEnded: () => set(state => ({ analysisStarted: false})),
+
+	debugLogs: [],
+	setDebugLogs: (log) => set(state => ({ debugLogs: [...state.debugLogs, log]})),
+	
+	analysisSteps: {
+		0: "Starting process",
+		1: "Collecting games",
+		2: "Getting Analysis Data",
+		3: "Finished!"
+	},
+	analysisPart: 0,
+	setAnalysisPart: (part) => set(state => ({ analysisPart: part})),
+
+	receivedGameID: [],
+	setReceivedGameID: (id) => set(state => ({ receivedGameID: [...state.receivedGameID, id]})),
+
+	failedGameID: [],
+	setFailedGameID: (id) => set(state => ({ failedGameID: [...state.failedGameID, id]})),
+
+	NeedAnalysis: false,
+	SetNeedAnalysis: () => set(state => ({ NeedAnalysis: true})),
+
+	maxGamesAllowed: 25,
+
 	UserName: "",
 	setUsername: (username) => set(state => ({ UserName: username})),
 	
@@ -38,14 +68,6 @@ export const store = create((set) => ({
 			}
 		}	
 	},
-
-	maxGamesAllowed: 25,
-
-	NeedAnalysis: false,
-	SetNeedAnalysis: () => set(state => ({ NeedAnalysis: true})),
-
-	isLoading: true,
-	setLoadingFalse: () => set(state => ({ isLoading: false })),
 
 	castled: [],
 	addCastled: (record) => set(state => ({ castled: [...state.castled, record]})),

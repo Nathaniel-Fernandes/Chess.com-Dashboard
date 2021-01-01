@@ -1,12 +1,51 @@
-{"name": "Sicilian Dragon: The Real Deal! Part 1: Understanding The Dragon", "author": "Chris Ward", "url": "https://shop.chessbase.com/en/products/ward_sicilian_dragon_part_1", "previewURL": ["//youtube.com/embed/n52ojzDiaOI"], "price": ["29.65", "29.65"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": "20"}
-{"name": "Fritz Powerbook 2021", "author": "", "url": "https://shop.chessbase.com/en/products/powerbook_2021", "previewURL": [], "price": ["69.31", "69.31"], "timeHours": [], "timeMinutes": "60"}
-{"name": "Navigating the Ruy Lopez Vol.2", "author": "Fabiano Caruana", "url": "https://shop.chessbase.com/en/products/fabiano_caruana_navigating_the_ruy_lopez_vol2", "previewURL": ["//youtube.com/embed/Y_EnobzrRqI"], "price": ["29.65", "29.65"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": "52"}
-{"name": "An Attacking Repertoire with 1.d4 Vol.3", "author": "Nicholas Pert", "url": "https://shop.chessbase.com/en/products/pert_attacking_repertoire_with_d4_vol_3", "previewURL": ["//youtube.com/embed/JeJ8Bl31m98"], "price": ["29.65", "29.65"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": null}
-{"name": "Navigating the Ruy Lopez Vol.1", "author": "Fabiano Caruana", "url": "https://shop.chessbase.com/en/products/fabiano_caruana_navigating_the_ruy_lopez_vol1", "previewURL": ["//youtube.com/embed/Y_EnobzrRqI"], "price": ["29.65", "29.65"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": null}
-{"name": "The English Opening - Tactic and Strategy Toolbox", "author": "Mihail Marin", "url": "https://shop.chessbase.com/en/products/marin_english_tactic_strategy_toolbox", "previewURL": ["//youtube.com/embed/aoTFxki-yms"], "price": ["29.65", "29.65"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": "30"}
-{"name": "Marin's English Love -Vol. 1, Vol2 and Tactic and Strategy Toolbox", "author": "Mihail Marin", "url": "https://shop.chessbase.com/en/products/marin_english_vol1_vol2_strategy_toolbox", "previewURL": ["//youtube.com/embed/oq5CyU0pQ0w"], "price": ["79.23", "79.23"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": "13"}
-{"name": "Winning with the King's Indian Attack, King's Indian: A modern approach + Kings Indian Powerbook & Powerbase", "author": "Victor Bologan", "url": "https://shop.chessbase.com/en/products/bologan_the_kings_indian_bundle", "previewURL": ["//youtube.com/embed/8PK1we83Ehk"], "price": ["69.31", "69.31"], "timeHours": ["7", "7", "7", "7"], "timeMinutes": "27"}
-{"name": "The Exciting Budapest Gambit", "author": "Simon Williams", "url": "https://shop.chessbase.com/en/products/williams_the_budapest_gambit", "previewURL": ["//youtube.com/embed/3c4vnpCvESg"], "price": ["29.65", "29.65"], "timeHours": ["6", "6", "6", "6"], "timeMinutes": "16"}
-{"name": "Navigating the Ruy Lopez Vol.3", "author": "Fabiano Caruana", "url": "https://shop.chessbase.com/en/products/fabiano_caruana_navigating_the_ruy_lopez_vol3", "previewURL": ["//youtube.com/embed/Y_EnobzrRqI"], "price": ["29.65", "29.65"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": "26"}
-{"name": "Navigating the Ruy Lopez Vol.1-3", "author": "Fabiano Caruana", "url": "https://shop.chessbase.com/en/products/fabiano_caruana_navigating_the_ruy_lopez_vol1-3", "previewURL": ["//youtube.com/embed/Y_EnobzrRqI"], "price": ["79.23", "79.23"], "timeHours": ["16", "16", "16", "16"], "timeMinutes": "20"}
-{"name": "Attacking Repertoire with 1.d4! Vol. 1 - 3", "author": "Nicholas Pert", "url": "https://shop.chessbase.com/en/products/pert_attacking_repertoire_with_d4_vol_1_vol_2_vol_3", "previewURL": [], "price": ["79.23", "79.23"], "timeHours": ["5", "5", "5", "5"], "timeMinutes": "35"}
+{"url": "https://www.chess.com/lessons/daniil-dubovs-amazing-opening-ideas"}
+{"url": "https://www.chess.com/lessons/the-sicilian-nimzowitsch-variation"}
+{"url": "https://www.chess.com/lessons/tips-and-tricks-of-the-london-system"}
+{"url": "https://www.chess.com/lessons/how-to-win-with-the-ruy-lopez-exchange-variation"}
+{"url": "https://www.chess.com/lessons/attack-in-the-ruy-lopez-with-5-d4"}
+{"url": "https://www.chess.com/lessons/learn-the-ruy-lopez-marshall-attack"}
+{"url": "https://www.chess.com/lessons/learn-the-semi-slav-defense"}
+{"url": "https://www.chess.com/lessons/learn-the-ruy-lopez-berlin-defense"}
+{"url": "https://www.chess.com/lessons/learn-the-kings-indian-defense"}
+{"url": "https://www.chess.com/lessons/learn-the-sicilian-sveshnikov"}
+{"url": "https://www.chess.com/lessons/guide-to-the-alekhines-defense"}
+{"url": "https://www.chess.com/lessons/learn-the-sicilian-najdorf"}
+{"url": "https://www.chess.com/lessons/learn-to-play-the-tarrasch-defense"}
+{"url": "https://www.chess.com/lessons/learn-to-play-the-scotch-game"}
+{"url": "https://www.chess.com/lessons/the-fighting-dragon"}
+{"url": "https://www.chess.com/lessons/how-to-play-the-philidor-defense"}
+{"url": "https://www.chess.com/lessons/pirc-defense-for-black"}
+{"url": "https://www.chess.com/lessons/pirc-defense-for-white"}
+{"url": "https://www.chess.com/lessons/secrets-of-the-english-attack"}
+{"url": "https://www.chess.com/lessons/the-complete-english-defense"}
+{"url": "https://www.chess.com/lessons/the-belgrade-gambit"}
+{"url": "https://www.chess.com/lessons/how-to-play-the-trompowsky"}
+{"url": "https://www.chess.com/lessons/the-complete-queens-gambit-declined"}
+{"url": "https://www.chess.com/lessons/spicy-gambits"}
+{"url": "https://www.chess.com/lessons/the-complete-caro"}
+{"url": "https://www.chess.com/lessons/the-benoni-and-its-tactics"}
+{"url": "https://www.chess.com/lessons/why-simon-loves-the-sicilian"}
+{"url": "https://www.chess.com/lessons/why-simon-loves-the-french"}
+{"url": "https://www.chess.com/lessons/ruy-lopez-lessons"}
+{"url": "https://www.chess.com/lessons/spicy-openings-the-max-lange-attack"}
+{"url": "https://www.chess.com/lessons/beating-the-anti-sicilians"}
+{"url": "https://www.chess.com/lessons/complete-scotch-2-mieses-theory-middlegame"}
+{"url": "https://www.chess.com/lessons/understanding-the-london-system"}
+{"url": "https://www.chess.com/lessons/the-classical-dutch"}
+{"url": "https://www.chess.com/lessons/crush-with-the-kings-gambit"}
+{"url": "https://www.chess.com/lessons/winning-with-the-chigorin"}
+{"url": "https://www.chess.com/lessons/attack-with-the-catalan"}
+{"url": "https://www.chess.com/lessons/play-the-budapest"}
+{"url": "https://www.chess.com/lessons/london-system-for-the-busy-chess-player"}
+{"url": "https://www.chess.com/lessons/nakamuras-kings-indian-defense"}
+{"url": "https://www.chess.com/lessons/spicy-openings-the-evans-gambit"}
+{"url": "https://www.chess.com/lessons/slay-the-slav-with-the-boor-attack"}
+{"url": "https://www.chess.com/lessons/exploiting-opening-errors-2"}
+{"url": "https://www.chess.com/lessons/exploiting-opening-errors-3"}
+{"url": "https://www.chess.com/lessons/exploiting-typical-opening-errors"}
+{"url": "https://www.chess.com/lessons/slaying-the-sicilian-kingside-storms"}
+{"url": "https://www.chess.com/lessons/understanding-the-sicilian-dragon"}
+{"url": "https://www.chess.com/lessons/defeating-pet-openings"}
+{"url": "https://www.chess.com/lessons/now-what"}
+{"url": "https://www.chess.com/lessons/understanding-the-colle-zukertort"}
+{"url": "https://www.chess.com/lessons/a-kaleidoscope-of-openings"}

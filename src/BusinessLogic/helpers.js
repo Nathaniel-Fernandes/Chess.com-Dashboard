@@ -1,4 +1,8 @@
 import axios from "axios";
+import { store } from '../State/store'
+
+// export const addLogSelector = state => state.setDebugLogs
+export const addLog = store.getState().setDebugLogs
 
 /**
  * @param {string} url the incomplete url

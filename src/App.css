@@ -8,6 +8,11 @@
     --select-arrow: var(--select-border);
 }
 
+.inactivated {
+    pointer-events: none;
+    /* position: fixed; */
+}
+
 .App {
     min-width: 650px;
     max-width: 1100px;
@@ -220,12 +225,12 @@
 .modal-root-form {
     border-radius: 10px;
     box-shadow: 0 .3rem .63rem .07rem rgba(0,0,0,.4);
+    border: 1px solid rgba(0,0,0,.4);
 }
 .username-form {
     max-width: 350px;
     height: max-content;
     border-radius: inherit;
-    border: 1px solid rgba(0,0,0,.4);
     z-index: inherit;
 }
 
@@ -263,7 +268,7 @@ red: e03131
 
 .username-form-input {
     padding: 10px;
-    margin: 20px 10px;
+    margin: 10px 10px 0 10px;
     width: calc(100% - 20px);
     border: 1px solid black;
 }
@@ -272,16 +277,16 @@ red: e03131
     display: flex;
     height: 40px;
     margin: 10px;
-    flex-grow: 1;
-    width: calc(100% - 20px);    
+    width: calc(100% - 20px);   
+
 }
 
 button {
-    cursor: pointer
+    cursor: pointer;
 }
 button.orange-button {
     background-color: #f19729;
-    border: none;
+    border: 1px solid #b16100;
     border-radius: 2px;
     color: white;
     font-weight: bold;
@@ -296,34 +301,107 @@ button.grey-button {
     /* border: none; */
     border-radius: 2px;
 }
+button.green-button {
+    border: 1px solid rgb(63, 133, 43);
+    border-radius: 2px;
+    color: white;
+    font-weight: 900;
+    font-size: 17px;
+    background-color: rgb(98, 169, 78);
+}
 
-.username-form-buttons > button:first-child {
-    padding-left: 5px;
-    margin-left: 5px;
+.username-form-buttons > button:last-child {
+    margin-right: 0;
 }
 .username-form-buttons > button {
     flex-grow: 1;
-    padding-right: 5px;
     margin-right: 5px;
-    /* padding:0.5em 3em;
-    border:0.16em solid #312e2b;
-    margin:0 0.3em 0.3em 0;
-    box-sizing: border-box;
-    text-decoration:none;
-    text-transform:uppercase;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight:bold;
-    color:#0c090d;
-    text-align:center;
-    transition: all 0.15s;
-    background-color: #FFF;
-    font-size: 14px; */
 }
 
 .form-content {
     text-align: center;
+    margin: 10px;
 }
 
-.form-content > span {
+.form-content > span, .form-message > span {
     text-decoration: underline #000 dotted;
+}
+
+.form-message {
+    margin: 10px 10px 15px 10px;
+}
+
+.form-message > label {
+    display:block;
+    font-weight: bold;
+    text-align: center;
+}
+
+.terms-conditions {
+    margin: 10px 0 10px 10px;
+}
+
+.terms-conditions > div {
+    margin: 5px 0;
+}
+
+input[type="checkbox"] {
+    position: absolute;
+}
+input[type="checkbox"] ~ label {
+    display: inline-block;
+    padding-left: 1.4em;
+}
+
+.form-page-counter {
+    display: flex;
+    justify-content: center;
+}
+.form-page-counter > div {
+    width: 10px;
+    height: 10px;
+    background-color: #c2c2c2;
+    margin: 0 5px 5px 0;
+    border-radius: 50%;
+}
+
+.form-page-counter > div.selected {
+    background-color: #666463;
+}
+
+.modal-analysis-progress {
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 .3rem .63rem .07rem rgba(0,0,0,.4);
+    border: 1px solid rgba(0,0,0,.4);
+    background: white;
+    padding: 0 20px;
+}
+
+.modal-analysis-progress > h1 {
+    text-align: center;
+}
+
+.loadingSpinner {
+    padding-left: calc(48% - 25px);
+    /* margin-bottom: 10px; */
+    display:block;
+    width: 100%;
+    height: 60px;
+}
+
+.progress-bar {
+    width: 100%
+}
+
+progress[value] {
+    width: 100%;
+}
+
+.debugging-logs {
+    resize: none;
+    width: 100%;
+    height: 90px;
+    margin: 10px 0;
 }

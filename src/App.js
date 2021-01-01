@@ -1,51 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { initializeState } from "./BusinessLogic/Initialize";
 import { store } from "./State/store";
 import NameHeader from "./components/NameHeader";
 import ChartContainer from "./components/ChartContainer";
-import Opening_Table from "./Tables/Table_Openings";
-import UsernameForm from "./LoadingForms/UsernameForm";
 import FormCard from './LoadingForms/Card'
+import AnalysisProgress from './LoadingForms/AnalysisProgress'
 
 function App() {
 	const loading = store((state) => state.isLoading);
-	console.log(loading);
-	// const [initialized, setInitialized] = useState(true);
-	const [popupBlocker, setPopupBlocker] = useState(false);
-
-	useEffect(() => {
-		const t = window.open("", "_blank");
-		if (t === null || t === undefined || !t) {
-		setPopupBlocker(true);
-		return;
-		}
-		t.close();
-		// setTimeout()
-	}, []);
-	// console.log(JSON.stringify(store.getState()))
+	const analyzing = store(state => state.analysisStarted);
 
 	return (
 		<>
-			<div className="App">
-				<FormCard />
-				{loading ? (
-					<button
-					onClick={() => {
-						initializeState();
-						console.log("initialization");
-					}}
-					>
-					Click to Start
-					</button>
-				) : (
-					[<NameHeader />, <ChartContainer />]
-				)}
+			{ loading === true ? <FormCard /> :
+				<div className="App">
+					<p>{loading ? "Loading" : "View"}</p>
+					<NameHeader />
+					<ChartContainer />
+				</div>
+			}
 
-				{popupBlocker ? "Please disable your popup blocker" : ""}
+			{
+				analyzing === true ? <AnalysisProgress /> : null
+			}
+			{/* <AnalysisProgress /> */}
 
-				<p>{loading ? "Loading" : "View"}</p>
-			</div>
-			{/* <div id="modal-root-form" /> */}
 		</>
   );
 }
