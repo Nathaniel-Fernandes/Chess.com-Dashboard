@@ -53,8 +53,8 @@ export const initializeState = () => {
 				for(let i = 0; i < maxGamesAllowed; i++) {
 					AnalyzeGame(store.getState().Games[i]);
 					console.log(`Request data Game ${i}`)
-					addLog(`Request data: Game ${i}`)
-
+					addLog(`[REQUEST] Data for Game ${store.getState()?.Games?.[i]?.id}`)
+					
 					await timeout(1000);
 				}
 			}).then(() => {

@@ -22,7 +22,8 @@ export const store = create((set) => ({
 		0: "Starting process",
 		1: "Collecting games",
 		2: "Getting Analysis Data",
-		3: "Finished!"
+		3: "Requesting Chess.com Analysis",
+		4: "Done! Please close."
 	},
 	analysisPart: 0,
 	setAnalysisPart: (part) => set(state => ({ analysisPart: part})),

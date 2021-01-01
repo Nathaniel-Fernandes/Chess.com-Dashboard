@@ -38,6 +38,14 @@ const ProgressBar = () => {
     const receivedGameData = store(state => state.receivedGameID.length)
     const failedGameData = store(state => state.failedGameID.length)
 
+    useEffect(() => {
+        if(receivedGameData + failedGameData === maxGames) {
+            store.getState().setAnalysisPart(4);
+        }
+    }, [receivedGameData, failedGameData])
+
+    // console.log(receivedGameData, failedGameData, maxGames)
+
     return (
         <div className="progress-bar">
             <progress max={maxGames} value={receivedGameData + failedGameData} />
@@ -47,7 +55,9 @@ const ProgressBar = () => {
                   analysisPart === 2 ?
                     `${analysisSteps[2]}` : 
                   analysisPart === 3 ?
-                    `${analysisSteps[3]}` : null
+                    `${analysisSteps[3]}` : 
+                  analysisPart === 4 ?
+                    `${analysisSteps[4]}` : null
                 }
             </span>
         </div>
@@ -70,9 +80,6 @@ const DebuggingLogs = () => {
         }
     }, [logs.length])
 
-    // useEffect(() => {
-    //     document.getElementById("debug-logs").scrollTop = document.getElementById("debug-logs").scrollHeight
-    // },[])
 
     return (
         <textarea id="debug-logs" ref={textAreaRef} className="debugging-logs" value= {value} />

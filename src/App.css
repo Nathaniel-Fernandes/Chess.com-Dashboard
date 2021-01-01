@@ -404,4 +404,5 @@ progress[value] {
     width: 100%;
     height: 90px;
     margin: 10px 0;
+    border: 1px solid black;
 }

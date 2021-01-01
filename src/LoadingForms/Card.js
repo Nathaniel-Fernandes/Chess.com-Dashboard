@@ -58,7 +58,7 @@ const testPopup = async (setPopupBlocker) => {
     // const t = await new Promise(resolve => setTimeout(() => resolve(window.open("", "_blank")), 2500));
     const t = window.open("", '_blank');
     try {
-        t.document.write("You are most likely good to go! Please close this tab and continue.")
+        t.document.write("You are most likely good to go! Please close this tab and continue. (Popup opened by Chess Intellect)")
     } catch(err) {
         console.log(err)
     }

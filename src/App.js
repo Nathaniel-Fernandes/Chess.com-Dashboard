@@ -8,6 +8,8 @@ import AnalysisProgress from './LoadingForms/AnalysisProgress'
 function App() {
 	const loading = store((state) => state.isLoading);
 	const analyzing = store(state => state.analysisStarted);
+	const analysisPart = store(state => state.analysisPart)
+
 
 	return (
 		<>
@@ -20,9 +22,9 @@ function App() {
 			}
 
 			{
-				analyzing === true ? <AnalysisProgress /> : null
+				analyzing === true || (analysisPart >= 1 && analysisPart <= 3)
+					? <AnalysisProgress /> : null
 			}
-			{/* <AnalysisProgress /> */}
 
 		</>
   );

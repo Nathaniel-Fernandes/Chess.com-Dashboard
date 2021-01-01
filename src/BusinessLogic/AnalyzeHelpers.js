@@ -31,7 +31,7 @@ export const getGameData = async (id, time = 1) => {
                             setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
                         })
                     }
-                    else if (time <= 3) {
+                    else if (time < 3) {
                         console.warn(`Tried to retrieve game ${id} ${time} times`)
                         addLog(`Tried to retrieve game ${id} ${time} times`)
 
@@ -42,7 +42,7 @@ export const getGameData = async (id, time = 1) => {
                             setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
                         })
                     }
-                    if (time === 4) {
+                    else {
                         store.getState().setFailedGameID(id)
                         addLog(`[ERROR] Failed to retrieve game ${id} after 3 attempts`)
                         throw {
