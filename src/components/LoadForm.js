@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { store } from '../State/store';
 
 const LoadForm = () => {
     const [uname, setUname] = useState("");

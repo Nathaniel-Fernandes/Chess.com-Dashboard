@@ -1,5 +1,4 @@
-import React, { useRef, useEffect } from "react";
-import { createPortal } from "react-dom";
+import { useRef, useEffect } from "react";
 
 /**
  * Creates DOM element to be used as React root.

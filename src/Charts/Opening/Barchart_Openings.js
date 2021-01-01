@@ -26,7 +26,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
         setLoading(() => true)
         const d = {}
 
-        white.map((e) => {
+        white.forEach(e => {
             // console.log(e)
             const o = e.name.substring(0,2);
             if(d[o]) {
@@ -38,7 +38,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
             }
         })
 
-        black.map((e) => {
+        black.forEach(e => {
             // console.log(e)
             const o = e.name.substring(0,2);
             if(d[o]) {
@@ -52,7 +52,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
         
         const final = Object.values(d)
         let maxValue = max;
-        final.map((e) => {
+        final.forEach(e => {
             if((e.Won || 0) + (e.Lost || 0) > maxValue)  {
                 maxValue = (e.Won || 0) + (e.Lost || 0);
             }

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { CreateURL, GetURL } from '../BusinessLogic/helpers';
-import { UserProfileURL } from '../BusinessLogic/urls';
-import Portal from '../Portal'
-import { ChesscomMembership, ChesscomLoginURL, CorsProxy } from '../BusinessLogic/urls'
+import { GetURL } from '../BusinessLogic/helpers';
+import { ChesscomLoginURL, CorsProxy } from '../BusinessLogic/urls'
 
 const chooseBackgroundColor = (loggedIn) => {
     if(loggedIn === true) {
@@ -41,7 +39,7 @@ const ChesscomLogin = ({ setPage }) => {
                 <div className="username-form-buttons">
                     <button onClick={() => setPage(page => page - 1)} className="grey-button">Back</button>
                     {loggedIn === true ? <button onClick={() => setPage(page => page + 1)} className="orange-button">Proceed</button> :
-                        [<button onClick={() => { setLoggedIn(true); window.open(ChesscomLoginURL, '_blank');}} className="orange-button">Log In</button>]
+                        <button onClick={() => { setLoggedIn(true); window.open(ChesscomLoginURL, '_blank');}} className="orange-button">Log In</button>
                     }
                 </div>
             </div>

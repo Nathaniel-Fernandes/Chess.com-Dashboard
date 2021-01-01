@@ -69,9 +69,8 @@ const PieChart = ({ data, width, height, marginDef = false }) => {
             radialLabelsLinkHorizontalLength={8}
             radialLabelsLinkDiagonalLength={24}
             sliceLabelsSkipAngle={10}
-            sliceLabelsSkipAngle={10}
             borderWidth={1}
-            borderColor="#a17a5b"
+            // borderColor="#a17a5b"
             theme={theme}
             borderColor={borderColor}
             defs={patterns}

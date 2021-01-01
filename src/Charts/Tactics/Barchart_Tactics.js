@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { store } from '../../State/store'
-import { ResponsiveBar, Bar } from '@nivo/bar'
+import { Bar } from '@nivo/bar'
 
 const Barchart_Tactics = ({ width, height }) => {
 

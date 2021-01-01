@@ -16,10 +16,10 @@ const ChartContainer = () => {
             <ChartTabs tab={tab} setTab={setTab} />
 
             { (tab === 'charts') ?
-                [<div className="chart-container">
-                <Chart chart={chart}/>
-                <ChartSidebar chart={chart} setChart={setChart} />
-            </div>,<TableComponent chart={chart} />] : null
+                [<div className="chart-container" key="11">
+                    <Chart chart={chart}/>
+                    <ChartSidebar chart={chart} setChart={setChart} />
+                </div>,<TableComponent chart={chart} key="12" />] : null
 
             }
             

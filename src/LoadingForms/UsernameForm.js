@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { CreateURL, GetURL } from '../BusinessLogic/helpers';
 import { UserProfileURL } from '../BusinessLogic/urls';
-import Portal from '../Portal'
 import { store } from '../State/store'
 import { ChesscomMembership } from '../BusinessLogic/urls'
 
@@ -83,14 +82,14 @@ const UsernameForm = ({ setPage }) => {
                 </p> : null
             }
             {(premium !== true && premium !== false && valid !== false) ?
-                [<input 
+                <input 
                     onChange={handleSetUsername} 
                     onKeyDown={e => handleKeyPress(e)}
                     value={username}
                     placeholder="Chess.com username" 
                     type="text"
                     className="username-form-input"
-                />] : null
+                /> : null
             }
 
             <UsernameFormButtons 
@@ -121,15 +120,15 @@ const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsern
         <div className="username-form-buttons">
             {
                 (valid === false || premium === false) ? 
-                    [<button onClick={() => resetValidation()} className="grey-button">Retry</button>] : null
+                    <button onClick={() => resetValidation()} className="grey-button">Retry</button> : null
             }
             {
                 (valid === null && premium === null) ?
-                [<button onClick={() => validateUsername(username)} className="orange-button">Validate</button>] : null
+                <button onClick={() => validateUsername(username)} className="orange-button">Validate</button> : null
             }
             {
                 (valid === true && premium === false) ? 
-                [<button onClick={() => window.open(ChesscomMembership, '_blank')} className="green-button">Free Trial</button>] : null
+                <button onClick={() => window.open(ChesscomMembership, '_blank')} className="green-button">Free Trial</button> : null
             }
             {
                 (premium === true) ? <button onClick={() => nextPage(username)} className="orange-button">Proceed</button> : null

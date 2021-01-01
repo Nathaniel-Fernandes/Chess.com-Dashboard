@@ -12,11 +12,12 @@ export const getGameData = async (id, time = 1) => {
     // function input validation
     ValidGameID(id);
     if(time <= 0 || time >= 5) {
-        throw {
+
+        throw new Error(JSON.stringify({
             message: "Invoked getGameData too many times",
             the_id: id,
             the_time: time
-        }
+        }))
     }
 
     return getGameAnalysis(id)
@@ -45,10 +46,10 @@ export const getGameData = async (id, time = 1) => {
                     else {
                         store.getState().setFailedGameID(id)
                         addLog(`[ERROR] Failed to retrieve game ${id} after 3 attempts`)
-                        throw {
+                        throw new Error(JSON.stringify({
                             message: `Could not retrieve game data got ${id} after 3 attempts`,
                             response: res.data
-                        }
+                        }))
                     }
                 }
                 // got data values
@@ -84,15 +85,16 @@ export const newAnalysis = async ( id ) => {
  */
 export const openWindow = async ( url ) => {
     if (typeof(url) !== "string") {
-        throw {
+        throw new Error(JSON.stringify({
             message: "URL is not a valid string",
             type: typeof(url),
             the_url: url
-        }
+        }))
     }
 
     const tab = window.open(url, '_blank');
-    return setTimeout(() => tab.close(), 15000) // 
+    
+    return (tab !== null || !!tab) ? setTimeout(() => tab.close(), 15000) : null // 
 }
 
 /**
@@ -112,12 +114,12 @@ export const getGameAnalysis = async ( id ) => {
  * @param {number|string} id checks if the GameID is valid
  */
 export const ValidGameID = (id) => {
-    if (Number(id) === NaN || Number(id) <= 1) {    // I believe 2 is the lowest game id
-        throw {
+    if (isNaN(Number(id)) || Number(id) <= 1) {    // I believe 2 is the lowest game id
+        throw new Error(JSON.stringify({
             message: "ID is not a valid number",
             type: typeof(id),
             the_id: id
-        }
+        }))
     }
 }
 
@@ -131,11 +133,11 @@ export const phase = (ply, phaseArr) => {
     const numPhases = phaseArr.length;
 
 
-    if(ply === NaN || ply < 0) {
-        throw {
+    if(isNaN(ply) || ply < 0) {
+        throw new Error(JSON.stringify({
             message: "Invalid ply.",
             ply: ply
-        }
+        }))
     }
 
 
@@ -157,18 +159,18 @@ export const plyPercent = (ply, total) => {
     ply = Number(ply)
     total = Number(total)
 
-    if(ply === NaN || total === NaN) {
-        throw {
+    if(isNaN(ply) || isNaN(total)) {
+        throw new Error(JSON.stringify({
             message: "Invalid ply or total ply",
             ply: ply,
             total: total
-        }
+        }))
     } else if(ply < 0 || total < 0) {
-        throw {
+        throw new Error(JSON.stringify({
             message: "Ply cannot be negative",
             ply: ply,
             total: total
-        }
+        }))
     }
 
     if(total - 1 !== 0) {
@@ -208,12 +210,12 @@ export const calculateClockTime = (times, ply, timecontrol) => {
     const total = totalFromTC(timecontrol);
     const increment = incFromTC(timecontrol);
 
-    if(total === NaN || total <= 0 || increment < 0) {
-        throw {
+    if(isNaN(total) || total <= 0 || increment < 0) {
+        throw new Error(JSON.stringify({
             message: "Invalid time control or increment",
             total: total,
             increment: increment
-        }
+        }))
     }
 
     // if(ply) 

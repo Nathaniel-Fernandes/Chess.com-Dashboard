@@ -6,9 +6,3 @@ export const CorsProxy = 'https://mysterious-harbor-28403.herokuapp.com/'
 export const ChesscomMembership = 'https://www.chess.com/membership?ref_id=9730606'
 export const ChesscomLoginURL = 'https://www.chess.com/login_and_go'
 
-// axios.interceptors.response.use(null, (error) => {
-//     if (typeof error.response === 'undefined') {
-        
-//     }
-//     return Promise.reject(error)
-//   })

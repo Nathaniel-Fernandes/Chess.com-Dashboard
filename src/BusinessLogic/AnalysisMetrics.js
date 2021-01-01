@@ -35,7 +35,7 @@ export const AnalyzeCastle = ( data, gameObj ) => {
         return;
     }
 
-    if(plyCastled != -1) { // -1 means did not castle
+    if(plyCastled !== -1) { // -1 means did not castle
         plyCastled++;   // correct for TRUE ply (data starts @ 0 when should start at 1)
 
         record.castled = true;
@@ -67,10 +67,10 @@ export const AnalyzeClassification = (type, data, gameObj) => {
     
     // input validation
     if(!allowed.includes(type)) {
-        throw {
+        throw new Error(JSON.stringify({
             message: "invalid move type",
             type: type
-        }
+        }))
     }
 
     if(p === undefined || p === null || !p) {

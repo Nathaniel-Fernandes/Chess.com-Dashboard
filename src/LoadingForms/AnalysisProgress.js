@@ -42,9 +42,10 @@ const ProgressBar = () => {
         if(receivedGameData + failedGameData === maxGames) {
             store.getState().setAnalysisPart(4);
         }
+        console.log(receivedGameData, failedGameData, maxGames)
+
     }, [receivedGameData, failedGameData])
 
-    // console.log(receivedGameData, failedGameData, maxGames)
 
     return (
         <div className="progress-bar">
@@ -82,6 +83,6 @@ const DebuggingLogs = () => {
 
 
     return (
-        <textarea id="debug-logs" ref={textAreaRef} className="debugging-logs" value= {value} />
+        <textarea readOnly="true" id="debug-logs" ref={textAreaRef} className="debugging-logs" value= {value} />
     )
 }

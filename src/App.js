@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { store } from "./State/store";
 import NameHeader from "./components/NameHeader";
 import ChartContainer from "./components/ChartContainer";

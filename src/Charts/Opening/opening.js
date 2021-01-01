@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Sunburst_ECO from './Sunburst_ECO'
+import SUNBURST_ECO from './Sunburst_ECO'
 import { store } from '../../State/store'
-import Barchart_Openings from './Barchart_Openings'
+import BARCHART_OPENINGS from './Barchart_Openings'
 
 
 export const Opening_Data = ({ type, width, height }) => {
@@ -19,7 +19,7 @@ export const Opening_Data = ({ type, width, height }) => {
         const b = {};
 
         // console.log(data)
-        data.filter((obj) => obj.color.toLowerCase() === "white").map((e, i, arr) => {
+        data.filter((obj) => obj.color.toLowerCase() === "white").forEach((e, i, arr) => {
             if(w?.[e.eco]) {
                 w[e.eco].value += 1
             } else {
@@ -37,7 +37,7 @@ export const Opening_Data = ({ type, width, height }) => {
             else w[e.eco].loss += 1
         })
 
-        data.filter((obj) => obj.color.toLowerCase() === "black").map((e, i, arr) => {
+        data.filter((obj) => obj.color.toLowerCase() === "black").forEach((e, i, arr) => {
             // console.log(this)
             if(b?.[e.eco]) {
                 b[e.eco].value += 1
@@ -65,12 +65,12 @@ export const Opening_Data = ({ type, width, height }) => {
     if(!loading) {
         if(type.toLowerCase() === "sunburst") {
             return (
-                <Sunburst_ECO white={white} black={black} width={width} height={height} />
+                <SUNBURST_ECO white={white} black={black} width={width} height={height} />
             )
         } 
         else if(type.toLowerCase() === "bar" || type.toLowerCase() === 'barchart') {
             return (
-                <Barchart_Openings white={white} black={black} width={width} height={height} />
+                <BARCHART_OPENINGS white={white} black={black} width={width} height={height} />
             )
         }
     }

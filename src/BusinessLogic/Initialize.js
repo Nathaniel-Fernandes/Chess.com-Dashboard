@@ -12,7 +12,7 @@ import {
 	getOpponentfromGame,
 	// addLogSelector, 
 	addLog } from './helpers';
-import { Analyze, AnalyzeGame } from '../BusinessLogic/Analyze';
+import { AnalyzeGame } from '../BusinessLogic/Analyze';
 
 export const timeout = (ms = 5000) => { 
 	return new Promise((resolve) => setTimeout(resolve, ms));

@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { store } from "../State/store"
-import DataGrid from 'react-data-grid'
 import 'react-data-grid/dist/react-data-grid.css'
-import { DateFromGameSeconds } from '../BusinessLogic/helpers'
 import Table from './Table'
 
 const TacticsTable = () => {

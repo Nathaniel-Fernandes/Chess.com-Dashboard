@@ -1,5 +1,5 @@
 import React from 'react'
-import  { ResponsiveScatterPlot, ScatterPlot } from '@nivo/scatterplot'
+import  { ScatterPlot } from '@nivo/scatterplot'
 
 const Scatter = ({ data, width, height }) => {
 	const margin = { top: 60, right: 140, bottom: 70, left: 90 };

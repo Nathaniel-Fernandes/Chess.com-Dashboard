@@ -32,10 +32,10 @@ export const IDfromURL = (url) => {
 	const id = url.match(/\d{1,13}/g)
 
 	if(id.length !== 1) {
-		throw {
+		throw new Error(JSON.stringify({
 			message: "IDfromURL to many matches",
 			obj: id
-		} 
+		}))
 	}
 
 	return Number(id[0])
@@ -63,12 +63,12 @@ export const ColorfromGame = (gameObj, uname) => {
 	}
 
 	else {
-		throw {
+		throw new Error(JSON.stringify({
 			message: "Cannot find username in game. Perhaps this is the wrong game ID",
 			username: uname,
 			white: gameObj.white.username,
 			black: gameObj.black.username
-		}
+		}))
 	}
 }
 
@@ -121,10 +121,10 @@ export const DateFromGameSeconds = (seconds, humanReadable = true) => {
 export const ResultFromGame = (gameObj, color) => {
 	// console.log(color)
 	if(color !== "white" && color !== "black") {
-		throw {
+		throw new Error(JSON.stringify({
 			message: "Not a valid color",
 			color: color
-		}
+		}))
 	}
 
 	return gameObj[color].result;

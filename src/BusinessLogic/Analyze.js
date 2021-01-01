@@ -1,12 +1,10 @@
-import { getGameData, phase, plyPercent, ValidGameID } from './AnalyzeHelpers';
-import { store } from '../State/store';
+import { getGameData, ValidGameID } from './AnalyzeHelpers';
 import { 
     AnalyzeCastle, 
     AnalyzeClassification, 
     AnalyzeOpenings,
     AnalyzeGamePatterns,
     AnalyzeAllTactics,
-    AnalyzeEndgames,
     AddCaps
 } from './AnalysisMetrics';
 
@@ -22,11 +20,11 @@ export const AnalyzeGame = async (game) => {
     // console.log("game: ", game)
 
     if(!data) {
-        throw {
+        throw new Error(JSON.stringify({
             message: `Data is undefined for ${game.id}`,
             data: data,
             game: game
-        }
+        }))
         // just get this to request another game
     }
 

@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { CreateURL, GetURL } from '../BusinessLogic/helpers';
-import { UserProfileURL } from '../BusinessLogic/urls';
-import Portal from '../Portal'
-import { ChesscomMembership, ChesscomLoginURL, CorsProxy } from '../BusinessLogic/urls'
 import { initializeState } from "../BusinessLogic/Initialize";
 import { store } from '../State/store'
 
@@ -36,7 +32,7 @@ const TermsForm = ({ setPage }) => {
             <div className="username-form">
                 <p className="username-form-instructions" style={chooseBackgroundColor(agreed)}>{
                     (agreed !== true) ? `Please agree to the Terms & Conditions.` :
-                    "Start the analysis! Allow 5-10 minutes per 100 games."
+                    "Start! Allow 5-10 min per 100 games"
                 }</p>
                 { agreed !== true ?
                     <div className="terms-conditions">
