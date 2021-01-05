@@ -38,11 +38,11 @@ const TermsForm = ({ setPage }) => {
                     <div className="terms-conditions">
                         <div>
                             <input type="checkbox" id="access" checked={button1} onChange={() => setButton1(prev => !prev)} />
-                            <label for="access">You allow Chess Intellect access to your Chess.com games and analysis reports.</label>
+                            <label htmlFor="access">You allow Chess Intellect access to your Chess.com games and analysis reports.</label>
                         </div>
                         <div>
                             <input id="gameAnalysis" type="checkbox" checked={button2} onChange={() => setButton2(prev => !prev)} ></input>
-                            <label for="gameAnalysis">If a game isn't previously analyzed, you want Chess Intellect to request that Chess.com analyzes that game on your behalf.</label>
+                            <label htmlFor="gameAnalysis">If a game isn't previously analyzed, you want Chess Intellect to request that Chess.com analyzes that game on your behalf.</label>
                         </div>
                     </div> : null
                 }
@@ -61,5 +61,7 @@ const TermsForm = ({ setPage }) => {
             </div>
     )
 }
+
+TermsForm.whyDidYouRender = true
 
 export default TermsForm;

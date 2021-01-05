@@ -47,7 +47,7 @@ export const initializeState = () => {
 					
 					return GameIDfromArchive();
 			})
-			.then(async (res) => {
+			.then(async () => {
 				store.getState().setAnalysisPart(2) // set part to "getting analysis data"
 
 				for(let i = 0; i < maxGamesAllowed; i++) {
@@ -63,9 +63,11 @@ export const initializeState = () => {
 				
 				store.getState().setLoadingFalse();
 
-				store.getState().setAnalysisPart(3) // set part to "Finished!"
+				// store.getState().setAnalysisPart(3) // set part to "Finished!"
 				store.getState().setAnalysisEnded();
 
+			}).catch(err => {
+				console.log(err)
 			})
 	}
 }
@@ -128,6 +130,7 @@ const GameIDfromArchive = async () => {
 							// console.log("GN in loop: ", gamenum)
 						}
 					})
+					.catch(err => console.log(err))
 				i--;	
 			}
 		

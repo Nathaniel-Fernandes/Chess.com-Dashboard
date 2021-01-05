@@ -50,4 +50,6 @@ const Pie_Reason4Loss = ({ width, height }) => {
     return null; // default return if loading
 }
 
+Pie_Reason4Loss.whyDidYouRender = true
+
 export default Pie_Reason4Loss;

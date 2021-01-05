@@ -31,7 +31,7 @@ const Table_Game = () => {
         console.log(blunders)
         const t = []
 
-        blunders.map(e => {
+        blunders.forEach(e => {
             t.push(
                 {
                     date: e.date.split(" ")[0],
@@ -52,7 +52,7 @@ const Table_Game = () => {
             )
         })
 
-        mistakes.map(e => {
+        mistakes.forEach(e => {
             t.push(
                 {
                     date: e.date.split(" ")[0],
@@ -73,7 +73,7 @@ const Table_Game = () => {
             )
         })
 
-        inaccuracy.map(e => {
+        inaccuracy.forEach(e => {
             t.push(
                 {
                     date: e.date.split(" ")[0],
@@ -101,6 +101,8 @@ const Table_Game = () => {
         <Table customCol={columns} data={rows} />
     )
 }
+
+Table_Game.whyDidYouRender = true
 
 export default Table_Game
 

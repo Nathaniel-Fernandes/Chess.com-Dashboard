@@ -13,4 +13,6 @@ const ResponsiveHistogram = withParentSize(({width, height, ...rest}) => {
     
 });
 
+ResponsiveHistogram.whyDidYouRender = true
+
 export default ResponsiveHistogram;

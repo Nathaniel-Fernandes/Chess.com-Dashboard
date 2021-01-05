@@ -19,8 +19,8 @@ const Histogram_MoveTime = ({ type = "blunder", x = "percent", width, height }) 
     }
 
     const DataAccessor = {
-        percent: datum => datum.timeToThinkPercent,
-        value: datum => datum.timeToThink
+        percent: datum => datum?.timeToThinkPercent,
+        value: datum => datum?.timeToThink
     }
 
     // console.log(blunders, mistakes)
@@ -59,5 +59,7 @@ const Histogram_MoveTime = ({ type = "blunder", x = "percent", width, height }) 
         </ResponsiveHistogram>
     )
 }
+
+Histogram_MoveTime.whyDidYouRender = true
 
 export default Histogram_MoveTime

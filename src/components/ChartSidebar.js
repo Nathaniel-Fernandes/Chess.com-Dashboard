@@ -82,12 +82,15 @@ const OpeningChartsName = ({ setChart, chart }) => {
 
 const TacticsChartsName = ({ setChart, chart }) => {
     const li = [
-        {id: "tactics_barchart", name: "Barchart - Tactics Categories"},
-        {id: "tactics_barchart_phases", name: "Barchart - Tactics vs. Phases"}
+        {id: "tactics_barchart", name: "Tactics"},
+        {id: "tactics_barchart_phases", name: "Tactics v. Game Phases"}
     ]
 
     return (
         li.map((e,i) => <li key={i} data-selected={(chart === e.id)} onClick={() => setChart(() => e.id)}>{e.name}</li>)
     )
 }
+
+ChartSidebar.whyDidYouRender = true
+
 export default ChartSidebar;

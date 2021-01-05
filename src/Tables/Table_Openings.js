@@ -26,7 +26,7 @@ const Table_Opening = () => {
         // console.log('hi')
         const data = {};
         
-        openings.map((e, i) => {
+        openings.forEach((e, i) => {
             if(!data[e.eco]) {
                 data[e.eco] = {
                     eco: e.eco,
@@ -50,7 +50,7 @@ const Table_Opening = () => {
             }
         })
         
-        Object.keys(data).map(e => {
+        Object.keys(data).forEach(e => {
             data[e].aveCaps = data[e].aveCaps.toFixed(1)
         })
         setRows(() => Object.values(data))
@@ -62,5 +62,7 @@ const Table_Opening = () => {
         <Table customCol={columns} data={rows} width={720} />
     )
 }
+
+Table_Opening.whyDidYouRender = true
 
 export default Table_Opening

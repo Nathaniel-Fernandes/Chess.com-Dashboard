@@ -9,11 +9,11 @@ const Pie_Results = ({ width, height }) => {
     
     const data = store(state => state.Games)
     const [loading, setLoading] = useState(true)
-    const [reason, setReason] = useState(defaultState)
+    const [reason, setReason] = useState({"win":0,"draw":0,"loss":0})
 
     useEffect(() => {
         setLoading(() => true)
-        setReason(() => defaultState)
+        setReason(() => { return {"win":0,"draw":0,"loss":0}})
 
         for(let i = 0; i < data.length; i++) {
             const type = data[i].result;
@@ -51,6 +51,8 @@ const Pie_Results = ({ width, height }) => {
 
     return null; // default return
 }
+
+Pie_Results.whyDidYouRender = true
 
 export default Pie_Results;
 

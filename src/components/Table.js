@@ -1,8 +1,8 @@
 import React from 'react';
-import Table_Game from '../Tables/Table_Game'
-import Table_Move from '../Tables/Table_Move'
-import Table_Openings from '../Tables/Table_Openings'
-import Table_Tactics from '../Tables/Table_Tactics'
+import TABLE_GAME from '../Tables/Table_Game'
+import TABLE_MOVE from '../Tables/Table_Move'
+import TABLE_OPENINGS from '../Tables/Table_Openings'
+import TABLE_TACTICS from '../Tables/Table_Tactics'
 
 const TableComponent = ({ chart }) => {
     const type = chart.split("_")[0].toLowerCase();
@@ -11,13 +11,15 @@ const TableComponent = ({ chart }) => {
         <>
             <h3 className="table-list-label">Corresponding Data</h3>
             { 
-                (type === "game") ? <Table_Game /> :
-                (type === "move") ? <Table_Move /> :
-                (type === "opening") ? <Table_Openings /> :
-                (type === "tactics") ? <Table_Tactics /> : null
+                (type === "game") ? <TABLE_GAME /> :
+                (type === "move") ? <TABLE_MOVE /> :
+                (type === "opening") ? <TABLE_OPENINGS /> :
+                (type === "tactics") ? <TABLE_TACTICS /> : null
             }
         </>
     )
 }
+
+TableComponent.whyDidYouRender = true
 
 export default TableComponent;

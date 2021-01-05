@@ -78,4 +78,6 @@ export const Opening_Data = ({ type, width, height }) => {
     return null
 }
 
+Opening_Data.whyDidYouRender = true
+
 export default Opening_Data;

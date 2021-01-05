@@ -14,7 +14,8 @@ const FormCard = () => {
     const [testing, setTesting] = useState(false)
 
 
-    useEffect(async () => {
+    useEffect(() => {
+        async function testing() {
         if(timesTested !== 0) {
             setTesting(true)
 
@@ -22,7 +23,9 @@ const FormCard = () => {
 
             testPopup(setPopupBlocker)
             setTesting(false)
-        }
+        }}
+
+        testing()
 		// t.close();
     }, [timesTested])
 
@@ -51,6 +54,8 @@ const FormCard = () => {
         </Portal>
     )
 }
+
+FormCard.whyDidYouRender = true
 
 export default FormCard;
 
@@ -118,7 +123,7 @@ const popupBlockerChecker = {
     },
 
     is_popup_blocked: function(scope, popup_window) {
-        if ((popup_window.innerHeight > 0) == false){ 
+        if ((popup_window.innerHeight > 0) === false){ 
             return scope.displayError();
         }
         // console.log('path 4')

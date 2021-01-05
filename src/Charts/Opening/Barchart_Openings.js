@@ -148,4 +148,6 @@ const Barchart_Openings = ({ white, black, width, height }) => {
  
 }
 
+Barchart_Openings.whyDidYouRender = true
+
 export default Barchart_Openings;

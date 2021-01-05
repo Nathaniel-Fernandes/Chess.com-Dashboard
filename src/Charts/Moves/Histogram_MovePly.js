@@ -19,8 +19,8 @@ const Histogram_MovePly = ({ type = "blunder", x = "percent", width, height }) =
 
     // this is only unique thing - might be able to extract
     const DataAccessor = {
-        percent: datum => datum.plyPercent,
-        value: datum => datum.ply
+        percent: datum => datum?.plyPercent,
+        value: datum => datum?.ply
     }
 
 
@@ -61,5 +61,7 @@ const Histogram_MovePly = ({ type = "blunder", x = "percent", width, height }) =
         </ResponsiveHistogram>
     )
 }
+
+Histogram_MovePly.whyDidYouRender = true
 
 export default Histogram_MovePly

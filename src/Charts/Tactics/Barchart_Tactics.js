@@ -19,7 +19,7 @@ const Barchart_Tactics = ({ width, height }) => {
     })
 
     const [the_data, setThe_data] = useState([])
-    const [max, setMax] = useState(0)
+    // const [max, setMax] = useState(0)
 
     
     useEffect(() => {
@@ -40,7 +40,7 @@ const Barchart_Tactics = ({ width, height }) => {
         })
         // console.log(d)
 
-        setMax(() => d[0].Blundered + d[0].Missed + d[0].Got)
+        // setMax(() => d[0].Blundered + d[0].Missed + d[0].Got)
         setThe_data(() => d)
 
     }, [])
@@ -62,6 +62,9 @@ const Barchart_Tactics = ({ width, height }) => {
     } 
 
     return (
+        <>
+        { the_data.reduce((sum, obj) => sum + obj.Blundered + obj.Missed + obj.Got, 0) === 0 ?
+            <p className="no-data-message">No tactics data available. Coming soon!</p> :
         <Bar
             data={
                 the_data.filter(obj => ((obj.Blundered || 0) + (obj.Missed || 0) + (obj.Got || 0) !== 0))
@@ -115,7 +118,12 @@ const Barchart_Tactics = ({ width, height }) => {
                 }
             ]}
         />
+        }
+        </>
     )
+        
 }
+
+Barchart_Tactics.whyDidYouRender = true
 
 export default Barchart_Tactics

@@ -17,9 +17,9 @@ const ChesscomLogin = ({ setPage }) => {
 
     const [loggedIn, setLoggedIn] = useState(null)
 
-    const resetValidation = () => {
-        setLoggedIn(null);
-    }
+    // const resetValidation = () => {
+    //     setLoggedIn(null);
+    // }
 
 
     return (
@@ -46,24 +46,24 @@ const ChesscomLogin = ({ setPage }) => {
     )
 }
 
-const testLoggedIn = async () => {
-    const loggedIn = false;
+// const testLoggedIn = async () => {
+//     let loggedIn = false;
 
-    await GetURL(CorsProxy + 'https://www.chess.com/analysis/game/live/5687380484?tab=report')
-          .then(res => {
-              if(res.data.includes("Upgrade to Save") || res.data.includes("locked-message")) {
-                  loggedIn = false;
-              }
-              else if(res.data.includes("Key Moments") || res.data.includes("Saved Analysis")) {
-                  loggedIn = true
-              }
-              console.log(res.data)
-          }).catch(err => {
-              console.warn(err)
-          })
+//     await GetURL(CorsProxy + 'https://www.chess.com/analysis/game/live/5687380484?tab=report')
+//           .then(res => {
+//               if(res.data.includes("Upgrade to Save") || res.data.includes("locked-message")) {
+//                   loggedIn = false;
+//               }
+//               else if(res.data.includes("Key Moments") || res.data.includes("Saved Analysis")) {
+//                   loggedIn = true
+//               }
+//               console.log(res.data)
+//           }).catch(err => {
+//               console.warn(err)
+//           })
 
-    return loggedIn;
-}
+//     return loggedIn;
+// }
 
-
+ChesscomLogin.whyDidYouRender = true
 export default ChesscomLogin;

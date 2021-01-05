@@ -67,10 +67,11 @@ const Scatter = ({ data, width, height }) => {
 	);
 };
 
+Scatter.whyDidYouRender = true
+
 export default Scatter;
 
 
-{
     /* <ScatterChart width={600} height={400}>
   <CartesianGrid strokeDasharray="3 3" />
   <YAxis type="number" dataKey="CAPS" name="CAPS"/>
@@ -80,7 +81,7 @@ export default Scatter;
   <Scatter name="Black" data={Black} fill= "#33475b" />
   <Legend />
   </ScatterChart> */
-  }
+
   
   // useEffect(() => {
   //   setWhite(() => [])

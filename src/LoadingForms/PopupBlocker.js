@@ -33,8 +33,8 @@ const PopupBlockerForm = ({ setPage, popupBlocker, testPopup, timesTested, testi
                     <p className="form-message">
                         <label>Why?</label>
                         To analyze your games, Chess Intellect will need to open different tabs. Your popup blocker will think these are "ads" and block them, thus preventing the analysis. 
-                        <label>How?</label>These tutorials might be helpful: <a href="https://www.wikihow.com/Allow-Pop–ups" target='_blank'>WikiHow</a> and&nbsp;
-                        <a href="https://support.lesley.edu/support/solutions/articles/4000009686-allowing-pop-ups-for-specific-sites" target="_blank">Lesley's IT Support</a>.
+                        <label>How?</label>These tutorials might be helpful: <a rel="noreferrer noopener" href="https://www.wikihow.com/Allow-Pop–ups" target='_blank'>WikiHow</a> and&nbsp;
+                        <a rel="noreferrer noopener" href="https://support.lesley.edu/support/solutions/articles/4000009686-allowing-pop-ups-for-specific-sites" target="_blank">Lesley's IT Support</a>.
                         Click on the button below to test but it's <strong>not</strong> a 100% guarantee everything is working correctly. You might see a message like "One popup blocked." Please click it and select "Allow popups from chessintellect.com".
                     </p> :
                     <p className="form-message">
@@ -54,5 +54,7 @@ const PopupBlockerForm = ({ setPage, popupBlocker, testPopup, timesTested, testi
             </div>
     )
 }
+
+PopupBlockerForm.whyDidYouRender = true
 
 export default PopupBlockerForm;

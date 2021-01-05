@@ -14,4 +14,6 @@ const LoadForm = () => {
 	</form>
 }
 
+LoadForm.whyDidYouRender = true
+
 export default LoadForm;

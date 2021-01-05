@@ -26,7 +26,7 @@ export const store = create((set) => ({
 		4: "Done! Please close."
 	},
 	analysisPart: 0,
-	setAnalysisPart: (part) => set(state => ({ analysisPart: part})),
+	setAnalysisPart: (part) => { console.log(part); set(state => ({ analysisPart: part}))},
 
 	receivedGameID: [],
 	setReceivedGameID: (id) => set(state => ({ receivedGameID: [...state.receivedGameID, id]})),

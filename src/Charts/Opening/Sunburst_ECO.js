@@ -1,52 +1,65 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo, useCallback } from 'react'
 import { Sunburst } from '@nivo/sunburst'
 import { useTheme } from '@nivo/core'
 
+// place these out here so it's not recreated
+const layers = ['sliceLabels', 'slices']
+const margin = { top: 50, right: 130, bottom: 80, left: 60 }
+const defs = []
+
 const Sunburst_ECO = ({white, black, width, height}) => {
+    const data = useMemo(() => {
+        return {
+            name: "Openings",
+            children: [
+                {
+                    name: "White", 
+                    color:"#FFFFFF", 
+                    children:white, 
+                    description: "White", 
+                    total:white.reduce((a,b) => (a+b.value), 0), 
+                    won:white.reduce((a,b) => (a+b.won), 0),
+                    loss:white.reduce((a,b) => (a+b.loss), 0)
+                },
+                {
+                    name: "Black", 
+                    color:"#000000", 
+                    children:black, 
+                    description: "Black", 
+                    total:black.reduce((a,b)=> (a+b.value), 0), 
+                    won:black.reduce((a,b) => (a+b.won), 0),
+                    loss:black.reduce((a,b) => (a+b.loss), 0)
+                }
+            ]
+        }
+    }, [white.length, black.length])
+
+    const colors = useCallback(({ id }) => pickWhiteBlack(id), [])
+    const childColor = useCallback(() => pickCustomPalette(customPalette2), [])
+    
     return (
         <Sunburst
-            data={
-                {
-                    name: "Openings",
-                    children: [
-                        {
-                            name: "White", 
-                            color:"#FFFFFF", 
-                            children:white, 
-                            description: "White", 
-                            total:white.reduce((a,b) => (a+b.value), 0), 
-                            won:white.reduce((a,b) => (a+b.won), 0),
-                            loss:white.reduce((a,b) => (a+b.loss), 0)
-                        },
-                        {
-                            name: "Black", 
-                            color:"#000000", 
-                            children:black, 
-                            description: "Black", 
-                            total:black.reduce((a,b)=> (a+b.value), 0), 
-                            won:black.reduce((a,b) => (a+b.won), 0),
-                            loss:black.reduce((a,b) => (a+b.loss), 0)
-                        }
-                    ]
-                }
-            }
+            data={data}
             id="name"
             value="value"
             width={width}
             height={height}
-            margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
+            margin={margin}
             cornerRadius={4}
             borderWidth={2}
-            colors={({ id }) => pickWhiteBlack(id)}
-            childColor={() => pickCustomPalette(customPalette2)}
+            colors={colors}
+            childColor={childColor}
             animate={false}
             motionConfig="gentle"
             isInteractive={true}
             tooltip={CustomTooltip}
-            layers={['sliceLabels', 'slices']}
+            layers={layers}
+            defs={defs}
         />
     )
 }
+
+Sunburst_ECO.whyDidYouRender = true
 
 export default memo(Sunburst_ECO);
 

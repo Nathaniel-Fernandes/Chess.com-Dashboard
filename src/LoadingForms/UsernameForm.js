@@ -22,6 +22,11 @@ const UsernameForm = ({ setPage }) => {
         if(e.keyCode === 32) {
             e.preventDefault()
         }
+
+        if(e.code === 'Enter' || e.code === "NumpadEnter") {
+            validateUsername(e.target.value);
+            console.log(e)
+        }
     }
     const handleSetUsername = (e) => {
         if (e.target.value.includes(" ")) {
@@ -137,5 +142,7 @@ const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsern
         </div>
     )
 }
+
+UsernameForm.whyDidYouRender = true
 
 export default UsernameForm;

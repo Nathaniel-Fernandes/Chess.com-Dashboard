@@ -87,4 +87,6 @@ const PieChart = ({ data, width, height, marginDef = false }) => {
     )
 }
 
+PieChart.whyDidYouRender = true
+
 export default PieChart;

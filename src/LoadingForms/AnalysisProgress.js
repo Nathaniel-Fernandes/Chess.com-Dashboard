@@ -25,6 +25,9 @@ const AnalysisProgress = () => {
     )
 }
 
+AnalysisProgress.whyDidYouRender = true
+
+
 export default AnalysisProgress;
 
 const ProgressBar = () => {
@@ -41,6 +44,8 @@ const ProgressBar = () => {
     useEffect(() => {
         if(receivedGameData + failedGameData === maxGames) {
             store.getState().setAnalysisPart(4);
+            console.log(receivedGameData, failedGameData, maxGames)
+
         }
         console.log(receivedGameData, failedGameData, maxGames)
 

@@ -4,6 +4,7 @@ import ChartSidebar from './ChartSidebar';
 import ChartTabs from './ChartTabs'
 import '../App.css'
 import TableComponent from './Table';
+import ResourcesTab from '../Resources/ResourcesTab'
 
 
 const ChartContainer = () => {
@@ -20,7 +21,10 @@ const ChartContainer = () => {
                     <Chart chart={chart}/>
                     <ChartSidebar chart={chart} setChart={setChart} />
                 </div>,<TableComponent chart={chart} key="12" />] : null
-
+            }
+            {
+              (tab === 'resources') ?
+               [<ResourcesTab />] : null
             }
             
 
@@ -28,5 +32,7 @@ const ChartContainer = () => {
         </div>
     )
 }
+
+ChartContainer.whyDidYouRender = true
 
 export default ChartContainer

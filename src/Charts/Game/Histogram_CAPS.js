@@ -1,31 +1,41 @@
-import { store } from '../../State/store'
-import ResponsiveHistogram from '../ResponsiveHistogram';
-import { XAxis,YAxis,BarSeries } from '@data-ui/histogram'
+import { store } from "../../State/store";
+import ResponsiveHistogram from "../ResponsiveHistogram";
+import { XAxis, YAxis, BarSeries } from "@data-ui/histogram";
 
 const Histogram_CAPS = ({ height, width }) => {
-
-  const games = store(state => state.Games)
- 
-    return (
-      <ResponsiveHistogram
-        ariaLabel=""
-        height={height}
-        width={width}
-        orientation="vertical"
-        cumulative={false}
-        binCount={10}
-        binType="numeric"
-        valueAccessor={datum => datum.CAPS}
-        renderTooltip={({ event, datum, data, color }) => (
-            <div>
-              <strong style={{ color }}>{datum.bin0} to {datum.bin1}</strong>
-              <div><strong>count </strong>{datum.count}</div>
-              <div><strong>cumulative </strong>{datum.cumulative}</div>
-              <div><strong>density </strong>{datum.density}</div>
-            </div>
-          )}
-      >
-      <BarSeries animated rawData={games} fill="red"/>
+  const games = store((state) => state.Games);
+	// console.log(games)
+  return (
+    <ResponsiveHistogram
+      ariaLabel=""
+      height={height}
+      width={width}
+      orientation="vertical"
+      cumulative={false}
+      binCount={10}
+      binType="numeric"
+      valueAccessor={(datum) => datum?.CAPS}
+      renderTooltip={({ event, datum, data, color }) => (
+        <div>
+          <strong style={{ color }}>
+            {datum.bin0} to {datum.bin1}
+          </strong>
+          <div>
+            <strong>count </strong>
+            {datum.count}
+          </div>
+          <div>
+            <strong>cumulative </strong>
+            {datum.cumulative}
+          </div>
+          <div>
+            <strong>density </strong>
+            {datum.density}
+          </div>
+        </div>
+      )}
+    >
+      <BarSeries animated rawData={games} fill="red" />
       {/* <DensitySeries
           stroke="#e64980"
           showArea={true}
@@ -34,11 +44,13 @@ const Histogram_CAPS = ({ height, width }) => {
           rawData={blunders}
           fill="red"
       /> */}
-   
+
       <XAxis />
       <YAxis />
-  </ResponsiveHistogram>
-    )
+    </ResponsiveHistogram>
+  );
 };
+
+Histogram_CAPS.whyDidYouRender = true;
 
 export default Histogram_CAPS;

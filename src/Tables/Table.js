@@ -65,7 +65,7 @@ const Table = ({ data, customCol, width = '100%', height = 400, file = "export.c
 
     return (
         <>
-            <button className="export-data" onClick={() => onBtnExportDataAsCsv(gridAPI, file)}>Export (CSV)</button>
+            <button className="yellow-button" onClick={() => onBtnExportDataAsCsv(gridAPI, file)}>Export (CSV)</button>
 
             <div className="ag-theme-balham" style={{ height: height, maxWidth: width}}>
                 <AgGridReact rowData={data} gridOptions={gridOptions}>
@@ -74,5 +74,7 @@ const Table = ({ data, customCol, width = '100%', height = 400, file = "export.c
         </>
     )
 }
+
+Table.whyDidYouRender = true
 
 export default Table;

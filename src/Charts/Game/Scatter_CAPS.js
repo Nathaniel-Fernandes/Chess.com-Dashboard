@@ -46,4 +46,6 @@ const CAPS_Scatter_Chart = ({ width, height }) => {
   return null;
 };
 
+CAPS_Scatter_Chart.whyDidYouRender = true
+
 export default CAPS_Scatter_Chart;
