@@ -1,9 +1,10 @@
 import React from 'react'
 import { XAxis,YAxis,BarSeries,DensitySeries } from '@data-ui/histogram'
+import { baseLabel } from '@data-ui/theme/lib/svgLabel'
 import { store } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram'
 
-const Histogram_MovePly = ({ type = "blunder", x = "percent", width, height }) => {
+const Histogram_MovePly = ({ type = "blunder", x = "value", width, height }) => {
 
     const MoveData = {
         blunder: store(state => state.blunder),
@@ -47,21 +48,45 @@ const Histogram_MovePly = ({ type = "blunder", x = "percent", width, height }) =
             )}
         >
             <BarSeries animated rawData={MoveData[type]} fill={Fill[type]}/>
-            <DensitySeries
-                stroke="#e64980"
+            {/* <DensitySeries
+                stroke="black"
                 showArea={false}
                 smoothing={0.01}
                 kernel="gaussian"
                 rawData={MoveData[type]}
                 fill={Fill[type]}
-            />
+            /> */}
 
-            <XAxis />
-            <YAxis />
+            <XAxis 
+                label={x === "percent" ? "Move Ply % of Total Game" : "Move Ply" }
+                axisStyles = {{
+                    label: {
+                        'bottom': {
+                            ...baseLabel,
+                            fontSize: '18px',
+                            fill: 'black',
+                            y: '46'
+                        },
+                    }
+                }}
+            />
+            <YAxis 
+                label="Count"
+                axisStyles = {{
+                    label: {
+                    'left': {
+                        ...baseLabel,
+                        fontSize: '18px',
+                        fill: 'black',
+                        y: -35
+                    },
+                    }
+                }}
+            />
         </ResponsiveHistogram>
     )
 }
 
-Histogram_MovePly.whyDidYouRender = true
+// Histogram_MovePly.whyDidYouRender = true
 
 export default Histogram_MovePly

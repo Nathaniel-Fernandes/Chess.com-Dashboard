@@ -39,6 +39,7 @@ const CAPS_Scatter_Chart = ({ width, height }) => {
         ]}
         width={width}
         height={height}
+        title="CAPS Score vs. Time"
       />
     );
   }
@@ -46,6 +47,6 @@ const CAPS_Scatter_Chart = ({ width, height }) => {
   return null;
 };
 
-CAPS_Scatter_Chart.whyDidYouRender = true
+// CAPS_Scatter_Chart.whyDidYouRender = true
 
 export default CAPS_Scatter_Chart;

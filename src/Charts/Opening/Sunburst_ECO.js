@@ -3,8 +3,8 @@ import { Sunburst } from '@nivo/sunburst'
 import { useTheme } from '@nivo/core'
 
 // place these out here so it's not recreated
-const layers = ['sliceLabels', 'slices']
-const margin = { top: 50, right: 130, bottom: 80, left: 60 }
+// const layers =
+const margin = { top: 60, right: 130, bottom: 30, left: 60 }
 const defs = []
 
 const Sunburst_ECO = ({white, black, width, height}) => {
@@ -36,11 +36,29 @@ const Sunburst_ECO = ({white, black, width, height}) => {
 
     const colors = useCallback(({ id }) => pickWhiteBlack(id), [])
     const childColor = useCallback(() => pickCustomPalette(customPalette2), [])
+
+    const Title = (data) => {
+        // console.log(data)
+        const style = {fontWeight: 'bold', fontSize: '19px'}
+
+        // console.log(width, height)
+        return (
+            <text 
+                x={data.centerX}
+                y={-20}
+                textAnchor="middle"
+                style={style}
+            >
+                Your Openings by Black & White
+            </text>
+        )
+    } 
     
+    console.log(data)
     return (
         <Sunburst
             data={data}
-            id="name"
+            id="description"
             value="value"
             width={width}
             height={height}
@@ -53,13 +71,13 @@ const Sunburst_ECO = ({white, black, width, height}) => {
             motionConfig="gentle"
             isInteractive={true}
             tooltip={CustomTooltip}
-            layers={layers}
+            layers={ ['sliceLabels', 'slices', Title]}
             defs={defs}
         />
     )
 }
 
-Sunburst_ECO.whyDidYouRender = true
+// Sunburst_ECO.whyDidYouRender = true
 
 export default memo(Sunburst_ECO);
 
@@ -84,11 +102,11 @@ const pickWhiteBlack = (id) => {
 
 const CustomTooltip = ({id, value, data}) => {
     const theme = useTheme()
-    // console.log(nameLookUp)
+    // console.log(theme)
     return (
-        <div style={{ ...theme.tooltip.container}}>
+        <div style={{ ...theme.tooltip.container, position: 'absolute', width: '200px'}}>
             <strong>Name:</strong> {data.description} <br />
-            <strong>ECO:</strong> {id} <br />
+            <strong>ECO:</strong> {data.name} <br />
             <strong>Played:</strong> {value} ({(value / data.total * 100).toFixed(1)}%) <br />
             <strong>Won:</strong> {data.won}   <br />
             <strong>Lost:</strong> {data.loss}

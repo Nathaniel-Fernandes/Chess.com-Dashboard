@@ -118,6 +118,6 @@ const Barchart_TacticsPhases = ({ width, height }) => {
     )
 }
 
-Barchart_TacticsPhases.whyDidYouRender = true
+// Barchart_TacticsPhases.whyDidYouRender = true
 
 export default Barchart_TacticsPhases

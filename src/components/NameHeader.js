@@ -11,6 +11,6 @@ const NameHeader = () => {
     )
 }
 
-NameHeader.whyDidYouRender = true
+// NameHeader.whyDidYouRender = true
 
 export default NameHeader;

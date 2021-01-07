@@ -15,10 +15,11 @@ const TermsForm = ({ setPage }) => {
     const [agreed, setAgreed] = useState(false)
     const [button1, setButton1] = useState(false)
     const [button2, setButton2] = useState(false)
+    const [button3, setButton3] = useState(false)
 
     useEffect(() => {
         console.log("in here", button1, button2)
-        if(button1 === true && button2 === true) {
+        if(button1 === true && button2 === true && button3 === true) {
             console.log("in double here")
             setAgreed(true)
         }
@@ -32,7 +33,7 @@ const TermsForm = ({ setPage }) => {
             <div className="username-form">
                 <p className="username-form-instructions" style={chooseBackgroundColor(agreed)}>{
                     (agreed !== true) ? `Please agree to the Terms & Conditions.` :
-                    "Start! Allow 5-10 min per 100 games"
+                    "Start! Allow 3-6 min per 50 games"
                 }</p>
                 { agreed !== true ?
                     <div className="terms-conditions">
@@ -43,6 +44,10 @@ const TermsForm = ({ setPage }) => {
                         <div>
                             <input id="gameAnalysis" type="checkbox" checked={button2} onChange={() => setButton2(prev => !prev)} ></input>
                             <label htmlFor="gameAnalysis">If a game isn't previously analyzed, you want Chess Intellect to request that Chess.com analyzes that game on your behalf.</label>
+                        </div>      
+                        <div>
+                            <input id="data-to-collect" type="checkbox" checked={button3} onChange={() => setButton3(prev => !prev)} ></input>
+                            <label htmlFor="data-to-collect">Chess Intellect will securely collect the following data: your username, time started, & debugging logs.</label>
                         </div>
                     </div> : null
                 }
@@ -62,6 +67,6 @@ const TermsForm = ({ setPage }) => {
     )
 }
 
-TermsForm.whyDidYouRender = true
+// TermsForm.whyDidYouRender = true
 
 export default TermsForm;

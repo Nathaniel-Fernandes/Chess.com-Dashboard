@@ -1,6 +1,16 @@
 import axios from "axios";
 import { store } from '../State/store'
 
+export const mapTermToGameResult = (term) => {
+    if(term === 'win') return 'win'
+    if(term === 'resigned') return 'loss'
+    if(term === 'timeout') return 'loss'
+    if(term === 'checkmated') return 'loss'
+    if(term === 'timevsinsufficient') return 'draw'
+
+    return 'loss';
+}
+
 // export const addLogSelector = state => state.setDebugLogs
 export const addLog = store.getState().setDebugLogs
 
@@ -19,6 +29,12 @@ export const CreateURL = (url, replacement) => {
  * @returns {promise} Promise with requested url
  */
 export const GetURL = async (url) => {
+	// const config = {
+	// 	// headers: {
+	// 		// 'X-Contact': 'Chess Intellect (chessintellect.com)',
+	// 		// 'Accept': 'application/json, text/plain, */*'
+	// 	// }
+	// }
 	return axios.get(url);
 }
 

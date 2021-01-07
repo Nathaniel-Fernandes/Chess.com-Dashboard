@@ -63,6 +63,6 @@ const Table_Opening = () => {
     )
 }
 
-Table_Opening.whyDidYouRender = true
+// Table_Opening.whyDidYouRender = true
 
 export default Table_Opening

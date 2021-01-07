@@ -10,6 +10,6 @@ const ChartTabs = ({tab, setTab}) => {
     )
 }
 
-ChartTabs.whyDidYouRender = true
+// ChartTabs.whyDidYouRender = true
 
 export default ChartTabs;

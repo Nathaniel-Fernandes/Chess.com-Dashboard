@@ -20,6 +20,6 @@ const TableComponent = ({ chart }) => {
     )
 }
 
-TableComponent.whyDidYouRender = true
+// TableComponent.whyDidYouRender = true
 
 export default TableComponent;

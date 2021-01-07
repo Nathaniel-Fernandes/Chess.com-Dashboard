@@ -49,6 +49,6 @@ const Table_Game = () => {
     )
 }
 
-Table_Game.whyDidYouRender = true
+// Table_Game.whyDidYouRender = true
 
 export default Table_Game

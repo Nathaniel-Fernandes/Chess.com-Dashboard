@@ -25,7 +25,7 @@ const AnalysisProgress = () => {
     )
 }
 
-AnalysisProgress.whyDidYouRender = true
+// AnalysisProgress.whyDidYouRender = true
 
 
 export default AnalysisProgress;

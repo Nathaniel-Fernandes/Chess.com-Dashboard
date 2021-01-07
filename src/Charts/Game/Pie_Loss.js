@@ -38,18 +38,36 @@ const Pie_Reason4Loss = ({ width, height }) => {
 
     if(!loading) {
         const data = Object.keys(reason).map((e, i) => { 
-            return {id: e, label: e, value: reason[e]}
+            return {
+                id: e, 
+                label: mapTermToName(e), 
+                value: reason[e]
+            }
         })
         // console.log(data)
 
         return (
-            <Pie data={data} width={width} height={height}  />
+            <Pie 
+                data={data} 
+                width={width} 
+                height={height}
+                title="Reason for Loss or Draw"
+            />
         )
     } 
     
     return null; // default return if loading
 }
 
-Pie_Reason4Loss.whyDidYouRender = true
+const mapTermToName = (term) => {
+    if(term === 'resigned') return 'resigned'
+    if(term === 'timeout') return 'timeout'
+    if(term === 'checkmated') return 'checkmate'
+    if(term === 'timevsinsufficient') return 'ILC'
+
+    return term
+}
+
+// Pie_Reason4Loss.whyDidYouRender = true
 
 export default Pie_Reason4Loss;

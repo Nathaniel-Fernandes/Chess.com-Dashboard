@@ -1,7 +1,7 @@
 import React from 'react'
 import  { ScatterPlot } from '@nivo/scatterplot'
 
-const Scatter = ({ data, width, height }) => {
+const Scatter = ({ data, width, height, title }) => {
 	const margin = { top: 60, right: 140, bottom: 70, left: 90 };
 	const xScale = { type: "time", format: "%m/%d/%Y %H:%M:%S", precision: "minute" }
 	const yScale = { type: "linear", min: 0, max: 100 }
@@ -46,6 +46,23 @@ const Scatter = ({ data, width, height }) => {
 		},
 	]
 
+	const Title = (data) => {
+        // console.log(data)
+        const style = {fontWeight: 'bold', fontSize: '19px'}
+
+        // console.log(width, height)
+        return (
+            <text 
+                x={data.innerWidth / 2}
+                y={-10}
+                textAnchor="middle"
+                style={style}
+            >
+                {title}
+            </text>
+        )
+	} 
+	
   	return (
 		<ScatterPlot
 			data={data}
@@ -63,11 +80,35 @@ const Scatter = ({ data, width, height }) => {
 			axisLeft={axisLeft}
 			legends={legends}
 			animate={false}
+			layers={['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations', Title]}
+			theme={{
+				axis: {
+					ticks: {
+						text: {
+							fontSize: '12px',
+						}
+					},
+					legend: {
+						text: {
+							fontSize: '16px',
+							fontWeight: 'bold',
+							color: 'black'
+						}
+					}
+				},
+				legends: {
+					text: {
+						fontSize: '12px',
+					}
+				},
+				textColor: 'black'
+
+			}}
 		/>
 	);
 };
 
-Scatter.whyDidYouRender = true
+// Scatter.whyDidYouRender = true
 
 export default Scatter;
 

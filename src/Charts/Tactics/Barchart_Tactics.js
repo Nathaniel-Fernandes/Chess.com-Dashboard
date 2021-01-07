@@ -124,6 +124,6 @@ const Barchart_Tactics = ({ width, height }) => {
         
 }
 
-Barchart_Tactics.whyDidYouRender = true
+// Barchart_Tactics.whyDidYouRender = true
 
 export default Barchart_Tactics

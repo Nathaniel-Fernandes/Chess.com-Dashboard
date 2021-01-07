@@ -1,13 +1,14 @@
 import { store } from "../../State/store";
 import ResponsiveHistogram from "../ResponsiveHistogram";
 import { XAxis, YAxis, BarSeries } from "@data-ui/histogram";
+import { baseLabel } from '@data-ui/theme/lib/svgLabel'
 
 const Histogram_CAPS = ({ height, width }) => {
   const games = store((state) => state.Games);
 	// console.log(games)
   return (
     <ResponsiveHistogram
-      ariaLabel=""
+      ariaLabel="Histogram of Chess.com CAPS % Score"
       height={height}
       width={width}
       orientation="vertical"
@@ -15,6 +16,7 @@ const Histogram_CAPS = ({ height, width }) => {
       binCount={10}
       binType="numeric"
       valueAccessor={(datum) => datum?.CAPS}
+      limits={[0, 100]}
       renderTooltip={({ event, datum, data, color }) => (
         <div>
           <strong style={{ color }}>
@@ -45,12 +47,43 @@ const Histogram_CAPS = ({ height, width }) => {
           fill="red"
       /> */}
 
-      <XAxis />
-      <YAxis />
+      <XAxis
+        label="Chess.com CAPS Score"
+        axisStyles = {{
+          label: {
+            'bottom': {
+              // ...xAxisStyles,
+              ...baseLabel,
+              fontSize: '18px',
+              fill: 'black',
+              y: '46'
+            },
+          }
+        }}
+        // labelProps={{
+        //   // ...xAxisStyles,
+        //   fontSize: "100px"
+        // }}
+      />
+      <YAxis 
+        label="Count"
+        stroke="black"
+        axisStyles = {{
+          label: {
+            'left': {
+              // ...xAxisStyles,
+              ...baseLabel,
+              fontSize: '18px',
+              fill: 'black',
+              y: -35
+            },
+          }
+        }}
+      />
     </ResponsiveHistogram>
   );
 };
 
-Histogram_CAPS.whyDidYouRender = true;
+// Histogram_CAPS.whyDidYouRender = true;
 
 export default Histogram_CAPS;

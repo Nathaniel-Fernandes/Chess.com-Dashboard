@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { store } from '../../State/store'
 import Pie from '../ResponsivePie'
+import { mapTermToGameResult } from '../../BusinessLogic/helpers'
 
 const defaultState = {"win":0,"draw":0,"loss":0}
 
 const Pie_Results = ({ width, height }) => {
-
+    // console.log(store.getState().Games)
     
     const data = store(state => state.Games)
     const [loading, setLoading] = useState(true)
@@ -16,7 +17,7 @@ const Pie_Results = ({ width, height }) => {
         setReason(() => { return {"win":0,"draw":0,"loss":0}})
 
         for(let i = 0; i < data.length; i++) {
-            const type = data[i].result;
+            const type = mapTermToGameResult(data[i].result);
             // console.log(type)
 
             if(type === "win") {
@@ -42,17 +43,17 @@ const Pie_Results = ({ width, height }) => {
         const data = Object.keys(reason).map((e) => { 
             return {id: e, label: e, value: reason[e]}
         })
-        // console.log(data)
+        console.log(data)
 
         return (
-            <Pie data={data} width={width} height={height} />
+            <Pie data={data} width={width} height={height} title="Game Results" />
         )
     }
 
     return null; // default return
 }
 
-Pie_Results.whyDidYouRender = true
+// Pie_Results.whyDidYouRender = true
 
 export default Pie_Results;
 

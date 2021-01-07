@@ -55,7 +55,7 @@ const FormCard = () => {
     )
 }
 
-FormCard.whyDidYouRender = true
+// FormCard.whyDidYouRender = true
 
 export default FormCard;
 

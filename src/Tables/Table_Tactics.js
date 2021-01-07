@@ -50,6 +50,6 @@ const TacticsTable = () => {
 
 }
 
-TacticsTable.whyDidYouRender = true
+// TacticsTable.whyDidYouRender = true
 
 export default TacticsTable

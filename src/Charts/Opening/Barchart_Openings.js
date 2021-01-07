@@ -69,7 +69,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
 
     const Title = ({ width, height }) => {
         // console.log(data)
-        const style = {fontWeight: 'bold'}
+        const style = {fontWeight: 'bold', fontSize: '18px'}
 
         return (
             <text 
@@ -78,7 +78,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
                 textAnchor="middle"
                 style={style}
             >
-                Tactics vs. Game Phases
+                Results by Openings
             </text>
         )
     } 
@@ -91,7 +91,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
                 height={height}
                 keys={[ 'Won', 'Lost']}
                 indexBy="eco"
-                margin={{ top: 50, right: (width > 600) ? 130 : 80, bottom: 50, left: 60 }}
+                margin={{ top: 40, right: (width > 600) ? 130 : 80, bottom: 50, left: 60 }}
                 padding={0.3}
                 valueScale={{ type: 'linear' }}
                 indexScale={{ type: 'band', round: true }}
@@ -100,9 +100,10 @@ const Barchart_Openings = ({ white, black, width, height }) => {
                     tickSize: 5,
                     // tickPadding: 5,
                     tickRotation: -30,
-                    legend: 'Openings',
+                    legend: 'ECO Codes',
                     legendPosition: 'middle',
-                    legendOffset: 40
+                    legendOffset: 40,
+                    size: 40
                 }}
                 enableGridX
                 layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations',Title]}
@@ -110,7 +111,7 @@ const Barchart_Openings = ({ white, black, width, height }) => {
                     tickValues:[...Array(max + 1).keys()],
                     legend: 'Count',
                     legendPosition: 'middle',
-                    legendOffset: -30
+                    legendOffset: -30,
                 }}
                 labelSkipHeight={12}
                 labelTextColor={{ from: '#000000', modifiers: [ [ 'darker', 1.6 ] ] }}
@@ -139,6 +140,30 @@ const Barchart_Openings = ({ white, black, width, height }) => {
                         ]
                     }
                 ]}
+                theme={{
+                    axis: {
+                        ticks: {
+                            text: {
+                                fontSize: '12px',
+                            }
+                        },
+                        legend: {
+                            text: {
+                                fontSize: '16px',
+                                fontWeight: 'bold',
+                                color: 'black'
+                            }
+                        }
+                    },
+                    legends: {
+                        text: {
+                            fontSize: '12px',
+                        }
+                    },
+                    textColor: 'black'
+
+                }}
+
                 animate={false}
             />
         )
@@ -148,6 +173,6 @@ const Barchart_Openings = ({ white, black, width, height }) => {
  
 }
 
-Barchart_Openings.whyDidYouRender = true
+// Barchart_Openings.whyDidYouRender = true
 
 export default Barchart_Openings;

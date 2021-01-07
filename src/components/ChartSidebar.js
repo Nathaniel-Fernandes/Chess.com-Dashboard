@@ -6,8 +6,26 @@ import React, { useState } from 'react'
     tactics_barchart, tactics_barchart_phases
 */
 
-const ChartSidebar = ({ chart, setChart }) => {
+const ChartSidebar = ({ chart, setChart, percentValue, setPercentValue }) => {
     const [selectedCategory, setSelectedCategory] = useState("game")
+
+    const showInfoButtonFor = [
+        "game_histogram_caps", 
+        "game_scatter_caps",
+        "move_histogram_ply_inaccuracy",
+        "move_histogram_ply_mistake",
+        "move_histogram_ply_blunder",
+        "game_pie_loss"
+    ]
+
+    const showPercentValueButtonFor = [
+        "move_histogram_ply_inaccuracy",
+        "move_histogram_ply_mistake",
+        "move_histogram_ply_blunder",
+        "move_histogram_time_inaccuracy",
+        "move_histogram_time_mistake",
+        "move_histogram_time_blunder"
+    ]
 
     return (
         <div className="chart-sidebar">
@@ -36,9 +54,79 @@ const ChartSidebar = ({ chart, setChart }) => {
                         <TacticsChartsName setChart={setChart} chart={chart} /> : null
                     }
                 </ul>
-       
             </div>
+        
+            {showInfoButtonFor.includes(chart) ?
+                <ChartInfoButton chart={chart} /> :
+                null
+            }
+
+            {showPercentValueButtonFor.includes(chart) ?
+                <ChartPercentValueButton percentValue={percentValue} setPercentValue={setPercentValue} /> :
+                null
+            }
         </div>
+    )
+}
+
+const ChartPercentValueButton = ({ percentValue, setPercentValue }) => {
+
+    return (
+        <div className="percent-value" >
+            <button 
+                data-selected={percentValue === 'value' ? 'true' : '' } 
+                onClick={() => setPercentValue('value')}>Value</button>
+
+            <button 
+                data-selected={percentValue === 'percent' ? 'true' : '' } 
+                onClick={() => setPercentValue('percent')}>%</button>
+        </div>
+    )
+}
+
+const ChartInfoButton = ({ chart }) => {
+    const info = {
+        'game_histogram_caps': {
+            text: 'What is CAPS?',
+            url: 'https://www.chess.com/article/view/better-than-ratings-chess-com-s-new-caps-system?ref_id=9730606'
+        },
+
+        'game_scatter_caps': {
+            text: 'What is CAPS?',
+            url: 'https://www.chess.com/article/view/better-than-ratings-chess-com-s-new-caps-system?ref_id=9730606'
+        },
+
+        'move_histogram_ply_inaccuracy': {
+            text: "What's a ply?",
+            url: 'https://en.wikipedia.org/wiki/Ply_(game_theory)'
+        },
+
+        'move_histogram_ply_mistake': {
+            text: "What's a ply?",
+            url: 'https://en.wikipedia.org/wiki/Ply_(game_theory)'
+        },
+
+        'move_histogram_ply_blunder': {
+            text: "What's a ply?",
+            url: 'https://en.wikipedia.org/wiki/Ply_(game_theory)'
+        },
+
+        'game_pie_loss': {
+            text: "What's ILC?",
+            url: 'https://www.dailychess.com/forum/only-chess/insufficient-losing-chances.100311'
+        },
+
+        'else': {
+            text: "Don't click me :)",
+            url: 'https://youtu.be/hAq443fhyDo'
+        }
+    }
+
+    const buttonUrl = info?.[chart]?.url || info['else'].url
+    const buttonText = info?.[chart]?.text || info['else'].text
+
+    return (
+        <button className="orange-button info-button" onClick={() => window.open(buttonUrl, '_blank')}>{buttonText}</button>
     )
 }
 
@@ -91,6 +179,6 @@ const TacticsChartsName = ({ setChart, chart }) => {
     )
 }
 
-ChartSidebar.whyDidYouRender = true
+// ChartSidebar.whyDidYouRender = true
 
 export default ChartSidebar;

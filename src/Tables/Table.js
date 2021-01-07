@@ -75,6 +75,6 @@ const Table = ({ data, customCol, width = '100%', height = 400, file = "export.c
     )
 }
 
-Table.whyDidYouRender = true
+// Table.whyDidYouRender = true
 
 export default Table;

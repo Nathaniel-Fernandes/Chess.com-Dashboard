@@ -83,7 +83,11 @@ const UsernameForm = ({ setPage }) => {
             }</p>
             { (premium === false) ?
                 <p className="form-message">
-                    Sadly you must be a premium member (<span title="The Vision Dashboard aggregates and analyzes the data that Chess.com stores from the analysis of your games. However, Chess.com only saves the analysis of premium members.">Why?</span>). Never fear! You can start a <b>free trial</b> and renew for as low as $2.42/month.
+                    Sadly you must be a premium member (<span title="The Vision Dashboard 
+                    aggregates and analyzes the data that Chess.com stores from the analysis 
+                    of your games. However, Chess.com only saves the analysis of premium members.">Why?</span>). 
+                    Never fear! You can start a <b>free trial</b> and renew for as low as $2.42/month.
+                    Alternatively, check out: <strong><a href="https://chessintellect.com/product-reviews/is-premium-chesscom-membership-worth-it/" target="_blank">Is a Premium Chess.com Membership Worth it? [2021]</a></strong>
                 </p> : null
             }
             {(premium !== true && premium !== false && valid !== false) ?
@@ -143,6 +147,6 @@ const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsern
     )
 }
 
-UsernameForm.whyDidYouRender = true
+// UsernameForm.whyDidYouRender = true
 
 export default UsernameForm;

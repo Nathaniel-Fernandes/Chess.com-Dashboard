@@ -55,6 +55,6 @@ const PopupBlockerForm = ({ setPage, popupBlocker, testPopup, timesTested, testi
     )
 }
 
-PopupBlockerForm.whyDidYouRender = true
+// PopupBlockerForm.whyDidYouRender = true
 
 export default PopupBlockerForm;

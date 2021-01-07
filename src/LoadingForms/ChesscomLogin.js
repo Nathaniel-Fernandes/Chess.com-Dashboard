@@ -65,5 +65,5 @@ const ChesscomLogin = ({ setPage }) => {
 //     return loggedIn;
 // }
 
-ChesscomLogin.whyDidYouRender = true
+// ChesscomLogin.whyDidYouRender = true
 export default ChesscomLogin;
