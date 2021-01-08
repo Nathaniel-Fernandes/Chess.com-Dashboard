@@ -73,10 +73,16 @@ const Barchart_TacticsPhases = ({ width, height }) => {
             indexBy="phase"
             width={width}
             height={height}
-            margin={{ top: 25, right: 160, bottom: 80, left: 30 }}
+            margin={{ top: 40, right: 130, bottom: 80, left: 60 }}
             colors={{ scheme: 'set1' }}
             // groupMode="grouped"
             layers={['grid', 'axes', 'bars', 'markers', 'legends', 'annotations',Title]}
+            axisLeft={{
+                tickValues: 5,
+                legend: 'Count',
+                legendPosition: 'middle',
+                legendOffset: -30,
+            }}
             axisBottom={{
                 tickSize: 8,
                 tickPadding: 5,
@@ -112,6 +118,29 @@ const Barchart_TacticsPhases = ({ width, height }) => {
                     ]
                 }
             ]}
+            theme={{
+				axis: {
+					ticks: {
+						text: {
+							fontSize: '12px',
+						}
+					},
+					legend: {
+						text: {
+							fontSize: '16px',
+							fontWeight: 'bold',
+							color: 'black'
+						}
+					}
+				},
+				legends: {
+					text: {
+						fontSize: '12px',
+					}
+				},
+				textColor: 'black'
+
+			}}
         />
         }
         </>

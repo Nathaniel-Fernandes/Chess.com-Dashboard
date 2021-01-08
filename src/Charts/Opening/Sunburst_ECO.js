@@ -1,6 +1,7 @@
-import React, { memo, useMemo, useCallback } from 'react'
+import React, { memo, useMemo, useCallback, useEffect, useState } from 'react'
 import { Sunburst } from '@nivo/sunburst'
 import { useTheme } from '@nivo/core'
+import seedrandom from 'seedrandom'
 
 // place these out here so it's not recreated
 // const layers =
@@ -34,8 +35,9 @@ const Sunburst_ECO = ({white, black, width, height}) => {
         }
     }, [white.length, black.length])
 
+    const rng = seedrandom('generate_number')
+    const childColor = () => pickCustomPalette(customPalette2, rng)
     const colors = useCallback(({ id }) => pickWhiteBlack(id), [])
-    const childColor = useCallback(() => pickCustomPalette(customPalette2), [])
 
     const Title = (data) => {
         // console.log(data)
@@ -44,17 +46,17 @@ const Sunburst_ECO = ({white, black, width, height}) => {
         // console.log(width, height)
         return (
             <text 
-                x={data.centerX}
+                x={data.centerX + 20}
                 y={-20}
                 textAnchor="middle"
                 style={style}
             >
-                Your Openings by Black & White
+                Black & White Openings (Hover)
             </text>
         )
     } 
     
-    console.log(data)
+    // console.log(data)
     return (
         <Sunburst
             data={data}
@@ -65,6 +67,7 @@ const Sunburst_ECO = ({white, black, width, height}) => {
             margin={margin}
             cornerRadius={4}
             borderWidth={2}
+            borderColor= "black"
             colors={colors}
             childColor={childColor}
             animate={false}
@@ -84,8 +87,8 @@ export default memo(Sunburst_ECO);
 // const customPalette = ["#E8C1A0","#F47560","#F1E15B","#E8A838","#61CDBB","#97E3D5"]
 const customPalette2 = ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928"]
 
-const pickCustomPalette = (palette) => {
-    const i = Math.floor(Math.random()*palette.length)
+const pickCustomPalette = (palette, rng) => {
+    const i = Math.floor(rng()*palette.length)
     const color = palette[i]
     // console.log(i, color)
 
@@ -94,7 +97,8 @@ const pickCustomPalette = (palette) => {
 
 const pickWhiteBlack = (id) => {
     if(id === "White") { 
-        return "#fff1d9" 
+        // return "#fff1d9" 
+        return "#FFFFFF"
     }
 
     return "#000000" 

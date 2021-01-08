@@ -15,7 +15,10 @@ const ChartSidebar = ({ chart, setChart, percentValue, setPercentValue }) => {
         "move_histogram_ply_inaccuracy",
         "move_histogram_ply_mistake",
         "move_histogram_ply_blunder",
-        "game_pie_loss"
+        "game_pie_loss",
+        "opening_data_barchart",
+        "opening_data_sunburst",
+        "tactics_barchart"
     ]
 
     const showPercentValueButtonFor = [
@@ -114,6 +117,16 @@ const ChartInfoButton = ({ chart }) => {
         'game_pie_loss': {
             text: "What's ILC?",
             url: 'https://www.dailychess.com/forum/only-chess/insufficient-losing-chances.100311'
+        },
+
+        'opening_data_sunburst': {
+            text: "What's ECO?",
+            url: 'https://www.cleanchess.com/chess-eco-code-system-explained'
+        },
+
+        'opening_data_barchart': {
+            text: "What's ECO?",
+            url: 'https://www.cleanchess.com/chess-eco-code-system-explained'
         },
 
         'else': {

@@ -1,11 +1,27 @@
+import { useState, useEffect } from 'react'
 import { store } from "../../State/store";
 import ResponsiveHistogram from "../ResponsiveHistogram";
 import { XAxis, YAxis, BarSeries } from "@data-ui/histogram";
 import { baseLabel } from '@data-ui/theme/lib/svgLabel'
 
 const Histogram_CAPS = ({ height, width }) => {
+  
+  const [meanCAPS, setMeanCAPS] = useState(0)
+  
   const games = store((state) => state.Games);
-	// console.log(games)
+  
+  useEffect(() => {
+    const reducer = (value, currObj) => value + (currObj.CAPS || 0)
+
+    const total = games.reduce(reducer, 0)
+    const count = games.length
+
+    // console.log(total, count)
+    setMeanCAPS(total / count)
+
+  }, [games.length])
+  
+	console.log(meanCAPS)
   return (
     <ResponsiveHistogram
       ariaLabel="Histogram of Chess.com CAPS % Score"
@@ -17,7 +33,9 @@ const Histogram_CAPS = ({ height, width }) => {
       binType="numeric"
       valueAccessor={(datum) => datum?.CAPS}
       limits={[0, 100]}
-      renderTooltip={({ event, datum, data, color }) => (
+      renderTooltip={({ event, datum, data, color }) => {
+        // console.log(data)
+        return (
         <div>
           <strong style={{ color }}>
             {datum.bin0} to {datum.bin1}
@@ -34,8 +52,13 @@ const Histogram_CAPS = ({ height, width }) => {
             <strong>density </strong>
             {datum.density}
           </div>
+          <div>
+            <strong>MEAN:</strong>
+            {}
+          </div>
         </div>
-      )}
+      )
+    }}
     >
       <BarSeries animated rawData={games} fill="red" />
       {/* <DensitySeries

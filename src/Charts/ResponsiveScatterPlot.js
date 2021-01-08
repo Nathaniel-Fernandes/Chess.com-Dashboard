@@ -1,6 +1,30 @@
 import React from 'react'
 import  { ScatterPlot } from '@nivo/scatterplot'
 
+const CustomTooltip = ({ node }) => {
+	// console.log(node)
+	const date = node.data.x
+	const styles = {
+		width: 'max-content',
+		maxHeight:'200px', 
+		backgroundColor: 'white',
+		border: '0.5px solid grey',
+		borderRadius: '5px',
+		padding: '5px'
+
+	}
+
+	return (
+		<div style={styles}>
+			<strong>Date: </strong> <span>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()}</span> 
+			<br />
+			<strong>Time:</strong> <span>{date.getHours() % 12}:{`${date.getMinutes()<10?'0':''}${date.getMinutes()}`}</span>
+			<br />
+			<strong>Score: </strong> {node.data.y.toFixed(1)}
+		</div>
+	)
+}
+
 const Scatter = ({ data, width, height, title }) => {
 	const margin = { top: 60, right: 140, bottom: 70, left: 90 };
 	const xScale = { type: "time", format: "%m/%d/%Y %H:%M:%S", precision: "minute" }
@@ -62,7 +86,7 @@ const Scatter = ({ data, width, height, title }) => {
             </text>
         )
 	} 
-	
+
   	return (
 		<ScatterPlot
 			data={data}
@@ -80,6 +104,7 @@ const Scatter = ({ data, width, height, title }) => {
 			axisLeft={axisLeft}
 			legends={legends}
 			animate={false}
+			tooltip={CustomTooltip}
 			layers={['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations', Title]}
 			theme={{
 				axis: {
@@ -102,7 +127,6 @@ const Scatter = ({ data, width, height, title }) => {
 					}
 				},
 				textColor: 'black'
-
 			}}
 		/>
 	);

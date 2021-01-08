@@ -73,7 +73,7 @@ const Barchart_Tactics = ({ width, height }) => {
             indexBy="tactic"
             width={width}
             height={height}
-            margin={{ top: 50, right: 130, bottom: 80, left: 60 }}
+            margin={{ top: 40, right: 130, bottom: 80, left: 60 }}
             // groupMode="grouped"
             axisLeft={{
                 tickValues: 5,
@@ -87,7 +87,7 @@ const Barchart_Tactics = ({ width, height }) => {
                 tickRotation: -20,
                 legend: 'Tactic',
                 legendPosition: 'middle',
-                legendOffset: 70
+                legendOffset: 55
             }}
             labelSkipHeight={10}
             padding={0.25}
@@ -117,6 +117,29 @@ const Barchart_Tactics = ({ width, height }) => {
                     ]
                 }
             ]}
+            theme={{
+				axis: {
+					ticks: {
+						text: {
+							fontSize: '12px',
+						}
+					},
+					legend: {
+						text: {
+							fontSize: '16px',
+							fontWeight: 'bold',
+							color: 'black'
+						}
+					}
+				},
+				legends: {
+					text: {
+						fontSize: '12px',
+					}
+				},
+				textColor: 'black'
+
+			}}
         />
         }
         </>

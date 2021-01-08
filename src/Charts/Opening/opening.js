@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import SUNBURST_ECO from './Sunburst_ECO'
 import { store } from '../../State/store'
 import BARCHART_OPENINGS from './Barchart_Openings'
+import seedrandom from 'seedrandom'
+
 
 
 export const Opening_Data = ({ type, width, height }) => {
@@ -61,11 +63,22 @@ export const Opening_Data = ({ type, width, height }) => {
         setLoading(() => false)
     }, [data])
 
+    // let randomNumberGenerator = 0;
+    // useEffect(() => {
+    //     randomNumberGenerator = seedrandom('random_number')
+
+    // },[])
 
     if(!loading) {
         if(type.toLowerCase() === "sunburst") {
             return (
-                <SUNBURST_ECO white={white} black={black} width={width} height={height} />
+                <SUNBURST_ECO 
+                    white={white} 
+                    black={black} 
+                    width={width} 
+                    height={height} 
+                    // rng={randomNumberGenerator}
+                />
             )
         } 
         else if(type.toLowerCase() === "bar" || type.toLowerCase() === 'barchart') {
