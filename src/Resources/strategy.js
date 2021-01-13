@@ -54,7 +54,7 @@ const strategyResources = () => {
         title="How to Reassess Your Chess"
         className="amazon-product"
         style={{ width: "120px", height: "240px" }}
-        marginwidth="0"
+        marginWidth="0"
         marginheight="0"
         scrolling="no"
         frameborder="0"

@@ -60,7 +60,7 @@ const Barchart_TacticsPhases = ({ width, height }) => {
             </text>
         )
     } 
-    console.log(the_data)
+    // console.log(the_data)
     return (
         <>
         { (the_data.reduce((sum, obj) => sum + Object.keys(obj).map(tactic => obj[tactic]).reduce((a, b) => a + (Number(b) || 0), 0), 0) === 0) ?

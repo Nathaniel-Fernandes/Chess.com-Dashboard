@@ -15,12 +15,12 @@ const TermsForm = ({ setPage }) => {
     const [agreed, setAgreed] = useState(false)
     const [button1, setButton1] = useState(false)
     const [button2, setButton2] = useState(false)
-    const [button3, setButton3] = useState(false)
+    // const [button3, setButton3] = useState(false)
 
     useEffect(() => {
-        console.log("in here", button1, button2)
-        if(button1 === true && button2 === true && button3 === true) {
-            console.log("in double here")
+        // console.log("in here", button1, button2)
+        if(button1 === true && button2 === true) {
+            // console.log("in double here")
             setAgreed(true)
         }
         else {
@@ -28,7 +28,7 @@ const TermsForm = ({ setPage }) => {
         }
     }, [button1, button2])
 
-    console.log("agreed: ", agreed)
+    // console.log("agreed: ", agreed)
     return (
             <div className="username-form">
                 <p className="username-form-instructions" style={chooseBackgroundColor(agreed)}>{
@@ -45,10 +45,10 @@ const TermsForm = ({ setPage }) => {
                             <input id="gameAnalysis" type="checkbox" checked={button2} onChange={() => setButton2(prev => !prev)} ></input>
                             <label htmlFor="gameAnalysis">If a game isn't previously analyzed, you want Chess Intellect to request that Chess.com analyzes that game on your behalf.</label>
                         </div>      
-                        <div>
+                        {/* <div>
                             <input id="data-to-collect" type="checkbox" checked={button3} onChange={() => setButton3(prev => !prev)} ></input>
                             <label htmlFor="data-to-collect">Chess Intellect will securely collect the following data: your username, time started, & debugging logs.</label>
-                        </div>
+                        </div> */}
                     </div> : null
                 }
                 

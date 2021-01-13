@@ -68,10 +68,10 @@ const testPopup = async (setPopupBlocker) => {
         console.log(err)
     }
 
-    console.log(t)
+    // console.log(t)
 
     let blocked = await popupBlockerChecker.check(t)
-    console.log(blocked)
+    // console.log(blocked)
 
     if(blocked === undefined) {
         if(t === null || t === undefined || !t) {
@@ -93,12 +93,12 @@ const popupBlockerChecker = {
     check: async function(popup_window) {
         var scope = this;
         
-        console.log(popup_window)
-        console.log(scope)
+        // console.log(popup_window)
+        // console.log(scope)
 
         if (popup_window) {
             if(/chrome/.test(navigator.userAgent.toLowerCase())) {
-                console.log('path 1')
+                // console.log('path 1')
                 
                 // return new Promise(resolve => {
                     setTimeout(function () {

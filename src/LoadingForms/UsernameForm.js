@@ -25,7 +25,7 @@ const UsernameForm = ({ setPage }) => {
 
         if(e.code === 'Enter' || e.code === "NumpadEnter") {
             validateUsername(e.target.value);
-            console.log(e)
+            // console.log(e)
         }
     }
     const handleSetUsername = (e) => {
@@ -49,7 +49,7 @@ const UsernameForm = ({ setPage }) => {
                 .catch(err => console.warn(err));
 
         if(data?.status === "premium") {
-            console.log("premium: ", true)
+            // console.log("premium: ", true)
             setPremium(true)
         }
         else if(v === true) {
@@ -58,12 +58,12 @@ const UsernameForm = ({ setPage }) => {
 
         setValid(v)
 
-        console.log(false)
+        // console.log(false)
         return false;
     }
 
     const chooseBackgroundColor = (premium, valid) => {
-        console.log(premium, valid)
+        // console.log(premium, valid)
         if(premium === true) {
             return {backgroundColor: "rgb(98, 169, 78)"}
         }
@@ -83,7 +83,7 @@ const UsernameForm = ({ setPage }) => {
             }</p>
             { (premium === false) ?
                 <p className="form-message">
-                    Sadly you must be a premium member (<span title="The Vision Dashboard 
+                    Sadly you must be a premium member (<span title="Game Report Pro 
                     aggregates and analyzes the data that Chess.com stores from the analysis 
                     of your games. However, Chess.com only saves the analysis of premium members.">Why?</span>). 
                     Never fear! You can start a <b>free trial</b> and renew for as low as $2.42/month.
@@ -120,9 +120,9 @@ const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsern
 
     const nextPage = (u) => {
         setPage(page => page + 1)
-        console.log(username_zustand)
+        // console.log(username_zustand)
         setUsername(u)
-        console.log(username_zustand)
+        // console.log(username_zustand)
     }
 
     return (

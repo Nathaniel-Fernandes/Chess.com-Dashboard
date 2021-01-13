@@ -26,7 +26,7 @@ export const getGameData = async (id, time = 1) => {
 
                 if(!res.data.data) {
                     if(time === 1) {
-                        console.log(id);
+                        // console.log(id);
                         newAnalysis(id);
                         return new Promise((resolve) => {
                             setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
@@ -54,7 +54,7 @@ export const getGameData = async (id, time = 1) => {
                 }
                 // got data values
                 else {
-                    console.log(`got data for: ${id}`)
+                    // console.log(`got data for: ${id}`)
                     addLog(`[SUCCESS] Got data for ${id}`)
                     store.getState().setReceivedGameID(id)
                     // console.log(res.data.data.analysis)

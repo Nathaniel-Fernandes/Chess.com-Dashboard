@@ -43,7 +43,7 @@ const Pie_Results = ({ width, height }) => {
         const data = Object.keys(reason).map((e) => { 
             return {id: e, label: e, value: reason[e]}
         })
-        console.log(data)
+        // console.log(data)
 
         return (
             <Pie data={data} width={width} height={height} title="Game Results" />

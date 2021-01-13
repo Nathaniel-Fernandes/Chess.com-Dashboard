@@ -6,7 +6,7 @@ import { store } from '../State/store'
 const AnalysisProgress = () => {
 
     useEffect(() => {
-        const root = document.getElementById('root')
+        const root = document.querySelector('.ci-dashboard-grp')
         root.classList.add("inactivated")
 
         return () => root.classList.remove("inactivated") 
@@ -44,10 +44,10 @@ const ProgressBar = () => {
     useEffect(() => {
         if(receivedGameData + failedGameData === maxGames) {
             store.getState().setAnalysisPart(4);
-            console.log(receivedGameData, failedGameData, maxGames)
+            // console.log(receivedGameData, failedGameData, maxGames)
 
         }
-        console.log(receivedGameData, failedGameData, maxGames)
+        // console.log(receivedGameData, failedGameData, maxGames)
 
     }, [receivedGameData, failedGameData])
 

@@ -53,8 +53,8 @@ const Histogram_CAPS = ({ height, width }) => {
             {datum.density}
           </div>
           <div>
-            <strong>MEAN:</strong>
-            {}
+            <strong>MEAN: </strong>
+            {meanCAPS.toFixed(1)}
           </div>
         </div>
       )

@@ -28,7 +28,7 @@ const Table_Game = () => {
     const inaccuracy = store(state => state.inaccuracy)
 
     useEffect(() => {
-        console.log(blunders)
+        // console.log(blunders)
         const t = []
 
         blunders.forEach(e => {

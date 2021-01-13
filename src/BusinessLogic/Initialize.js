@@ -43,7 +43,7 @@ export const initializeState = () => {
 					else if(res.data.status === 404) return;
 
 					store.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
-					console.log(store.getState().GameArchive)				// prints out updated state
+					// console.log(store.getState().GameArchive)				// prints out updated state
 					
 					return GameIDfromArchive();
 			})
@@ -52,7 +52,7 @@ export const initializeState = () => {
 
 				for(let i = 0; i < maxGamesAllowed; i++) {
 					AnalyzeGame(store.getState().Games[i]);
-					console.log(`Request data Game ${i}`)
+					// console.log(`Request data Game ${i}`)
 					addLog(`[REQUEST] Data for Game ${store.getState()?.Games?.[i]?.id}`)
 					
 					await timeout(1000);
@@ -97,9 +97,9 @@ const GameIDfromArchive = async () => {
 		// 3. multiple archives
 		// (async _ => {
 			while(archives[i] && i >= 0 && gamenum <= maxGamesAllowed) { 
-				console.log("GM top loop: ", gamenum)	
+				// console.log("GM top loop: ", gamenum)	
 				
-				console.log(archives[i])
+				// console.log(archives[i])
 
 				await GetURL(archives[i])
 					.then(res => {

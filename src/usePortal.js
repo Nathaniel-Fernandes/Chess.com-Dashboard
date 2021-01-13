@@ -69,7 +69,7 @@ function usePortal(rootRefID, modalID = 'modal') {
     */
     function getRootElem() {
         if (rootElemRef.current === null) {
-            console.log(rootElemRef, "created div")
+            // console.log(rootElemRef, "created div")
             rootElemRef.current = document.createElement("div");
             rootElemRef.current.setAttribute("class", rootRefID);
 

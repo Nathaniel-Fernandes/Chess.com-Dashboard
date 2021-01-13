@@ -11,7 +11,7 @@ function App() {
 	const analyzing = store(state => state.analysisStarted);
 	const analysisPart = store(state => state.analysisPart)
 
-    console.log(analysisPart)
+    // console.log(analysisPart)
 
 
 	return (

@@ -1,25 +1,3 @@
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
 const openingResources = () => {
   return (
     <div className="resources-section">
@@ -105,7 +83,7 @@ const openingResources = () => {
         title="Logical Chess: Move by Move. Author: Irving Chernev"
         className="amazon-product"
         style={{ width: "120px", height: "240px" }}
-        marginwidth="0"
+        marginWidth="0"
         marginheight="0"
         scrolling="no"
         frameborder="0"

@@ -46,7 +46,7 @@ export const CreateTacticRecord = (j, ele, p, data, gameObj, the_class = undefin
         record.timeToThink = calculateClockTime(data.time.moves, j, gameObj.timecontrol);
         record.timeToThinkPercent = record.timeToThink / totalFromTC(gameObj.timecontrol) * 100
     } else {
-        console.log("Missing Date.Time for id: ", gameObj.id, data)
+        // console.log("Missing Date.Time for id: ", gameObj.id, data)
     }
 
     return record;

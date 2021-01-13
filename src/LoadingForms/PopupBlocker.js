@@ -17,7 +17,7 @@ const chooseBackgroundColor = (popupBlocker, testing) => {
 
 const PopupBlockerForm = ({ setPage, popupBlocker, testPopup, timesTested, testing }) => {
 
-    console.log(testing)
+    // console.log(testing)
     // const [popupBlocker, setPopupBlocker] = useState(null)
     // const [testing, setTesting] = useState(false)
 
