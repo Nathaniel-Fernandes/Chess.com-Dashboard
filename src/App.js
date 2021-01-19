@@ -1,30 +1,31 @@
 import { useEffect } from "react"
-import { store, DBStore, GenericStore } from "./State/store"
+import { DBStore, GenericStore } from "./State/store"
 import NameHeader from "./components/NameHeader"
 import ChartContainer from "./components/ChartContainer"
 import FormCard from './LoadingForms/Card'
 import AnalysisProgress from './LoadingForms/AnalysisProgress'
 import ThankYou from './Resources/thankYou'
 
-import Dexie from 'dexie';
-
 function App() {
+	const refreshCache = DBStore(state => state.refreshCount)
 	const loading = GenericStore(state => state.isLoading);
 	const analyzing = GenericStore(state => state.analysisStarted);
 	const analysisPart = GenericStore(state => state.analysisPart)
 	
 
 	useEffect(() => {
-		async function setupDatabse() {
-			// See if there is already a database
-			const databases = await Dexie.getDatabaseNames()
-			console.log(databases)
-			DBStore.getState().setDatabaseNames(databases)
+		// get saved profiles
+		// const savedProfiles = localStorage.getItem('chessint_saved_profiles')
+		const getSavedProfiles = async () => {
+			if('caches' in window) {
+				await caches.keys().then(res => {
+					const savedProfiles = res.filter(cacheName => cacheName.includes("-Dashboard-Store")).map(name => name.split('-')[0])
+					DBStore.getState().setDatabaseNames(savedProfiles)
+				}).catch(err => console.log(err))
+			}
 		}
-
-		setupDatabse().catch(err => console.log(err)); // this is top level catcher
-		// console.log("hi")
-	}, [])
+		getSavedProfiles();
+	}, [refreshCache])
 
 	return (
 		<>

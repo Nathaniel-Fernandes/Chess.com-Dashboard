@@ -36,7 +36,7 @@ export const initializeState = () => {
 			.then((res, err) => {
 					// primitive error handling
 					if(err) { 
-						console.warn(err);
+						// console.warn(err);
 						addLog(`[ERROR] Failed to retrieve game archive for ${GenericStore.getState().UserName}`)
 						return; 
 					}
@@ -49,13 +49,20 @@ export const initializeState = () => {
 			})
 			.then(async () => {
 				GenericStore.getState().setAnalysisPart(2) // set part to "getting analysis data"
+				const alreadyAnalyzed = GameStore.getState().receivedGameID;
+
+				// console.log(maxGamesAllowed)
 
 				for(let i = 0; i < maxGamesAllowed; i++) {
+					// console.log(i)
+					// This check will prevent duplicate analyses of games
+					if(!alreadyAnalyzed.includes(GameStore.getState().Games[i].id)) {
 						AnalyzeGame(GameStore.getState().Games[i])
 									.catch(err => console.log(err));
-					addLog(`[REQUEST] Data for Game ${GameStore.getState()?.Games?.[i]?.id}`)
+						addLog(`[REQUEST] Data for Game ${GameStore.getState()?.Games?.[i]?.id}`)
 					
-					await timeout(1000);
+						await timeout(1000);
+					}
 				}
 			}
 			).then(() => {
@@ -114,15 +121,18 @@ const GameIDfromArchive = async () => {
 						if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant
 
 						const id = IDfromURL(games[j].url);
-						const color = ColorfromGame(games[j], GenericStore.getState().UserName);
-						const result = ResultFromGame(games[j], color);
-						const tc = TimeControlFromGame(games[j]);
-						const tclass = TimeClassFromGame(games[j]);
-						const date = DateFromGameSeconds(games[j].end_time, true);
-						const opp = getOpponentfromGame(games[j], color)
+
+						if (!GameStore.getState().Games.filter(obj => obj.id === id).length > 0) {
+							// console.log('added')
+							const color = ColorfromGame(games[j], GenericStore.getState().UserName);
+							const result = ResultFromGame(games[j], color);
+							const tc = TimeControlFromGame(games[j]);
+							const tclass = TimeClassFromGame(games[j]);
+							const date = DateFromGameSeconds(games[j].end_time, true);
+							const opp = getOpponentfromGame(games[j], color)
 						
 						// FIX ME - this will not actually prevent duplicates b/c it's in an object form
-						if (!GameStore.getState().Games.includes(id)) { 	// could implement binarysearch in the future
+						// if (!GameStore.getState().Games.filter(obj => obj.id === id).length > 0) { 	// could implement binarysearch in the future
 							GameStore.getState().AddGame(id, color, result, tc, tclass, date, opp);
 							gamenum += 1;
 							GenericStore.getState().SetNeedAnalysis();	// performance optim: only do once

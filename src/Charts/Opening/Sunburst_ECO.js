@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useMemo, useCallback, } from 'react'
 import { Sunburst } from '@nivo/sunburst'
 import { useTheme } from '@nivo/core'
 import seedrandom from 'seedrandom'

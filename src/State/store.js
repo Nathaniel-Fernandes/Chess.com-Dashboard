@@ -1,7 +1,10 @@
 import create from 'zustand';
 
 export const GenericStore = create(set => ({
+	loadCachedState: (cached) => set(state => ({...state, ...cached})),
+
 	maxGamesAllowed: 50,
+	incMaxGamesAllowed: (amt = 50) => set(state => ({maxGamesAllowed: state.maxGamesAllowed + amt})),
 
 	UserName: "",
 	setUsername: (username) => set(state => ({ UserName: username})),
@@ -32,6 +35,8 @@ export const GenericStore = create(set => ({
 }))
 
 export const GameStore = create(set => ({
+	loadCachedState: (cached) => set(state => ({...state, ...cached})),
+
 	receivedGameID: [],
 	setReceivedGameID: (id) => set(state => ({ receivedGameID: [...state.receivedGameID, id]})),
 
@@ -69,6 +74,7 @@ export const GameStore = create(set => ({
 }))
 
 export const DataStore = create(set => ({
+	loadCachedState: (cached) => set(state => ({...state, ...cached})),
 	
 	castled: [],
 	addCastled: (record) => set(state => ({ castled: [...state.castled, record]})),
@@ -108,180 +114,21 @@ export const DataStore = create(set => ({
 		if(allowed.includes(type)) {
 			set(state => ({[type]: [...state[type], record]}))
 		}
-		else {
-			console.warn(`Tactic Type not allowed: ${type}`)
-		}
+		// else {
+		// 	// console.warn(`Tactic Type not allowed: ${type}`)
+		// }
 	}
 }))
 export const DBStore = create(set => ({
 		names: [],
 		setDatabaseNames: (nameArr) => set(state => ({ names: nameArr})),
 
-		db: null,
-		setDB: (database) => set(state => ({db: database}))
-}))
-/*
-	Used Usernames:
-	jacobsfrog
-	speedyg2
-	Brothersinparis
-	johnletox
-*/
-export const store = create((set) => ({
-	// isLoading: true,
-	// setLoadingFalse: () => set(state => ({ isLoading: false })),
+		refreshCount: 0,
+		incRefreshCount: () => set(state => ({ refreshCount: state.refreshCount + 1})),
 
-	// analysisStarted: false,
-	// setAnalysisStarted: () => set(state => ({ analysisStarted: true})),
-	// setAnalysisEnded: () => set(state => ({ analysisStarted: false})),
 
-	// debugLogs: [],
-	// setDebugLogs: (log) => set(state => ({ debugLogs: [...state.debugLogs, log]})),
-	
-	// analysisSteps: {
-	// 	0: "Starting process",
-	// 	1: "Collecting games",
-	// 	2: "Getting Analysis Data",
-	// 	3: "Requesting Chess.com Analysis",
-	// 	4: "Done! Please close."
-	// },
-	// analysisPart: 0,
-	// setAnalysisPart: (part) => { set(state => ({ analysisPart: part}))},
-
-	// receivedGameID: [],
-	// setReceivedGameID: (id) => set(state => ({ receivedGameID: [...state.receivedGameID, id]})),
-
-	// failedGameID: [],
-	// setFailedGameID: (id) => set(state => ({ failedGameID: [...state.failedGameID, id]})),
-
-	// NeedAnalysis: false,
-	// SetNeedAnalysis: () => set(state => ({ NeedAnalysis: true})),
-
-	// maxGamesAllowed: 50,
-
-	// UserName: "",
-	// setUsername: (username) => set(state => ({ UserName: username})),
-	
-	// GameArchive: [],
-	// setGameArchives: (archive) => set(state => ({ GameArchive: [...archive]})),
-
-	// Games: [],
-	// AddGame: (id, color, result, tc, tclass, date, opponent) => set(state => ({ 
-	// 	Games: [...state.Games, {
-	// 		id:id,
-	// 		color:color, 
-	// 		result:result, 
-	// 		timecontrol: tc, 
-	// 		timeclass: tclass,
-	// 		date:date,
-	// 		opponent: opponent
-	// 	}]
-	// })),
-	// AddCAPStoGame: (id, CAPS) => {
-	// 	const temp = [...store.getState().Games]
-	// 	for(let i = 0; i < store.getState().Games.length; i++) {
-	// 		if(temp[i].id === id) {
-	// 			temp[i].CAPS = CAPS;
-	// 			set(state => ({
-	// 				Games: temp
-	// 			}))
-	// 			break;
-	// 		}
-	// 	}	
-	// },
-
-	// castled: [],
-	// addCastled: (record) => set(state => ({ castled: [...state.castled, record]})),
-
-	// opening: [],
-	// addOpening: (record) => set(state => ({ opening: [...state.opening, record]	})),
-
-	// blunder: [],
-	// mistake: [],
-	// inaccuracy: [],
-	// addMoveType: (movetype, record) => {
-	// 	const allowed = ["blunder", "mistake", "inaccuracy"];
-	// 	if(allowed.includes(movetype)) {
-	// 		set(state => ({[movetype]: [...state[movetype], record]}))
-	// 	}
-	// },
-
-	// gamePatterns: [],
-	// addGamePattern: (record) => set(state => ({ gamePatterns:[...state.gamePatterns, record]})),
-
-	// fork: [],
-	// mate: [],
-	// hanging: [],
-	// relativePin: [],
-	// absolutePin: [],
-	// trapped: [],
-	// underdefended: [],
-	// winningExchange: [],
-	// skewer:[],
-	// discovery: [],
-
-	// addTactic: (type, record) => {
-	// 	const allowed = [
-	// 		"fork", "mate", "hanging", "relativePin", "absolutePin", 
-	// 		"trapped", "underdefended", "winningExchange", "skewer", "discovery"];
-		
-	// 	if(allowed.includes(type)) {
-	// 		set(state => ({[type]: [...state[type], record]}))
-	// 	}
-	// 	else {
-	// 		console.warn(`Tactic Type not allowed: ${type}`)
-	// 	}
-	// }
+		totalGamesToday: 50,
+		setTotalLimit: (amt = 50) => set(state => ({ totalGamesToday: state.totalGamesToday + amt})), 
+		analysisDailyLimit: 100,
 
 }))
-
-/**
- * Structure of Tactics Data:
- * how to distinguish between missing tactic and getting it right?
- * 
- * missed_fork: { // + blunder fork as well?
- * 	 id: gameid
- *   ply: gameply (starts @ 0)
- *   color: yourcolor
- *   fen: (is it possible to get a fen string? -> eventually)
- *   time_left: seconds
- * 	 time_left: percentage
- *   time_spent: on move seconds
- * 	 gameresult: won/lost (1, 0)
- *   
- * }
- * 
- * got_fork {
- * 
- * }
- * 
- * castled {
- * 	 id: gameid
- *   castled: true/false
- *   ply:
- *   ply_percent:
- *   won: true/false
- * }
- * 
- * openings {
- * 	 id: gameid
- *   won: true/false
- *   caps: score
- *   date: dateplayed
- *   eco: eco // might be extraneous
- *   numberbookmoves: x
- * }
- * 
- * blunders/mistakes/inaccuracies {
- *   id:
- *   color:
- *   won: draw
- *   timeSpent: on move,
- *   timeLeft: 
- *   timeLeftPercent: 
- *   ply:
- *   plyPercent:
- *   phase: ofgame,
- *   fen: fen (eventually)
- * }
- */

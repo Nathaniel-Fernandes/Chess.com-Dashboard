@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { CreateURL, GetURL } from '../BusinessLogic/helpers';
 import { UserProfileURL } from '../BusinessLogic/urls';
-import { GenericStore, DBStore } from '../State/store'
+import { GenericStore, GameStore, DataStore, DBStore } from '../State/store'
 import { ChesscomMembership } from '../BusinessLogic/urls'
+import { FaTrashAlt } from 'react-icons/fa'
 
 const UsernameForm = ({ setPage }) => {
     const databaseNames = DBStore(state => state.names) // put database name on store
@@ -92,14 +93,26 @@ const UsernameForm = ({ setPage }) => {
                     Alternatively, check out: <strong><a href="https://chessintellect.com/product-reviews/is-premium-chesscom-membership-worth-it/" target="_blank" rel="noreferrer">Is a Premium Chess.com Membership Worth it? [2021]</a></strong>
                 </p> : null
             }
-            {databaseNames.length > 0 && premium !== true && premium !== false && valid !== false ? 
-                databaseNames.map(name => {
-                    return (
-                        <div>
-                            Continue as: {name}
-                        </div>
-                    )
-                })
+            {databaseNames.length > 0 && premium !== true && premium !== false && valid !== false ?
+                
+                <div className="saved-profiles">
+                    <div className="message">
+                        Continue as
+                    </div>
+                    <div className="profile-names">
+                        {databaseNames.map(name => {
+                        return (
+                            <div className="profile-name">
+                                <span onClick={() => loadProfile(name)}>
+                                    {name}
+                                </span>
+                                <i onClick={() => clearCachedProfile(name)}><FaTrashAlt /></i>
+                            </div>
+                        )
+                        })}
+                    </div>
+                </div>
+                
             : null
 
             }
@@ -126,6 +139,21 @@ const UsernameForm = ({ setPage }) => {
         </div>
     )
 }
+
+const loadProfile = async (userName) => {
+    // console.log(userName);
+    // const Generic = 
+    GenericStore.getState().loadCachedState(await caches.match(`${userName}_generic.json`).then(res => res.json()))
+    GameStore.getState().loadCachedState(await caches.match(`${userName}_game.json`).then(res => res.json()))
+    DataStore.getState().loadCachedState(await caches.match(`${userName}_data.json`).then(res => res.json()))
+}
+
+const clearCachedProfile = async (userName) => {
+    caches.delete(`${userName}-Dashboard-Store`).then(console.log("successfully deleted!"))
+    DBStore.getState().incRefreshCount();
+}
+
+
 
 const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsername, premium, valid  }) => {
     const setUsername = GenericStore(state => state.setUsername)

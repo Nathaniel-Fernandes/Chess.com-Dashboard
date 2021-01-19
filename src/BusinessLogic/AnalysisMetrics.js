@@ -252,7 +252,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
 
                 // warn if type is not in the known array
                 if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
-                    console.warn("Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
+                    // console.warn("Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
                 }
 
                 else {
@@ -273,7 +273,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                     // validation
                     if(p[i] === undefined) {
                         console.warn({
-                            message: "p[i] doesn't exist",
+                            message: "Positions data doesn't exist",
                             i: i,
                             id: gameObj.id
                         })
@@ -289,7 +289,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                                 // passed all the checks so now add this 
                                 // warn if type is not in the known array
                                 if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
-                                    console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
+                                    // console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
                                 }
 
                                 else {
@@ -309,7 +309,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                         // passed all the checks so now add this 
                         // warn if type is not in the known array
                         if(!KnownTacticsTypes.some((e) => SameTacticType(ele.type, e))) {
-                            console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
+                            // console.warn("Opp: Not included", ele.type, gameObj.id) // if gets here then it is a new type of tactic
                         }
 
                         else {
@@ -328,11 +328,11 @@ export const AnalyzeAllTactics = (data, gameObj) => {
     }
 }
 
-export const AnalyzeEndgames = (data, gameObj) => {
-    // const record = CreateRecordProto(data, gameObj);
-    const d = data?.TEP?.endgames; // rename to make easier to work with
+// export const AnalyzeEndgames = (data, gameObj) => {
+//     // const record = CreateRecordProto(data, gameObj);
+//     const d = data?.TEP?.endgames; // rename to make easier to work with
 
-    if(d.length > 0) {
-        console.warn(d)
-    }
-}
+//     if(d.length > 0) {
+//         console.warn(d)
+//     }
+// }

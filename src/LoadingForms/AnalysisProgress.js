@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, memo } from 'react'
 import Portal from '../Portal'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { GenericStore, GameStore } from '../State/store'
@@ -12,6 +12,10 @@ const AnalysisProgress = () => {
         return () => root.classList.remove("inactivated") 
     }, [])
 
+    const receivedGameData = GameStore(state => state.receivedGameID.length)
+    const failedGameData = GameStore(state => state.failedGameID.length)
+    const maxGames = GenericStore(state => state.maxGamesAllowed)
+
     return (
         <Portal rootRefID="modal-analysis-progress">
             <h1>Analysis in Progress</h1>
@@ -19,7 +23,12 @@ const AnalysisProgress = () => {
                 <PacmanLoader color="#4A90E2"/>
             </div>
 
-            <ProgressBar />
+            <ProgressBar 
+                receivedGameData={receivedGameData} 
+                failedGameData={failedGameData}
+                maxGames={maxGames}
+                // numGameIDs={numGameIDs}
+            />
             <DebuggingLogs />
         </Portal>
     )
@@ -30,16 +39,17 @@ const AnalysisProgress = () => {
 
 export default AnalysisProgress;
 
-const ProgressBar = () => {
+const ProgressBar = memo(({ receivedGameData, failedGameData, maxGames }) => {
     const analysisPart = GenericStore(state => state.analysisPart)
     const analysisSteps = GenericStore(state => state.analysisSteps)
 
 
-    const maxGames = GenericStore(state => state.maxGamesAllowed)
-    const numGameIDs = GameStore(state => state.Games)
+    // const maxGames = GenericStore(state => state.maxGamesAllowed)
+    // const numGameIDs = GameStore(state => state.Games.length)
 
-    const receivedGameData = GameStore(state => state.receivedGameID.length)
-    const failedGameData = GameStore(state => state.failedGameID.length)
+    // const receivedGameData = GameStore(state => state.receivedGameID.length)
+    // const failedGameData = GameStore(state => state.failedGameID.length)
+    // const numGameIDs = GameStore(state => state.Games.length)
 
     useEffect(() => {
         if(receivedGameData + failedGameData === maxGames) {
@@ -51,13 +61,14 @@ const ProgressBar = () => {
 
     }, [receivedGameData, failedGameData])
 
+    // console.log(maxGames, receivedGameData, failedGameData)
 
     return (
         <div className="progress-bar">
             <progress max={maxGames} value={receivedGameData + failedGameData} />
             <span>
                 { analysisPart === 1 ?
-                    `${analysisSteps[1]}: ${numGameIDs.length}` :
+                    `${analysisSteps[1]}` :
                   analysisPart === 2 ?
                     `${analysisSteps[2]}` : 
                   analysisPart === 3 ?
@@ -68,7 +79,7 @@ const ProgressBar = () => {
             </span>
         </div>
     )
-}
+})
 
 const DebuggingLogs = () => {
 
