@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Portal from '../Portal'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { store } from '../State/store'
+import { GenericStore, GameStore } from '../State/store'
 
 const AnalysisProgress = () => {
 
@@ -31,19 +31,19 @@ const AnalysisProgress = () => {
 export default AnalysisProgress;
 
 const ProgressBar = () => {
-    const analysisPart = store(state => state.analysisPart)
-    const analysisSteps = store(state => state.analysisSteps)
+    const analysisPart = GenericStore(state => state.analysisPart)
+    const analysisSteps = GenericStore(state => state.analysisSteps)
 
 
-    const maxGames = store(state => state.maxGamesAllowed)
-    const numGameIDs = store(state => state.Games)
+    const maxGames = GenericStore(state => state.maxGamesAllowed)
+    const numGameIDs = GameStore(state => state.Games)
 
-    const receivedGameData = store(state => state.receivedGameID.length)
-    const failedGameData = store(state => state.failedGameID.length)
+    const receivedGameData = GameStore(state => state.receivedGameID.length)
+    const failedGameData = GameStore(state => state.failedGameID.length)
 
     useEffect(() => {
         if(receivedGameData + failedGameData === maxGames) {
-            store.getState().setAnalysisPart(4);
+            GenericStore.getState().setAnalysisPart(4);
             // console.log(receivedGameData, failedGameData, maxGames)
 
         }
@@ -72,7 +72,7 @@ const ProgressBar = () => {
 
 const DebuggingLogs = () => {
 
-    const logs = store(state => state.debugLogs)
+    const logs = GenericStore(state => state.debugLogs)
     const [value, setValue] = useState('');
     const textAreaRef = useRef(null)
 
@@ -88,6 +88,6 @@ const DebuggingLogs = () => {
 
 
     return (
-        <textarea readOnly="true" id="debug-logs" ref={textAreaRef} className="debugging-logs" value= {value} />
+        <textarea readOnly={true} id="debug-logs" ref={textAreaRef} className="debugging-logs" value= {value} />
     )
 }

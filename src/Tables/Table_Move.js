@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../State/store'
+import { DataStore } from '../State/store'
 import Table, { renderLink } from './Table'
 
 const columns = [    
@@ -23,9 +23,9 @@ const Table_Game = () => {
     const [rows, setRows] = useState([])
 
     // const Games = store(state => state.Games)
-    const blunders = store(state => state.blunder)
-    const mistakes = store(state => state.mistake)
-    const inaccuracy = store(state => state.inaccuracy)
+    const blunders = DataStore(state => state.blunder)
+    const mistakes = DataStore(state => state.mistake)
+    const inaccuracy = DataStore(state => state.inaccuracy)
 
     useEffect(() => {
         // console.log(blunders)

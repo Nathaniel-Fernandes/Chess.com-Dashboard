@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SUNBURST_ECO from './Sunburst_ECO'
-import { store } from '../../State/store'
+import { DataStore } from '../../State/store'
 import BARCHART_OPENINGS from './Barchart_Openings'
 
 
@@ -8,7 +8,7 @@ import BARCHART_OPENINGS from './Barchart_Openings'
 export const Opening_Data = ({ type, width, height }) => {
     // const defaultState = [{name:"White", children:[]}, {name:"Black",children:[]}]
 
-    const data = store(state => state.opening)
+    const data = DataStore(state => state.opening)
 
     const [loading, setLoading] = useState(true)
     const [white, setWhite] = useState([])

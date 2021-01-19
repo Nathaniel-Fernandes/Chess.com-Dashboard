@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { initializeState } from "../BusinessLogic/Initialize";
-import { store } from '../State/store'
+import { GenericStore } from '../State/store'
 
 const chooseBackgroundColor = (agreed) => {
     if(agreed === true) {
@@ -61,7 +61,7 @@ const TermsForm = ({ setPage }) => {
                 
                 <div className="username-form-buttons">
                     <button onClick={() => setPage(page => page - 1)} className="grey-button">Back</button>
-                    {agreed === true ? <button onClick={() => {store.getState().setLoadingFalse(); initializeState();}} className="orange-button">Proceed</button> : null  }
+                    {agreed === true ? <button onClick={() => {GenericStore.getState().setLoadingFalse(); initializeState();}} className="orange-button">Proceed</button> : null  }
                 </div>
             </div>
     )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../../State/store'
+import { GameStore } from '../../State/store'
 import Pie from '../ResponsivePie'
 
 /**
@@ -7,7 +7,7 @@ import Pie from '../ResponsivePie'
  */
 const Pie_Reason4Loss = ({ width, height }) => {
 
-    const Games = store(state => state.Games)
+    const Games = GameStore(state => state.Games)
     const [loading, setLoading] = useState(true)
     const [reason, setReason] = useState({})
 

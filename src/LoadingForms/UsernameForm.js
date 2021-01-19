@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { CreateURL, GetURL } from '../BusinessLogic/helpers';
 import { UserProfileURL } from '../BusinessLogic/urls';
-import { store } from '../State/store'
+import { GenericStore, DBStore } from '../State/store'
 import { ChesscomMembership } from '../BusinessLogic/urls'
 
 const UsernameForm = ({ setPage }) => {
+    const databaseNames = DBStore(state => state.names) // put database name on store
 
     const [username, setUsername] = useState("")
     const [valid, setValid] = useState(null)
@@ -79,7 +80,8 @@ const UsernameForm = ({ setPage }) => {
             <p className="username-form-instructions" style={chooseBackgroundColor(premium, valid)}>{
                 (premium === true) ? `Hello ${username}! Click to proceed` :
                 (premium === false) ? `Only premium Chess.com members allowed.` :
-                (valid === false) ? `That is not a valid username. Please try again` : "Please Enter Your Chess.com Username"
+                (valid === false) ? `That is not a valid username. Please try again` : 
+                "Please Enter Your Chess.com Username"
             }</p>
             { (premium === false) ?
                 <p className="form-message">
@@ -89,6 +91,17 @@ const UsernameForm = ({ setPage }) => {
                     Never fear! You can start a <b>free trial</b> and renew for as low as $2.42/month.
                     Alternatively, check out: <strong><a href="https://chessintellect.com/product-reviews/is-premium-chesscom-membership-worth-it/" target="_blank" rel="noreferrer">Is a Premium Chess.com Membership Worth it? [2021]</a></strong>
                 </p> : null
+            }
+            {databaseNames.length > 0 && premium !== true && premium !== false && valid !== false ? 
+                databaseNames.map(name => {
+                    return (
+                        <div>
+                            Continue as: {name}
+                        </div>
+                    )
+                })
+            : null
+
             }
             {(premium !== true && premium !== false && valid !== false) ?
                 <input 
@@ -115,7 +128,7 @@ const UsernameForm = ({ setPage }) => {
 }
 
 const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsername, premium, valid  }) => {
-    const setUsername = store(state => state.setUsername)
+    const setUsername = GenericStore(state => state.setUsername)
     // const username_zustand = store(state => state.UserName)
 
     const nextPage = (u) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../State/store'
+import { DataStore } from '../State/store'
 import Table from './Table'
 
 const columns = [    
@@ -15,10 +15,10 @@ const columns = [
 const Table_Opening = () => {
     const [rows, setRows] = useState([])
 
-    const openings = store(state => state.opening)
-    const blunder = store(state => state.blunder)
-    const mistake = store(state => state.mistake)
-    const inaccuracy = store(state => state.inaccuracy)
+    const openings = DataStore(state => state.opening)
+    const blunder = DataStore(state => state.blunder)
+    const mistake = DataStore(state => state.mistake)
+    const inaccuracy = DataStore(state => state.inaccuracy)
 
     // console.log(openings)
 

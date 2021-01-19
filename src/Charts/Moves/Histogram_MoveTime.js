@@ -1,16 +1,16 @@
 import React from 'react'
 import { XAxis,YAxis,BarSeries } from '@data-ui/histogram'
 import { baseLabel } from '@data-ui/theme/lib/svgLabel'
-import { store } from '../../State/store'
+import { DataStore } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram'
 
 
 const Histogram_MoveTime = ({ type = "blunder", x = "percent", width, height }) => {
 
     const MoveData = {
-        blunder: store(state => state.blunder),
-        mistake: store(state => state.mistake),
-        inaccuracy: store(state => state.inaccuracy)
+        blunder: DataStore(state => state.blunder),
+        mistake: DataStore(state => state.mistake),
+        inaccuracy: DataStore(state => state.inaccuracy)
     }
 
     const Fill = {

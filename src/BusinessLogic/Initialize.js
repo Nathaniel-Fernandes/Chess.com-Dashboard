@@ -1,4 +1,4 @@
-import { store } from '../State/store';
+import { GameStore, GenericStore } from '../State/store';
 import { ArchiveURL } from './urls';
 import { 
 	ColorfromGame, 
@@ -21,39 +21,39 @@ export const timeout = (ms = 5000) => {
 export const initializeState = () => {
 
 	addLog("Starting Analysis")
-	store.getState().setAnalysisStarted();
+	GenericStore.getState().setAnalysisStarted();
 	
 
 	// check if less then 100 games
-	const maxGamesAllowed = store.getState().maxGamesAllowed;
+	const maxGamesAllowed = GenericStore.getState().maxGamesAllowed;
 
-	if (store.getState().Games.length < maxGamesAllowed) {
+	if (GameStore.getState().Games.length < maxGamesAllowed) {
 		// console.log("hellow?")
 		addLog("Collecting game IDs")
 		addLog("Requesting game archive")
 
-        GetURL(CreateURL(ArchiveURL, store.getState().UserName))
+        GetURL(CreateURL(ArchiveURL, GenericStore.getState().UserName))
 			.then((res, err) => {
 					// primitive error handling
 					if(err) { 
 						console.warn(err);
-						addLog(`[ERROR] Failed to retrieve game archive for ${store.getState().UserName}`)
+						addLog(`[ERROR] Failed to retrieve game archive for ${GenericStore.getState().UserName}`)
 						return; 
 					}
 					else if(res.data.status === 404) return;
 
-					store.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
+					GameStore.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
 					// console.log(store.getState().GameArchive)				// prints out updated state
 					
 					return GameIDfromArchive().catch(err => console.log(err));
 			})
 			.then(async () => {
-				store.getState().setAnalysisPart(2) // set part to "getting analysis data"
+				GenericStore.getState().setAnalysisPart(2) // set part to "getting analysis data"
 
 				for(let i = 0; i < maxGamesAllowed; i++) {
-						AnalyzeGame(store.getState().Games[i])
+						AnalyzeGame(GameStore.getState().Games[i])
 									.catch(err => console.log(err));
-					addLog(`[REQUEST] Data for Game ${store.getState()?.Games?.[i]?.id}`)
+					addLog(`[REQUEST] Data for Game ${GameStore.getState()?.Games?.[i]?.id}`)
 					
 					await timeout(1000);
 				}
@@ -62,10 +62,10 @@ export const initializeState = () => {
 				// console.log(JSON.stringify(tacticsObj, null, '  '))
 				addLog(`Finished loading games`)
 				
-				store.getState().setLoadingFalse();
+				GenericStore.getState().setLoadingFalse();
 
 				// store.getState().setAnalysisPart(3) // set part to "Finished!"
-				store.getState().setAnalysisEnded();
+				GenericStore.getState().setAnalysisEnded();
 
 			}).catch(err => {
 				console.log(err)
@@ -81,15 +81,15 @@ export const initializeState = () => {
 const GameIDfromArchive = async () => {
 		// const addLog = store(state => state.setDebugLogs)
 
-		store.getState().setAnalysisPart(1)
+		GenericStore.getState().setAnalysisPart(1)
 		addLog(`Extracting game id from archive`)
 
 
 		// console.log("Current Store: ", store.getState())
-		const maxGamesAllowed = store.getState().maxGamesAllowed;
-		let archives = store.getState().GameArchive;
+		const maxGamesAllowed = GenericStore.getState().maxGamesAllowed;
+		let archives = GameStore.getState().GameArchive;
 		let i = archives.length - 1;
-		let gamenum = store.getState().Games.length;
+		let gamenum = GameStore.getState().Games.length;
 		let games;
 
 		// TESTS
@@ -114,7 +114,7 @@ const GameIDfromArchive = async () => {
 						if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant
 
 						const id = IDfromURL(games[j].url);
-						const color = ColorfromGame(games[j], store.getState().UserName);
+						const color = ColorfromGame(games[j], GenericStore.getState().UserName);
 						const result = ResultFromGame(games[j], color);
 						const tc = TimeControlFromGame(games[j]);
 						const tclass = TimeClassFromGame(games[j]);
@@ -122,10 +122,10 @@ const GameIDfromArchive = async () => {
 						const opp = getOpponentfromGame(games[j], color)
 						
 						// FIX ME - this will not actually prevent duplicates b/c it's in an object form
-						if (!store.getState().Games.includes(id)) { 	// could implement binarysearch in the future
-							store.getState().AddGame(id, color, result, tc, tclass, date, opp);
+						if (!GameStore.getState().Games.includes(id)) { 	// could implement binarysearch in the future
+							GameStore.getState().AddGame(id, color, result, tc, tclass, date, opp);
 							gamenum += 1;
-							store.getState().SetNeedAnalysis();	// performance optim: only do once
+							GenericStore.getState().SetNeedAnalysis();	// performance optim: only do once
 						}
 						// console.log("GN in loop: ", gamenum)
 					}

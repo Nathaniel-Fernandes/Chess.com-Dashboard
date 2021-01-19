@@ -1,4 +1,4 @@
-import { store } from '../State/store';
+import { GameStore, DataStore } from '../State/store';
 import { phase, plyPercent, calculateClockTime, totalFromTC, SameTacticType, UpdateTacticsState, oppositeColor } from './AnalyzeHelpers';
 import { GetCurrentFen } from './fen';
 import { CreateRecordProto, CreateTacticRecord } from './RecordPrototypes';
@@ -10,7 +10,7 @@ export const AddCaps = (data, gameObj) => {
         return;
     }
 
-    store.getState().AddCAPStoGame(gameObj.id, caps)
+    GameStore.getState().AddCAPStoGame(gameObj.id, caps)
     // console.log(store.getState().Games)
 }
 
@@ -48,7 +48,7 @@ export const AnalyzeCastle = ( data, gameObj ) => {
         record.castled = false;
     }
 
-    store.getState().addCastled(record);
+    DataStore.getState().addCastled(record);
     // console.log(store.getState().castled);
 }
 
@@ -126,7 +126,7 @@ export const AnalyzeClassification = (type, data, gameObj) => {
                 // }
 
                 // console.log(record);
-                store.getState().addMoveType(type, record);
+                DataStore.getState().addMoveType(type, record);
                 count++;
             }
             i += 2;
@@ -159,7 +159,7 @@ export const AnalyzeOpenings = (data, gameObj) => {
           record.bookPly = data?.bookPly;
           record.lastBookFEN = GetCurrentFen(data, record.bookPly + 1, gameObj.id)
 
-    store.getState().addOpening(record);
+    DataStore.getState().addOpening(record);
     // console.log(store.getState().opening);
 }
 
@@ -200,7 +200,7 @@ export const AnalyzeGamePatterns = (data, gameObj) => {
         }
     }
 
-    store.getState().addGamePattern(record)
+    DataStore.getState().addGamePattern(record)
     // console.log(store.getState().gamePatterns)
 }
 

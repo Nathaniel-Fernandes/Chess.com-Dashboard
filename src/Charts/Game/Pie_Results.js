@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../../State/store'
+import { GameStore } from '../../State/store'
 import Pie from '../ResponsivePie'
 import { mapTermToGameResult } from '../../BusinessLogic/helpers'
 
@@ -8,7 +8,7 @@ import { mapTermToGameResult } from '../../BusinessLogic/helpers'
 const Pie_Results = ({ width, height }) => {
     // console.log(store.getState().Games)
     
-    const data = store(state => state.Games)
+    const data = GameStore(state => state.Games)
     const [loading, setLoading] = useState(true)
     const [reason, setReason] = useState({"win":0,"draw":0,"loss":0})
 

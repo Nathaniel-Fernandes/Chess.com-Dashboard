@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { store } from '../../State/store'
+import { DataStore } from '../../State/store'
 import { Bar } from '@nivo/bar'
 
 const Barchart_TacticsPhases = ({ width, height }) => {
@@ -7,7 +7,7 @@ const Barchart_TacticsPhases = ({ width, height }) => {
     const [the_data, setThe_data] = useState([])
     const [the_keys, setKeys] = useState([])
 
-    const tactics = store((state) => {
+    const tactics = DataStore((state) => {
         return {
             "Win the Exchange":state.winningExchange,
             "Underdefended Piece":state.underdefended,

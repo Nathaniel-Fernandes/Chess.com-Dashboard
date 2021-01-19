@@ -1,5 +1,5 @@
 import axios from "axios";
-import { store } from '../State/store'
+import { GenericStore } from '../State/store'
 
 export const mapTermToGameResult = (term) => {
     if(term === 'win') return 'win'
@@ -12,7 +12,7 @@ export const mapTermToGameResult = (term) => {
 }
 
 // export const addLogSelector = state => state.setDebugLogs
-export const addLog = store.getState().setDebugLogs
+export const addLog = GenericStore.getState().setDebugLogs
 
 /**
  * @param {string} url the incomplete url

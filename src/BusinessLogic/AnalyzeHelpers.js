@@ -1,6 +1,6 @@
 import { CreateURL, GetURL } from './helpers';
 import { CorsProxy, NewAnalysisURL } from './urls'
-import { store } from '../State/store'
+import { GameStore, DataStore } from '../State/store'
 import { addLog } from './helpers'
 /**
  * 
@@ -44,7 +44,7 @@ export const getGameData = async (id, time = 1) => {
                         }).catch(err => console.log(err))
                     }
                     else {
-                        store.getState().setFailedGameID(id)
+                        GameStore.getState().setFailedGameID(id)
                         addLog(`[ERROR] Failed to retrieve game ${id} after 3 attempts`)
                         throw new Error(JSON.stringify({
                             message: `Could not retrieve game data got ${id} after 3 attempts`,
@@ -56,7 +56,7 @@ export const getGameData = async (id, time = 1) => {
                 else {
                     // console.log(`got data for: ${id}`)
                     addLog(`[SUCCESS] Got data for ${id}`)
-                    store.getState().setReceivedGameID(id)
+                    GameStore.getState().setReceivedGameID(id)
                     // console.log(res.data.data.analysis)
                     return res.data.data.analysis;
                 }
@@ -254,17 +254,17 @@ export const UpdateTacticsState = (name, record) => {
     // console.log(name)
     if(name.includes("discovery")) {
         record.type.name = "discovery";
-        store.getState().addTactic("discovery", record); return;
+        DataStore.getState().addTactic("discovery", record); return;
     }
 
     if(SameTacticType(name, "trapped piece")) { 
         record.type.name = "trapped";
-        store.getState().addTactic("trapped",record); return;
+        DataStore.getState().addTactic("trapped",record); return;
     }
 
     if(SameTacticType(name, "skewer")) { 
         record.type.name = "skewer";
-        store.getState().addTactic("skewer",record); return;
+        DataStore.getState().addTactic("skewer",record); return;
     }
 
     if(SameTacticType(name,"fork")) {
@@ -272,38 +272,38 @@ export const UpdateTacticsState = (name, record) => {
         // console.log(record.type.type)
         // console.log(re)
         record.type.name = "fork"; 
-        store.getState().addTactic("fork", record); return; 
+        DataStore.getState().addTactic("fork", record); return; 
     }
 
     if(SameTacticType(name,"mate") || SameTacticType(record.type.group, "checkmate")) { 
         record.type.name = "mate"; 
-        store.getState().addTactic("mate", record); return; 
+        DataStore.getState().addTactic("mate", record); return; 
     }
     if(SameTacticType(name,"material left undefended") || SameTacticType(name, "undefended material")) { 
         // console.log("added hanging", record)
         record.type.name = "hanging";
-        store.getState().addTactic("hanging", record); return; 
+        DataStore.getState().addTactic("hanging", record); return; 
     }
     
 
     if(SameTacticType(name, "under-defended material")) {
         record.type.name = "underdefended";
-        store.getState().addTactic("underdefended", record); return;
+        DataStore.getState().addTactic("underdefended", record); return;
     }
 
     if(SameTacticType(name, "winning exchange")) {
         // console.log("adding winning exchange")
         record.type.name = "winning exchange";
-        store.getState().addTactic("winningExchange", record); return;
+        DataStore.getState().addTactic("winningExchange", record); return;
     }
 
     if(name.includes("pin")) { 
         if(record.type.group.includes("relative") || record.type.type.includes("relative")) {
             record.type.name = "relative pin";
-            store.getState().addTactic("relativePin", record); return; 
+            DataStore.getState().addTactic("relativePin", record); return; 
         }
         record.type.name = "absolute pin";
-        store.getState().addTactic("absolutePin", record); return; 
+        DataStore.getState().addTactic("absolutePin", record); return; 
     }
 }
 

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import { store } from "../State/store"
+import { DataStore } from "../State/store"
 import 'react-data-grid/dist/react-data-grid.css'
 import Table from './Table'
 
 const TacticsTable = () => {
 
     const [rows, setRows] = useState([])
-    const tactics = store((state) => {
+    const tactics = DataStore((state) => {
         return [
             ...state.winningExchange,
             ...state.underdefended,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { store } from "../../State/store";
+import { GameStore } from "../../State/store";
 import ResponsiveHistogram from "../ResponsiveHistogram";
 import { XAxis, YAxis, BarSeries } from "@data-ui/histogram";
 import { baseLabel } from '@data-ui/theme/lib/svgLabel'
@@ -8,7 +8,7 @@ const Histogram_CAPS = ({ height, width }) => {
   
   const [meanCAPS, setMeanCAPS] = useState(0)
   
-  const games = store((state) => state.Games);
+  const games = GameStore((state) => state.Games);
   
   useEffect(() => {
     const reducer = (value, currObj) => value + (currObj.CAPS || 0)
@@ -31,7 +31,7 @@ const Histogram_CAPS = ({ height, width }) => {
       cumulative={false}
       binCount={10}
       binType="numeric"
-      valueAccessor={(datum) => datum?.CAPS}
+      valueAccessor={datum => datum?.CAPS || 50}
       limits={[0, 100]}
       renderTooltip={({ event, datum, data, color }) => {
         // console.log(data)

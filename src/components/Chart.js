@@ -9,7 +9,7 @@ import MOVE_HISTOGRAM_TIME from '../Charts/Moves/Histogram_MoveTime'
 import OPENING_DATA from '../Charts/Opening/opening'
 import TACTICS_BARCHART from '../Charts/Tactics/Barchart_Tactics'
 import TACTICS_BARCHART_PHASES from '../Charts/Tactics/Barchart_TacticsPhases'
-import { store } from '../State/store'
+import { GenericStore } from '../State/store'
 
 /*
     1. game_pie_loss, game_pie_results, game_scatter_caps, game_histogram_caps, 
@@ -21,8 +21,8 @@ const Chart = ({ chart, percentValue }) => {
     const styles = {width: '100%'}
 
     // so the grid/chart doesn't appear while data is being collected
-    const analyzing = store(state => state.analysisStarted);
-	const analysisPart = store(state => state.analysisPart)
+    const analyzing = GenericStore(state => state.analysisStarted);
+	const analysisPart = GenericStore(state => state.analysisPart)
     
     // console.log(analysisPart)
 
