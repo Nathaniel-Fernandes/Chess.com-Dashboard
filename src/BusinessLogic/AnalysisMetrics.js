@@ -214,7 +214,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
         "fork", "mate","material left undefended",
         "undefended material","pin","trapped piece",
         "under-defended material", "winning exchange",
-        "skewer"
+        "skewer", "discovery"
     ];
 
     const p = data?.positions;
@@ -256,7 +256,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
                 }
 
                 else {
-                    console.warn(ele.type)
+                    // console.warn(ele.type)
 
                     const record = CreateTacticRecord(i-1,ele,p,data,gameObj)
                     // console.log(record);
@@ -294,7 +294,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
 
                                 else {
                                     // console.log("fourth")
-                                    console.warn("opp: ", ele.type)
+                                    // console.warn("opp: ", ele.type)
                     
                                     const record = CreateTacticRecord(i,ele,p,data,gameObj,"missed")
                                     // console.log(record)
@@ -314,7 +314,7 @@ export const AnalyzeAllTactics = (data, gameObj) => {
 
                         else {
                             // console.log("fourth")
-                            console.warn("opp: ", ele.type)
+                            // console.warn("opp: ", ele.type)
             
                             const record = CreateTacticRecord(i,ele,p,data,gameObj,"got")
                             // console.log(record)

@@ -24,7 +24,7 @@ const UsernameForm = ({ setPage }) => {
         }
 
         if(e.code === 'Enter' || e.code === "NumpadEnter") {
-            validateUsername(e.target.value);
+            validateUsername(e.target.value).catch(err => console.log(err));
             // console.log(e)
         }
     }
@@ -46,7 +46,7 @@ const UsernameForm = ({ setPage }) => {
                     }
                     return res.data;
                 })
-                .catch(err => console.warn(err));
+                .catch(err => console.log(err));
 
         if(data?.status === "premium") {
             // console.log("premium: ", true)
@@ -87,7 +87,7 @@ const UsernameForm = ({ setPage }) => {
                     aggregates and analyzes the data that Chess.com stores from the analysis 
                     of your games. However, Chess.com only saves the analysis of premium members.">Why?</span>). 
                     Never fear! You can start a <b>free trial</b> and renew for as low as $2.42/month.
-                    Alternatively, check out: <strong><a href="https://chessintellect.com/product-reviews/is-premium-chesscom-membership-worth-it/" target="_blank">Is a Premium Chess.com Membership Worth it? [2021]</a></strong>
+                    Alternatively, check out: <strong><a href="https://chessintellect.com/product-reviews/is-premium-chesscom-membership-worth-it/" target="_blank" rel="noreferrer">Is a Premium Chess.com Membership Worth it? [2021]</a></strong>
                 </p> : null
             }
             {(premium !== true && premium !== false && valid !== false) ?
@@ -116,7 +116,7 @@ const UsernameForm = ({ setPage }) => {
 
 const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsername, premium, valid  }) => {
     const setUsername = store(state => state.setUsername)
-    const username_zustand = store(state => state.UserName)
+    // const username_zustand = store(state => state.UserName)
 
     const nextPage = (u) => {
         setPage(page => page + 1)
@@ -133,7 +133,7 @@ const UsernameFormButtons = ({ setPage, username, resetValidation, validateUsern
             }
             {
                 (valid === null && premium === null) ?
-                <button onClick={() => validateUsername(username)} className="orange-button">Validate</button> : null
+                <button onClick={() => validateUsername(username).catch(err => console.log(err))} className="orange-button">Validate</button> : null
             }
             {
                 (valid === true && premium === false) ? 

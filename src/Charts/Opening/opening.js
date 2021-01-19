@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import SUNBURST_ECO from './Sunburst_ECO'
 import { store } from '../../State/store'
 import BARCHART_OPENINGS from './Barchart_Openings'
-import seedrandom from 'seedrandom'
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { XAxis,YAxis,BarSeries,DensitySeries } from '@data-ui/histogram'
+import { XAxis,YAxis,BarSeries } from '@data-ui/histogram'
 import { baseLabel } from '@data-ui/theme/lib/svgLabel'
 import { store } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram'
@@ -20,8 +20,12 @@ const Histogram_MovePly = ({ type = "blunder", x = "value", width, height }) => 
 
     // this is only unique thing - might be able to extract
     const DataAccessor = {
-        percent: datum => datum?.plyPercent,
-        value: datum => datum?.ply
+        percent: datum => {
+            if(datum?.plyPercent >= 0) return datum?.plyPercent;
+        },
+        value: datum => {
+            if(datum?.ply >= 0) return datum?.ply;
+        },
     }
 
 

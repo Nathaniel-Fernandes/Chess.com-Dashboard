@@ -1,5 +1,5 @@
 import React from 'react'
-import { XAxis,YAxis,BarSeries,DensitySeries } from '@data-ui/histogram'
+import { XAxis,YAxis,BarSeries } from '@data-ui/histogram'
 import { baseLabel } from '@data-ui/theme/lib/svgLabel'
 import { store } from '../../State/store'
 import ResponsiveHistogram from '../ResponsiveHistogram'
@@ -20,8 +20,12 @@ const Histogram_MoveTime = ({ type = "blunder", x = "percent", width, height }) 
     }
 
     const DataAccessor = {
-        percent: datum => datum?.timeToThinkPercent,
-        value: datum => datum?.timeToThink
+        percent: datum => {
+            if(datum?.timeToThinkPercent >= 0) return datum?.timeToThinkPercent;
+        },
+        value: datum => {
+            if(datum?.timeToThink >= 0) return datum?.timeToThink;
+        }
     }
 
     // console.log(blunders, mistakes)

@@ -1,4 +1,4 @@
-import { getGameData, ValidGameID } from './AnalyzeHelpers';
+import { ValidGameID, getGameData } from './AnalyzeHelpers';
 import { 
     AnalyzeCastle, 
     AnalyzeClassification, 
@@ -17,6 +17,7 @@ export const AnalyzeGame = async (game) => {
     ValidGameID(game.id);
 
     const data = await getGameData(game.id);
+    // const data = undefined; <- ONLY FOR TESTING. NOT FOR PRODUCTION.
     // console.log("game: ", game)
 
     if(!data) {

@@ -37,7 +37,7 @@ export const store = create((set) => ({
 	NeedAnalysis: false,
 	SetNeedAnalysis: () => set(state => ({ NeedAnalysis: true})),
 
-	maxGamesAllowed: 25,
+	maxGamesAllowed: 50,
 
 	UserName: "",
 	setUsername: (username) => set(state => ({ UserName: username})),
@@ -98,11 +98,12 @@ export const store = create((set) => ({
 	underdefended: [],
 	winningExchange: [],
 	skewer:[],
+	discovery: [],
 
 	addTactic: (type, record) => {
 		const allowed = [
 			"fork", "mate", "hanging", "relativePin", "absolutePin", 
-			"trapped", "underdefended", "winningExchange", "skewer"];
+			"trapped", "underdefended", "winningExchange", "skewer", "discovery"];
 		
 		if(allowed.includes(type)) {
 			set(state => ({[type]: [...state[type], record]}))

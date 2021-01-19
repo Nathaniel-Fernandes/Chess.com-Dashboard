@@ -6,7 +6,7 @@ import EndgameResources from './endgames'
 import StrategyResources from './strategy'
 import OpeningResources from './openings'
 // import OneClickBuyAll from './oneClickCheckout'
-import ThankYou from './thankYou'
+// import ThankYou from './thankYou'
 
 const Resources = () => {
 

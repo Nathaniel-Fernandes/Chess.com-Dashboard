@@ -1,5 +1,5 @@
 import { CreateURL, GetURL } from './helpers';
-import { CorsProxy, GetAnalysisURL, NewAnalysisURL } from './urls'
+import { CorsProxy, NewAnalysisURL } from './urls'
 import { store } from '../State/store'
 import { addLog } from './helpers'
 /**
@@ -27,21 +27,21 @@ export const getGameData = async (id, time = 1) => {
                 if(!res.data.data) {
                     if(time === 1) {
                         // console.log(id);
-                        newAnalysis(id);
+                        newAnalysis(id).catch(err => console.log(err));
                         return new Promise((resolve) => {
-                            setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
-                        })
+                            setTimeout(() => { return resolve(getGameData(id,time+1).catch(err => console.log(err)))}, 61000)
+                        }).catch(err => console.log(err))
                     }
                     else if (time < 3) {
-                        console.warn(`Tried to retrieve game ${id} ${time} times`)
+                        // console.warn(`Tried to retrieve game ${id} ${time} times`)
                         addLog(`Tried to retrieve game ${id} ${time} times`)
 
                         // if(time === 3) { newAnalysis(id); /* try to restart again */ }
-                        newAnalysis(id);
+                        newAnalysis(id).catch(err => console.log(err));
                         
                         return new Promise((resolve) => {
-                            setTimeout(() => { return resolve(getGameData(id,time+1))}, 61000)
-                        })
+                            setTimeout(() => { return resolve(getGameData(id,time+1).catch(err => console.log(err)))}, 61000)
+                        }).catch(err => console.log(err))
                     }
                     else {
                         store.getState().setFailedGameID(id)
@@ -62,7 +62,7 @@ export const getGameData = async (id, time = 1) => {
                 }
 
             }).catch(err => {
-                console.warn(err.message)
+                console.log(err.message)
             });
 }
 
@@ -75,7 +75,7 @@ export const getGameData = async (id, time = 1) => {
 export const newAnalysis = async ( id ) => {
     ValidGameID(id);
 
-    return openWindow(CreateURL(NewAnalysisURL, id))
+    return openWindow(CreateURL(NewAnalysisURL, id)).catch(err => console.log(err))
 }
 
 /**
@@ -106,7 +106,7 @@ export const getGameAnalysis = async ( id ) => {
     // Check if input is valid
     ValidGameID(id);
 
-    return GetURL(CreateURL(CorsProxy + GetAnalysisURL, id));
+    return GetURL(CreateURL(CorsProxy, id)).catch(err => console.log(err));
 }
 
 /**
@@ -252,6 +252,10 @@ export const SameTacticType = (actual, user) => {
 export const UpdateTacticsState = (name, record) => {
     name = name.toLowerCase();
     // console.log(name)
+    if(name.includes("discovery")) {
+        record.type.name = "discovery";
+        store.getState().addTactic("discovery", record); return;
+    }
 
     if(SameTacticType(name, "trapped piece")) { 
         record.type.name = "trapped";

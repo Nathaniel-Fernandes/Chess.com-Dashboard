@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { GetURL } from '../BusinessLogic/helpers';
-import { ChesscomLoginURL, CorsProxy } from '../BusinessLogic/urls'
+import { ChesscomLoginURL } from '../BusinessLogic/urls'
+// import { GetURL } from '../BusinessLogic/helpers';
 
 const chooseBackgroundColor = (loggedIn) => {
     if(loggedIn === true) {
@@ -45,25 +45,6 @@ const ChesscomLogin = ({ setPage }) => {
             </div>
     )
 }
-
-// const testLoggedIn = async () => {
-//     let loggedIn = false;
-
-//     await GetURL(CorsProxy + 'https://www.chess.com/analysis/game/live/5687380484?tab=report')
-//           .then(res => {
-//               if(res.data.includes("Upgrade to Save") || res.data.includes("locked-message")) {
-//                   loggedIn = false;
-//               }
-//               else if(res.data.includes("Key Moments") || res.data.includes("Saved Analysis")) {
-//                   loggedIn = true
-//               }
-//               console.log(res.data)
-//           }).catch(err => {
-//               console.warn(err)
-//           })
-
-//     return loggedIn;
-// }
 
 // ChesscomLogin.whyDidYouRender = true
 export default ChesscomLogin;

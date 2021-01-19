@@ -3,7 +3,7 @@ import { store } from '../../State/store'
 import Pie from '../ResponsivePie'
 import { mapTermToGameResult } from '../../BusinessLogic/helpers'
 
-const defaultState = {"win":0,"draw":0,"loss":0}
+// const defaultState = {"win":0,"draw":0,"loss":0}
 
 const Pie_Results = ({ width, height }) => {
     // console.log(store.getState().Games)

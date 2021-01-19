@@ -45,19 +45,20 @@ export const initializeState = () => {
 					store.getState().setGameArchives(res.data.archives)		// think a synchronous call to update Archives
 					// console.log(store.getState().GameArchive)				// prints out updated state
 					
-					return GameIDfromArchive();
+					return GameIDfromArchive().catch(err => console.log(err));
 			})
 			.then(async () => {
 				store.getState().setAnalysisPart(2) // set part to "getting analysis data"
 
 				for(let i = 0; i < maxGamesAllowed; i++) {
-					AnalyzeGame(store.getState().Games[i]);
-					// console.log(`Request data Game ${i}`)
+						AnalyzeGame(store.getState().Games[i])
+									.catch(err => console.log(err));
 					addLog(`[REQUEST] Data for Game ${store.getState()?.Games?.[i]?.id}`)
 					
 					await timeout(1000);
 				}
-			}).then(() => {
+			}
+			).then(() => {
 				// console.log(JSON.stringify(tacticsObj, null, '  '))
 				addLog(`Finished loading games`)
 				
@@ -95,44 +96,43 @@ const GameIDfromArchive = async () => {
 		// 1. <100 games
 		// 2. >100 games
 		// 3. multiple archives
-		// (async _ => {
-			while(archives[i] && i >= 0 && gamenum <= maxGamesAllowed) { 
-				// console.log("GM top loop: ", gamenum)	
-				
-				// console.log(archives[i])
+		while(archives[i] && i >= 0 && gamenum <= maxGamesAllowed) { 
+			// console.log("GM top loop: ", gamenum)	
+			
+			// console.log(archives[i])
 
-				await GetURL(archives[i])
-					.then(res => {
-						//  console.log(res.data)
-						games = res.data.games
+			await GetURL(archives[i])
+				.then(res => {
+					//  console.log(res.data)
+					games = res.data.games
 
-						//  console.log(games.length)
+					//  console.log(games.length)
 
-						for(let j = games.length - 1; j >= 0; j--) {
-							// validation
-							if(gamenum > maxGamesAllowed) {	break;	}	// break if exceed limit. In future not hardcode
-							if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant
+					for(let j = games.length - 1; j >= 0; j--) {
+						// validation
+						if(gamenum > maxGamesAllowed) {	break;	}	// break if exceed limit. In future not hardcode
+						if(games[j].rules !== "chess") { continue; } // check if rules are chess or variant
 
-							const id = IDfromURL(games[j].url);
-							const color = ColorfromGame(games[j], store.getState().UserName);
-							const result = ResultFromGame(games[j], color);
-							const tc = TimeControlFromGame(games[j]);
-							const tclass = TimeClassFromGame(games[j]);
-							const date = DateFromGameSeconds(games[j].end_time, true);
-							const opp = getOpponentfromGame(games[j], color)
-							
-							// FIX ME - this will not actually prevent duplicates b/c it's in an object form
-							if (!store.getState().Games.includes(id)) { 	// could implement binarysearch in the future
-								store.getState().AddGame(id, color, result, tc, tclass, date, opp);
-								gamenum += 1;
-								store.getState().SetNeedAnalysis();	// performance optim: only do once
-							}
-							// console.log("GN in loop: ", gamenum)
+						const id = IDfromURL(games[j].url);
+						const color = ColorfromGame(games[j], store.getState().UserName);
+						const result = ResultFromGame(games[j], color);
+						const tc = TimeControlFromGame(games[j]);
+						const tclass = TimeClassFromGame(games[j]);
+						const date = DateFromGameSeconds(games[j].end_time, true);
+						const opp = getOpponentfromGame(games[j], color)
+						
+						// FIX ME - this will not actually prevent duplicates b/c it's in an object form
+						if (!store.getState().Games.includes(id)) { 	// could implement binarysearch in the future
+							store.getState().AddGame(id, color, result, tc, tclass, date, opp);
+							gamenum += 1;
+							store.getState().SetNeedAnalysis();	// performance optim: only do once
 						}
-					})
-					.catch(err => console.log(err))
-				i--;	
-			}
+						// console.log("GN in loop: ", gamenum)
+					}
+				})
+				.catch(err => console.log(err))
+			i--;	
+		}
 		
 		addLog(`Finished extracting games`)
 			// console.log("gameids state: ", store.getState().Games)

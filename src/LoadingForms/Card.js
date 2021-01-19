@@ -11,21 +11,21 @@ const FormCard = () => {
 
 	const [popupBlocker, setPopupBlocker] = useState(null);
     const [timesTested, setTimesTested] = useState(0)
-    const [testing, setTesting] = useState(false)
+    const [isTesting, setIsTesting] = useState(false)
 
 
     useEffect(() => {
         async function testing() {
         if(timesTested !== 0) {
-            setTesting(true)
+            setIsTesting(true)
 
             await new Promise(res => setTimeout(() => res(1),3000)) 
 
-            testPopup(setPopupBlocker)
-            setTesting(false)
+            testPopup(setPopupBlocker).catch(err => console.log(err))
+            setIsTesting(false)
         }}
 
-        testing()
+        testing().catch(err => console.log(err))
 		// t.close();
     }, [timesTested])
 
@@ -40,7 +40,7 @@ const FormCard = () => {
                                     popupBlocker={popupBlocker}
                                     testPopup={setTimesTested}
                                     timesTested={timesTested} 
-                                    testing={testing}
+                                    testing={isTesting}
                                 /> :
                 (page === 3) ? <TermsForm setPage={setPage} /> : null
             }
@@ -70,7 +70,7 @@ const testPopup = async (setPopupBlocker) => {
 
     // console.log(t)
 
-    let blocked = await popupBlockerChecker.check(t)
+    let blocked = await popupBlockerChecker.check(t).catch(err => console.log(err))
     // console.log(blocked)
 
     if(blocked === undefined) {
