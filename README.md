@@ -6,7 +6,7 @@ I created the [Game Report Pro](https://chessintellect.com/game-report-pro/) to 
 - Summarize key game stats
 - Discover useful resources to improve
 
-You can access the project [here](https://chessintellect.com/game-report-pro/) or paste [chessintellect.com/game-report-pro/](https://chessintellect.com/game-report-pro/) into your browser. Use the form [here](https://chessintellect.com/game-report-pro/) to make a suggestion or report any bugs. We'd love to hear your feedback :).
+You can access the project [here](https://chessintellect.com/game-report-pro/) or paste chessintellect.com/game-report-pro/ into your browser. Use the form [here](https://chessintellect.com/game-report-pro/) to make a suggestion or report any bugs. We'd love to hear your feedback :).
 
 Support this project by using my [Chess.com affiliate link](https://chess.com/?ref_id=9730606) when getting a premium membership!
 
