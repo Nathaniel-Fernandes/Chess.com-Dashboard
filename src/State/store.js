@@ -129,6 +129,6 @@ export const DBStore = create(set => ({
 
 		totalGamesToday: 50,
 		setTotalLimit: (amt = 50) => set(state => ({ totalGamesToday: state.totalGamesToday + amt})), 
-		analysisDailyLimit: 100,
+		analysisDailyLimit: 200,
 
 }))

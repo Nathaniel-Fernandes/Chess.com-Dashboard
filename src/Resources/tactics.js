@@ -43,33 +43,42 @@ const tacticsResources = () => {
         </ul>
       </figure>
 
-      <h3>Top 3 Recommendations</h3>
+      <h3>Top 4 Recommendations</h3>
       <iframe
         className="amazon-product"
         style={{ width: "120px", height: "240px" }}
         marginWidth="0"
-        marginheight="0"
+        marginHeight="0"
         scrolling="no"
-        frameborder="0"
+        frameBorder="0"
         src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=chessintellec-20&marketplace=amazon&amp;region=US&placement=0553263153&asins=0553263153&linkId=70267ae8f2b27ee7f209932585da6422&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff"
       ></iframe>
       <iframe
         className="amazon-product"
         style={{ width: "120px", height: "240px" }}
         marginWidth="0"
-        marginheight="0"
+        marginHeight="0"
         scrolling="no"
-        frameborder="0"
+        frameBorder="0"
         src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=chessintellec-20&marketplace=amazon&amp;region=US&placement=1901983056&asins=1901983056&linkId=ca1e86ae6499f22179dd99f38022158c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff"
       ></iframe>
       <iframe
         className="amazon-product"
         style={{ width: "120px", height: "240px" }}
         marginWidth="0"
-        marginheight="0"
+        marginHeight="0"
         scrolling="no"
-        frameborder="0"
+        frameBorder="0"
         src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=chessintellec-20&marketplace=amazon&amp;region=US&placement=1901983994&asins=1901983994&linkId=37d74a821cfcdeb986e269336104b7bc&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff"
+      ></iframe>
+      <iframe
+        className="amazon-product"
+        style={{width:"120px",height:"240px"}}
+        marginWidth="0"
+        marginHeight="0"
+        scrolling="no"
+        src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&amp;OneJS=1&amp;Operation=GetAdHtml&amp;MarketPlace=US&amp;source=ac&amp;ref=tf_til&amp;ad_type=product_link&amp;tracking_id=chessintellec-20&amp;marketplace=amazon&amp;region=US&amp;placement=1857444000&amp;asins=1857444000&amp;linkId=b870d78f625e1adf8c0f468806903d35&amp;show_border=true&amp;link_opens_in_new_window=true&amp;price_color=333333&amp;title_color=0066c0&amp;bg_color=ffffff"
+        frameBorder="0"
       ></iframe>
     </div>
   );

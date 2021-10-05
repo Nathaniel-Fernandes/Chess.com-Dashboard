@@ -95,6 +95,7 @@ button.analyze-more {
 
 .chart-tabs > button {
     border:none;
+    color:#000;
     border-bottom: 2px solid #000;
     padding: 5px 10px;
     margin: 0 6px 0 0;
@@ -194,7 +195,7 @@ button.analyze-more {
     line-height: 1.9;
     background-color: #fff;
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
-    display: block;
+    display: flex;
     /* grid-template-areas: "select"; */
     /* align-items: center; */
 }
@@ -209,8 +210,8 @@ button.analyze-more {
     background-color: var(--select-arrow);
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
     position:absolute;
-    justify-self: end;
-    margin: 11px 16px 11px -15px;
+    /* justify-self: end; */
+    margin: 11px 16px 11px 170px;
 }
 
 .chart-choices-list {
